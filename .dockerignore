@@ -1,0 +1,9 @@
+.venv
+.git
+.github
+.claude
+tests
+inbox
+clean
+__pycache__
+*.pyc

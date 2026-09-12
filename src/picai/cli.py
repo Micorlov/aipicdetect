@@ -26,6 +26,15 @@ def build_parser() -> argparse.ArgumentParser:
     inspect = sub.add_parser("inspect", help="report metadata signatures found in a file")
     inspect.add_argument("input", type=Path)
 
+    batch = sub.add_parser("batch", help="scrub every image in a folder and write a report")
+    batch.add_argument("input_dir", type=Path)
+    batch.add_argument("output_dir", type=Path)
+    batch.add_argument("--format", choices=[f.lower() for f in SUPPORTED_FORMATS])
+    batch.add_argument("--quality", type=int, default=DEFAULT_JPEG_QUALITY)
+    batch.add_argument("--detect", action="store_true", help="also score each image with the AI detector")
+    batch.add_argument("--report", type=Path, help="write report.json here (default: <output_dir>/report.json)")
+    batch.add_argument("--summary", type=Path, help="append a markdown summary to this file (e.g. $GITHUB_STEP_SUMMARY)")
+
     serve = sub.add_parser("serve", help="run the local web app (upload in the browser, download the clean copy)")
     serve.add_argument("--host", default=DEFAULT_HOST)
     serve.add_argument("--port", type=int, default=DEFAULT_PORT)
@@ -68,6 +77,29 @@ def run_inspect(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_batch(args: argparse.Namespace) -> int:
+    from picai.batch import process_folder, write_report
+
+    if not args.input_dir.is_dir():
+        print(f"error: {args.input_dir} is not a directory", file=sys.stderr)
+        return 1
+    detect = None
+    if args.detect:
+        from picai.detect import get_detector
+
+        detect = get_detector().detect
+    items = process_folder(args.input_dir, args.output_dir, args.format, args.quality, detect)
+    report = args.report or args.output_dir / "report.json"
+    markdown = write_report(items, report)
+    if args.summary:
+        with args.summary.open("a") as fh:
+            fh.write(markdown)
+    print(markdown)
+    failures = [i for i in items if i.error]
+    print(f"{len(items) - len(failures)} processed, {len(failures)} failed, report: {report}")
+    return 1 if failures else 0
+
+
 def run_serve(args: argparse.Namespace) -> int:
     import uvicorn
 
@@ -76,7 +108,7 @@ def run_serve(args: argparse.Namespace) -> int:
     return 0
 
 
-COMMANDS = {"scrub": run_scrub, "inspect": run_inspect, "serve": run_serve}
+COMMANDS = {"scrub": run_scrub, "inspect": run_inspect, "batch": run_batch, "serve": run_serve}
 
 
 def main(argv: list[str] | None = None) -> int:

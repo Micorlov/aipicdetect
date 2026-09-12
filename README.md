@@ -24,12 +24,30 @@ Drop an image on the page to get:
 Set `PICAI_DETECTOR_MODEL` to any Hugging Face image-classification model whose labels
 name AI/fake vs. human/real content to swap the detector.
 
+## GitHub Actions
+
+Two workflows run in the repo:
+
+- **Process inbox** ([process-inbox.yml](.github/workflows/process-inbox.yml)).
+  Drop images into `inbox/` and push to `main`. The workflow scrubs and scores each
+  one, writes the clean copies plus `report.json` into `clean/`, commits them back,
+  clears the inbox, and shows a results table in the run summary. The clean files
+  are also attached as a downloadable artifact. It can be started by hand from the
+  Actions tab with a chosen output format and quality.
+- **Publish Docker image** ([docker-publish.yml](.github/workflows/docker-publish.yml)).
+  Every change to the app pushes `ghcr.io/micorlov/picai:latest`. Run it anywhere:
+
+  ```bash
+  docker run -p 8000:8000 -v picai-models:/data ghcr.io/micorlov/picai:latest
+  ```
+
 ## CLI
 
 ```bash
 uv run picai scrub photo.jpg            # writes photo.clean.jpg
 uv run picai scrub photo.png --format webp --quality 90
 uv run picai inspect photo.clean.jpg    # prints "no metadata signatures found"
+uv run picai batch inbox clean --detect # scrub a folder, score it, write clean/report.json
 ```
 
 ## How it works
