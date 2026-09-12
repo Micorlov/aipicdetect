@@ -16,7 +16,11 @@ dependencies = [
 picai = "picai.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=8", "httpx>=0.28"]
+dev = [
+    "pytest>=8",
+    "httpx>=0.28",
+    "pytest-cov>=7.1.0",
+]
 
 [build-system]
 requires = ["hatchling"]

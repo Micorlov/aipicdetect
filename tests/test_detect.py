@@ -41,3 +41,34 @@ def test_detector_uses_injected_classifier_without_loading_a_model():
 
     assert seen == [(8, 8)]
     assert result.classification == "AI" and result.model == "fake/model"
+
+
+def test_model_name_comes_from_environment(monkeypatch):
+    monkeypatch.setenv("PICAI_DETECTOR_MODEL", "org/custom-detector")
+    assert Detector().model_name == "org/custom-detector"
+    assert Detector(model_name="explicit/model").model_name == "explicit/model"
+
+
+def test_get_detector_returns_singleton(monkeypatch):
+    from picai import detect
+
+    monkeypatch.setattr(detect, "_default_detector", None)
+    first = detect.get_detector()
+    assert detect.get_detector() is first
+
+
+def test_load_is_idempotent_once_classifier_present():
+    detector = Detector(model_name="fake/model", classifier=lambda image: [])
+    detector.load()  # must not try to import/download anything
+    assert detector.is_loaded
+
+
+def test_ai_probability_handles_all_zero_scores():
+    assert ai_probability([{"label": "ai", "score": 0.0}, {"label": "hum", "score": 0.0}]) == 0.0
+
+
+def test_ai_label_hints_cover_common_names():
+    from picai.detect import _is_ai_label
+
+    assert all(_is_ai_label(n) for n in ("AI", "fake", "Artificial", "ai-generated", "synthetic"))
+    assert not any(_is_ai_label(n) for n in ("hum", "real", "human", "photo"))
