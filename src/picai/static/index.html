@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>picai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#111; --ink-2:#444; --muted:#6b6b6b; --glass:rgba(255,255,255,.58); --glass-strong:rgba(255,255,255,.78); --edge:rgba(255,255,255,.85); --dark:#2f2f2f; --track:rgba(0,0,0,.08); --ring:#111; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; min-height:100%; color:var(--ink); font:14px/1.45 "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 15% 0%, rgba(255,255,255,.95), transparent 60%),
+      radial-gradient(900px 500px at 85% 15%, rgba(214,228,240,.9), transparent 60%),
+      radial-gradient(800px 600px at 50% 100%, rgba(190,200,210,.8), transparent 65%),
+      linear-gradient(180deg, #eef2f6 0%, #d9e0e7 55%, #c9d1d9 100%);
+    background-attachment:fixed;
+  }
+  body::before { content:""; position:fixed; inset:0; pointer-events:none; background:
+      linear-gradient(90deg, transparent 0 18%, rgba(255,255,255,.35) 18% 19%, transparent 19% 48%, rgba(255,255,255,.35) 48% 49%, transparent 49% 80%, rgba(255,255,255,.35) 80% 81%, transparent 81%); }
+  main { position:relative; max-width:1180px; margin:0 auto; padding:36px 22px 120px; }
+  h1 { text-align:center; font-weight:300; font-size:clamp(46px, 8vw, 92px); letter-spacing:.01em; margin:0 0 8px; line-height:1; }
+  .sub { text-align:center; color:var(--ink-2); margin:0 0 22px; font-weight:300; }
+
+  .glass { background:var(--glass); backdrop-filter:blur(18px) saturate(1.2); -webkit-backdrop-filter:blur(18px) saturate(1.2); border:1px solid var(--edge); border-radius:20px; box-shadow:0 10px 30px rgba(20,30,40,.10), inset 0 1px 0 rgba(255,255,255,.9); }
+  .glass.dark { background:rgba(47,47,47,.92); color:#fff; border-color:rgba(255,255,255,.12); }
+  .glass h2 { font-size:15px; font-weight:600; margin:0 0 2px; }
+  .glass .cap { font-size:11px; color:var(--muted); font-weight:300; }
+  .glass.dark .cap { color:#cfcfcf; }
+
+  #drop { padding:26px 20px; text-align:center; cursor:pointer; margin:0 auto 20px; max-width:720px; transition:.15s; }
+  #drop.over { background:var(--glass-strong); transform:scale(1.01); }
+  #drop strong { font-weight:600; }
+  #drop .cap { display:block; margin-top:4px; }
+  input[type=file] { display:none; }
+  .err { max-width:720px; margin:0 auto 20px; padding:12px 18px; background:rgba(255,120,120,.25); border:1px solid rgba(255,120,120,.5); border-radius:14px; }
+
+  .board { display:grid; grid-template-columns:repeat(12, 1fr); grid-auto-rows:minmax(150px, auto); gap:14px; }
+  .panel { padding:16px 18px; display:flex; flex-direction:column; }
+  .c3 { grid-column:span 3; } .c4 { grid-column:span 4; } .c5 { grid-column:span 5; } .c6 { grid-column:span 6; } .c7 { grid-column:span 7; } .c8 { grid-column:span 8; } .c9 { grid-column:span 9; }
+  .r2 { grid-row:span 2; }
+
+  .thumb { flex:1; display:flex; align-items:center; justify-content:center; margin-top:10px; min-height:110px; }
+  .thumb img { max-width:100%; max-height:190px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,.25); object-fit:contain; }
+
+  .head { display:flex; justify-content:space-between; align-items:flex-start; }
+  .big { font-size:40px; font-weight:400; line-height:1; }
+  .vbars { display:flex; align-items:flex-end; justify-content:space-between; gap:10px; height:110px; margin-top:12px; padding:0 6px; }
+  .vbars .col { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end; }
+  .vbars .stick { width:6px; border-radius:6px; background:var(--track); height:35%; transition:height .5s ease, background .3s; }
+  .vbars .stick.on { background:var(--ink); height:100%; }
+  .vbars .col.hero .stick { background:var(--ink); }
+  .vbars .lbl { font-size:11px; color:var(--muted); }
+
+  .rings { display:flex; justify-content:space-around; align-items:center; margin:10px 0 6px; }
+  .ring { text-align:center; }
+  .ring svg { width:84px; height:84px; display:block; margin:0 auto; }
+  .ring .lbl { font-size:11px; color:var(--muted); margin-top:4px; }
+  .ring.lg svg { width:130px; height:130px; }
+  .ring.lg .lbl { font-size:14px; color:var(--ink); margin-top:8px; }
+  .ring text { font-family:inherit; font-weight:500; fill:currentColor; }
+  .lines { margin-top:8px; }
+  .line { display:grid; grid-template-columns:1fr auto; gap:6px; font-size:11px; margin:6px 0; }
+  .line .track { grid-column:1 / -1; height:5px; background:var(--track); border-radius:5px; overflow:hidden; }
+  .line .fill { height:100%; background:var(--ink); width:0; transition:width .6s ease; }
+  .glass.dark .track { background:rgba(255,255,255,.18); } .glass.dark .fill { background:#fff; }
+
+  .circles { display:flex; justify-content:space-around; margin-top:12px; }
+  .circle { width:86px; height:86px; border-radius:50%; background:var(--ink); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; line-height:1.1; box-shadow:0 8px 16px rgba(0,0,0,.25); }
+  .circle b { font-size:18px; font-weight:500; } .circle span { font-size:9px; opacity:.85; margin-top:3px; }
+
+  .toggles { margin-top:10px; }
+  .toggle { display:flex; justify-content:space-between; align-items:center; font-size:12px; padding:5px 0; }
+  .sw { width:34px; height:18px; border-radius:18px; background:var(--track); position:relative; cursor:pointer; transition:.2s; border:0; padding:0; }
+  .sw::after { content:""; position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.3); transition:.2s; }
+  .sw.on { background:var(--ink); } .sw.on::after { left:18px; }
+  select.q { font:inherit; font-size:12px; border:1px solid rgba(0,0,0,.15); border-radius:999px; padding:2px 8px; background:rgba(255,255,255,.7); }
+
+  .steps { margin-top:10px; display:grid; grid-template-columns:auto 1fr; gap:8px 12px; align-items:center; font-size:12px; }
+  .steps .t { color:var(--muted); font-size:11px; }
+  .pill { display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:#fff; border-radius:999px; padding:5px 12px; font-size:11px; }
+  .pill.light { background:rgba(255,255,255,.85); color:var(--ink); border:1px solid rgba(0,0,0,.1); }
+  .pill i { width:8px; height:8px; border-radius:50%; background:#fff; display:inline-block; } .pill.light i { background:var(--ink); }
+
+  .verdict { font-size:22px; font-weight:400; margin:8px 0 4px; }
+  .verdict small { display:block; font-size:12px; color:var(--muted); font-weight:300; }
+  .area { position:relative; height:120px; margin-top:8px; }
+  .area svg { width:100%; height:100%; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; padding:12px 22px; font:inherit; font-weight:500; text-decoration:none; cursor:pointer; border:0; }
+  .btn.dark { background:var(--ink); color:#fff; box-shadow:0 8px 18px rgba(0,0,0,.25); }
+  .btn.light { background:rgba(255,255,255,.85); color:var(--ink); border:1px solid rgba(0,0,0,.12); }
+
+  nav { position:fixed; left:50%; bottom:22px; transform:translateX(-50%); display:flex; align-items:center; gap:6px; background:#111; color:#fff; border-radius:999px; padding:6px 8px 6px 6px; box-shadow:0 12px 30px rgba(0,0,0,.35); z-index:5; }
+  nav button { background:transparent; border:0; color:#cfcfcf; font:inherit; font-size:13px; padding:8px 14px; border-radius:999px; cursor:pointer; }
+  nav button.active, nav button:hover { background:#2a2a2a; color:#fff; }
+  nav .plus { width:34px; height:34px; border-radius:50%; background:#fff; color:#111; font-size:22px; line-height:1; display:flex; align-items:center; justify-content:center; padding:0; }
+  .status { position:fixed; left:18px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; background:#fff; border-radius:999px; padding:14px 10px; box-shadow:0 10px 24px rgba(0,0,0,.18); font-size:11px; z-index:5; align-items:center; }
+  .status .dot { width:10px; height:10px; border-radius:50%; background:#f0b54a; }
+  .status .dot.ok { background:#111; }
+  .status span { writing-mode:vertical-rl; transform:rotate(180deg); color:var(--muted); }
+  [hidden] { display:none !important; }
+  @media (max-width: 900px) { .board { grid-template-columns:repeat(6, 1fr); } .c3, .c4, .c5, .c6, .c7, .c8, .c9 { grid-column:span 6; } .r2 { grid-row:auto; } .status { display:none; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Dashboard</h1>
+  <p class="sub">AI-image likelihood &amp; metadata-free re-render, all on this machine</p>
+
+  <div id="drop" class="glass"><strong>Choose an image</strong> or drag &amp; drop it here<span class="cap">JPEG, PNG, WebP, HEIC and most formats · max 50 MB</span></div>
+  <input id="file" type="file" accept="image/*">
+  <div id="error" class="err" hidden></div>
+
+  <section id="dash" class="board" hidden>
+    <!-- row 1 -->
+    <div class="glass dark panel c3"><h2>Original</h2><div class="cap" id="cap-in">upload</div><div class="thumb"><img id="img-in" alt="original"></div></div>
+
+    <div class="glass panel c4">
+      <div class="head"><div><h2>AI likelihood</h2><div class="cap">probability the picture is generated</div></div><div class="big" id="big-pct">–</div></div>
+      <div class="vbars" id="vbars"></div>
+    </div>
+
+    <div class="glass panel c3">
+      <h2>Detection</h2><div class="cap">detector output</div>
+      <div class="rings">
+        <div class="ring"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="6"/><circle id="ring-ai" cx="30" cy="30" r="24" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" transform="rotate(-90 30 30)" style="transition:stroke-dashoffset .6s"/><text x="30" y="34" text-anchor="middle" font-size="12" id="ring-ai-t">–</text></svg><div class="lbl">AI</div></div>
+        <div class="ring"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="6"/><circle id="ring-hum" cx="30" cy="30" r="24" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" transform="rotate(-90 30 30)" style="transition:stroke-dashoffset .6s"/><text x="30" y="34" text-anchor="middle" font-size="12" id="ring-hum-t">–</text></svg><div class="lbl">Human</div></div>
+      </div>
+      <div class="lines">
+        <div class="line"><span>Confidence</span><b id="l-conf"></b><div class="track"><div class="fill" id="f-conf"></div></div></div>
+        <div class="line"><span>Classification</span><b id="l-class"></b><div class="track"><div class="fill" id="f-class"></div></div></div>
+      </div>
+    </div>
+
+    <div class="glass panel c2 c3 r2" style="grid-column:span 2">
+      <h2>Analytics</h2><div class="cap">this file</div>
+      <div class="circles" style="flex-direction:column; gap:12px; align-items:center;">
+        <div class="circle"><b id="c-blocks">–</b><span>metadata blocks</span></div>
+        <div class="circle"><b id="c-segs">–</b><span>JPEG segments</span></div>
+        <div class="circle"><b id="c-size">–</b><span>size change</span></div>
+      </div>
+    </div>
+
+    <!-- row 2 -->
+    <div class="glass panel c3"><h2>Clean re-render</h2><div class="cap" id="cap-out"></div><div class="thumb"><img id="img-out" alt="clean"></div></div>
+
+    <div class="glass panel c7">
+      <div class="head"><div><h2 id="verdict">–</h2><div class="cap">verdict</div></div><span class="pill light" id="model-pill"><i></i><span id="model"></span></span></div>
+      <div class="steps" id="steps"></div>
+    </div>
+
+    <!-- row 3 -->
+    <div class="glass panel c4">
+      <h2>Input vs. output size</h2><div class="cap">bytes before and after re-encoding</div>
+      <div class="area"><svg viewBox="0 0 300 100" preserveAspectRatio="none"><path id="area-path" d="" fill="rgba(0,0,0,.75)"/></svg></div>
+      <div class="cap" id="size-cap"></div>
+    </div>
+
+    <div class="glass panel c4" style="justify-content:center">
+      <div class="rings">
+        <div class="ring lg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="5"/><circle id="ring-big" cx="30" cy="30" r="24" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" transform="rotate(-90 30 30)" style="transition:stroke-dashoffset .6s"/><text x="30" y="34" text-anchor="middle" font-size="13" id="ring-big-t">–</text></svg><div class="lbl">AI likelihood</div></div>
+        <div class="ring lg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="5"/><circle cx="30" cy="30" r="24" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="0" transform="rotate(-90 30 30)"/><text x="30" y="34" text-anchor="middle" font-size="13">100%</text></svg><div class="lbl">metadata removed</div></div>
+      </div>
+    </div>
+
+    <div class="glass panel c4">
+      <div class="head"><div><h2>Settings</h2><div class="cap">applies to the next upload</div></div></div>
+      <div class="toggles">
+        <div class="toggle"><span>Keep original format</span><button class="sw on" data-fmt=""></button></div>
+        <div class="toggle"><span>Force JPEG</span><button class="sw" data-fmt="jpeg"></button></div>
+        <div class="toggle"><span>Force PNG</span><button class="sw" data-fmt="png"></button></div>
+        <div class="toggle"><span>Force WebP</span><button class="sw" data-fmt="webp"></button></div>
+        <div class="toggle"><span>JPEG / WebP quality</span><select class="q" id="quality"><option>100</option><option selected>95</option><option>90</option><option>85</option><option>80</option></select></div>
+      </div>
+      <div style="margin-top:auto; display:flex; gap:10px; justify-content:center; padding-top:14px">
+        <a id="download" class="btn dark" download>Download clean copy</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="status"><div class="dot" id="dot"></div><span id="status-text">loading detector…</span></div>
+<nav>
+  <button class="active" id="nav-home">Home</button>
+  <button id="nav-upload">Upload</button>
+  <button id="nav-result">Result</button>
+  <button id="nav-download">Download</button>
+  <button class="plus" id="nav-plus" title="Upload an image">+</button>
+</nav>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const drop = $('drop'), input = $('file'), dash = $('dash'), errBox = $('error');
+  const CATS = ['C2PA', 'IPTC', 'XMP', 'EXIF', 'ICC'];
+  let outputFormat = '';
+  let last = null;
+
+  drop.addEventListener('click', () => input.click());
+  input.addEventListener('change', () => { if (input.files[0]) analyze(input.files[0]); input.value = ''; });
+  ['dragenter','dragover'].forEach(ev => document.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave','drop'].forEach(ev => document.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  document.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if (f) analyze(f); });
+
+  document.querySelectorAll('.sw').forEach(sw => sw.addEventListener('click', () => {
+    document.querySelectorAll('.sw').forEach(s => s.classList.remove('on'));
+    sw.classList.add('on'); outputFormat = sw.dataset.fmt;
+  }));
+  $('nav-home').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  $('nav-upload').addEventListener('click', () => input.click());
+  $('nav-plus').addEventListener('click', () => input.click());
+  $('nav-result').addEventListener('click', () => { if (!dash.hidden) dash.scrollIntoView({ behavior: 'smooth' }); });
+  $('nav-download').addEventListener('click', () => { if (last) $('download').click(); });
+
+  async function pollStatus() {
+    try {
+      const s = await (await fetch('/status')).json();
+      $('dot').classList.toggle('ok', s.model_loaded);
+      $('status-text').textContent = s.model_loaded ? 'detector ready' : 'loading detector model…';
+      if (!s.model_loaded) setTimeout(pollStatus, 2000);
+    } catch { $('status-text').textContent = 'server unreachable'; }
+  }
+  pollStatus();
+
+  async function analyze(file) {
+    errBox.hidden = true;
+    drop.querySelector('strong').textContent = 'Analyzing…';
+    const body = new FormData(); body.append('file', file, file.name);
+    const params = new URLSearchParams({ quality: $('quality').value });
+    if (outputFormat) params.set('format', outputFormat);
+    try {
+      const res = await fetch(`/analyze?${params}`, { method: 'POST', body });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).detail || res.statusText);
+      last = await res.json();
+      render(file, last);
+    } catch (err) {
+      errBox.textContent = `Failed: ${err.message}`; errBox.hidden = false;
+    } finally {
+      drop.querySelector('strong').textContent = 'Choose an image';
+    }
+  }
+
+  function setRing(id, frac, text) {
+    $(id).setAttribute('stroke-dashoffset', String(150.8 * (1 - Math.max(0, Math.min(1, frac)))));
+    $(id + '-t').textContent = text;
+  }
+
+  function render(file, r) {
+    const d = r.detection, pct = d.percent;
+    const removed = Object.keys(r.metadata.removed);
+
+    $('cap-in').textContent = `${file.name} · ${r.input.width}×${r.input.height} · ${fmt(r.input.bytes)}`;
+    $('img-in').src = URL.createObjectURL(file);
+    $('cap-out').textContent = `${r.download_name} · ${fmt(r.output.bytes)} · no metadata`;
+    $('img-out').src = r.download_url;
+
+    $('big-pct').textContent = `${pct}%`;
+    const vb = $('vbars'); vb.innerHTML = '';
+    CATS.forEach(c => {
+      const on = !!r.metadata.removed[c];
+      const col = document.createElement('div'); col.className = 'col';
+      col.innerHTML = `<div class="stick"></div><div class="lbl">${c}</div>`;
+      vb.appendChild(col);
+      requestAnimationFrame(() => col.querySelector('.stick').classList.toggle('on', on));
+    });
+
+    setRing('ring-ai', d.ai_likelihood, `${pct}%`);
+    setRing('ring-hum', 1 - d.ai_likelihood, `${100 - pct}%`);
+    setRing('ring-big', d.ai_likelihood, `${pct}%`);
+    const confFrac = { High: 1, Medium: .6, Low: .3 }[d.confidence] || .3;
+    $('l-conf').textContent = d.confidence; $('f-conf').style.width = `${confFrac * 100}%`;
+    $('l-class').textContent = d.classification; $('f-class').style.width = `${Math.abs(d.ai_likelihood - .5) * 200}%`;
+
+    $('c-blocks').textContent = removed.length;
+    $('c-segs').textContent = r.metadata.jpeg_app_segments.length || '0';
+    const delta = Math.round((r.output.bytes - r.input.bytes) / r.input.bytes * 100);
+    $('c-size').textContent = `${delta > 0 ? '+' : ''}${delta}%`;
+
+    $('verdict').innerHTML = d.classification === 'AI'
+      ? `This image is likely created by AI <span class="cap" style="display:block">${pct}% AI likelihood · ${d.confidence.toLowerCase()} confidence</span>`
+      : d.classification === 'Real'
+      ? `This image is likely human-made <span class="cap" style="display:block">${100 - pct}% human likelihood · ${d.confidence.toLowerCase()} confidence</span>`
+      : `The detector is not sure <span class="cap" style="display:block">${pct}% AI likelihood · low confidence</span>`;
+    $('model').textContent = d.model;
+
+    const steps = [
+      ['decode', `${r.input.format || 'image'} ${r.input.width}×${r.input.height} decoded`, true],
+      ['detect', `detector scored ${pct}% AI`, true],
+      ['metadata', removed.length ? `found ${removed.join(', ')}` : 'no metadata blocks found', removed.length > 0],
+      ['re-render', 'new image built from raw pixels only', true],
+      ['encode', `${r.output.format} written · ${fmt(r.output.bytes)} · ready to download`, false],
+    ];
+    $('steps').innerHTML = steps.map(([t, txt, dark]) => `<span class="t">${t}</span><span class="pill ${dark ? '' : 'light'}"><i></i>${esc(txt)}</span>`).join('');
+
+    const a = r.input.bytes, b = r.output.bytes, m = Math.max(a, b);
+    const ya = 95 - (a / m) * 85, yb = 95 - (b / m) * 85;
+    $('area-path').setAttribute('d', `M0,100 L0,${ya} C60,${ya} 90,${ya} 130,${(ya + yb) / 2} S240,${yb} 300,${yb} L300,100 Z`);
+    $('size-cap').textContent = `${fmt(a)} → ${fmt(b)}`;
+
+    $('download').href = r.download_url; $('download').download = r.download_name;
+    dash.hidden = false; dash.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function fmt(n) { return n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+})();
+</script>
+</body>
+</html>
