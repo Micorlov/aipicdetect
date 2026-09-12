@@ -70,4 +70,9 @@ jobs:
             exit 0
           fi
           git commit -m "chore: process inbox ($(date -u +%Y-%m-%dT%H:%MZ))"
-          git push
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main && git push && exit 0
+            echo "push attempt $attempt failed, retrying"
+            sleep 5
+          done
+          exit 1
