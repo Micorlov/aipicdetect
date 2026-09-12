@@ -64,12 +64,13 @@ def test_webp_input_round_trips_without_metadata():
     exif = Image.Exif()
     exif[0x0110] = "AI Camera"
     data = _encode(Image.new("RGB", (16, 16), "purple"), "WEBP", exif=exif.tobytes())
-    assert "EXIF" in find_metadata(data)
+    assert Image.open(BytesIO(data)).info.get("exif")  # libwebp may omit the Exif\0\0 prefix
 
     result = scrub_bytes(data)
 
     assert result.format == "WEBP"
     assert find_metadata(result.data) == {}
+    assert not Image.open(BytesIO(result.data)).info.get("exif")
 
 
 def test_format_names_are_case_insensitive():
