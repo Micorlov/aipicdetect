@@ -1,0 +1,20 @@
+[
+  {
+    "source": "inbox/sample.jpg",
+    "output": "clean/sample.clean.jpg",
+    "removed": [
+      "C2PA",
+      "EXIF",
+      "XMP"
+    ],
+    "input_bytes": 11969,
+    "output_bytes": 10986,
+    "detection": {
+      "percent": 100,
+      "confidence": "High",
+      "classification": "AI",
+      "model": "Ateeqq/ai-vs-human-image-detector"
+    },
+    "error": null
+  }
+]
