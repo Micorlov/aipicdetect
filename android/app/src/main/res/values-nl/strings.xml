@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Open-source AI-beeldforensisch onderzoek</string>
     <string name="hero_heading_line1">Is deze foto echt?</string>
     <string name="hero_heading_line2">Krijg de score en het bewijs.</string>
-    <string name="hero_lead">picai draait een open AI-detectiemodel en leest elk EXIF-, C2PA- en IPTC-veld dat een foto bevat — en levert je vervolgens een schone kopie waaruit dat alles is verwijderd. Geen registratie, geen zwarte doos.</string>
+    <string name="hero_lead">AiPicDetect draait een open AI-detectiemodel en leest elk EXIF-, C2PA- en IPTC-veld dat een foto bevat — en levert je vervolgens een schone kopie waaruit dat alles is verwijderd. Geen registratie, geen zwarte doos.</string>
 
     <string name="cta_pick_image">Kies foto</string>
     <string name="cta_take_photo">Maak een foto</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Voorbeeld van geselecteerde afbeelding</string>
     <string name="cd_close">Sluiten</string>
 
-    <string name="about_tagline">picai. · open source</string>
+    <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">De detector is een open Hugging Face-model dat je kunt inspecteren of vervangen.</string>
     <string name="about_view_source">Bekijk de broncode op GitHub</string>
 </resources>

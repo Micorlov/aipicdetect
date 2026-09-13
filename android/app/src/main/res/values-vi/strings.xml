@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Giám định pháp y ảnh AI mã nguồn mở</string>
     <string name="hero_heading_line1">Bức ảnh này có thật không?</string>
     <string name="hero_heading_line2">Xem điểm số và bằng chứng.</string>
-    <string name="hero_lead">picai chạy một mô hình phát hiện AI mã nguồn mở và đọc mọi trường EXIF, C2PA và IPTC mà một bức ảnh mang theo — sau đó gửi cho bạn một bản sao sạch đã loại bỏ tất cả những dữ liệu đó. Không cần đăng ký, không có hộp đen.</string>
+    <string name="hero_lead">AiPicDetect chạy một mô hình phát hiện AI mã nguồn mở và đọc mọi trường EXIF, C2PA và IPTC mà một bức ảnh mang theo — sau đó gửi cho bạn một bản sao sạch đã loại bỏ tất cả những dữ liệu đó. Không cần đăng ký, không có hộp đen.</string>
 
     <string name="cta_pick_image">Chọn ảnh</string>
     <string name="cta_take_photo">Chụp ảnh</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Xem trước ảnh đã chọn</string>
     <string name="cd_close">Đóng</string>
 
-    <string name="about_tagline">picai. · mã nguồn mở</string>
+    <string name="about_tagline">AiPicDetect. · mã nguồn mở</string>
     <string name="about_model_note">Công cụ phát hiện là một mô hình Hugging Face mở mà bạn có thể kiểm tra hoặc thay thế.</string>
     <string name="about_view_source">Xem mã nguồn trên GitHub</string>
 </resources>

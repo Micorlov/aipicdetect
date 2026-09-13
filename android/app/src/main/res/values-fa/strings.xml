@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">فارنزیک متن‌باز تصاویر هوش مصنوعی</string>
     <string name="hero_heading_line1">آیا این عکس واقعی است؟</string>
     <string name="hero_heading_line2">امتیاز و مدرک را دریافت کنید.</string>
-    <string name="hero_lead">picai یک مدل باز تشخیص هوش مصنوعی اجرا می‌کند و تمام فیلدهای EXIF، C2PA و IPTC موجود در یک عکس را می‌خواند — سپس یک نسخه‌ی پاک به شما می‌دهد که همه‌ی این‌ها از آن حذف شده است. بدون ثبت‌نام، بدون جعبه‌ی سیاه.</string>
+    <string name="hero_lead">AiPicDetect یک مدل باز تشخیص هوش مصنوعی اجرا می‌کند و تمام فیلدهای EXIF، C2PA و IPTC موجود در یک عکس را می‌خواند — سپس یک نسخه‌ی پاک به شما می‌دهد که همه‌ی این‌ها از آن حذف شده است. بدون ثبت‌نام، بدون جعبه‌ی سیاه.</string>
 
     <string name="cta_pick_image">انتخاب عکس</string>
     <string name="cta_take_photo">گرفتن عکس</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">پیش‌نمایش تصویر انتخاب‌شده</string>
     <string name="cd_close">بستن</string>
 
-    <string name="about_tagline">picai. · متن‌باز</string>
+    <string name="about_tagline">AiPicDetect. · متن‌باز</string>
     <string name="about_model_note">تشخیص‌گر یک مدل باز Hugging Face است که می‌توانید آن را بررسی یا جایگزین کنید.</string>
     <string name="about_view_source">مشاهده‌ی کد منبع در GitHub</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.picai.app.ui.theme
+package com.aipicdetect.app.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.picai.app.R
+import com.aipicdetect.app.R
 
 /** Same family the site self-hosts (styles.css @font-face) — see static/fonts/poppins-*.woff2. */
 val Poppins = FontFamily(
@@ -15,7 +15,7 @@ val Poppins = FontFamily(
     Font(R.font.poppins_bold, FontWeight.Bold),
 )
 
-val PicaiTypography = Typography(
+val AiPicDetectTypography = Typography(
     // Hero h1 (styles.css `.hero h1`, clamped 36-56px on web; mobile uses the clamp's low end).
     headlineLarge = TextStyle(
         fontFamily = Poppins,

@@ -1,17 +1,17 @@
-package com.picai.app
+package com.aipicdetect.app
 
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import com.picai.app.data.PicaiRepository
-import com.picai.app.data.SettingsRepository
-import com.picai.app.data.model.AnalyzeResponse
-import com.picai.app.ui.home.HomeScreen
-import com.picai.app.ui.home.HomeViewModel
-import com.picai.app.ui.theme.PicaiTheme
-import com.picai.app.util.CleanImageExporter
+import com.aipicdetect.app.data.AiPicDetectRepository
+import com.aipicdetect.app.data.SettingsRepository
+import com.aipicdetect.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.ui.home.HomeScreen
+import com.aipicdetect.app.ui.home.HomeViewModel
+import com.aipicdetect.app.ui.theme.AiPicDetectTheme
+import com.aipicdetect.app.util.CleanImageExporter
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Rule
 import org.junit.Test
@@ -21,7 +21,7 @@ class HomeScreenSmokeTest {
     @get:Rule
     val composeRule = createComposeRule()
 
-    private class NoopRepository : PicaiRepository {
+    private class NoopRepository : AiPicDetectRepository {
         override suspend fun analyze(uri: Uri): Result<AnalyzeResponse> =
             Result.failure(IllegalStateException("not used in this test"))
 
@@ -44,7 +44,7 @@ class HomeScreenSmokeTest {
     fun idleState_showsChoosePhotoButton() {
         val viewModel = HomeViewModel(NoopExporter(), StaticSettingsRepository(), NoopRepository())
         composeRule.setContent {
-            PicaiTheme { HomeScreen(viewModel) }
+            AiPicDetectTheme { HomeScreen(viewModel) }
         }
         composeRule.onNodeWithText("Choose a photo").assertIsDisplayed()
     }

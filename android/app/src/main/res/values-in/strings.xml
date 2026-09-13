@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Forensik gambar AI sumber terbuka</string>
     <string name="hero_heading_line1">Apakah foto ini asli?</string>
     <string name="hero_heading_line2">Dapatkan skor dan buktinya.</string>
-    <string name="hero_lead">picai menjalankan model deteksi AI sumber terbuka dan membaca setiap kolom EXIF, C2PA, dan IPTC yang dibawa sebuah foto — lalu memberi Anda salinan bersih dengan semuanya dihapus. Tanpa pendaftaran, tanpa kotak hitam.</string>
+    <string name="hero_lead">AiPicDetect menjalankan model deteksi AI sumber terbuka dan membaca setiap kolom EXIF, C2PA, dan IPTC yang dibawa sebuah foto — lalu memberi Anda salinan bersih dengan semuanya dihapus. Tanpa pendaftaran, tanpa kotak hitam.</string>
 
     <string name="cta_pick_image">Pilih foto</string>
     <string name="cta_take_photo">Ambil foto</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Pratinjau gambar yang dipilih</string>
     <string name="cd_close">Tutup</string>
 
-    <string name="about_tagline">picai. · sumber terbuka</string>
+    <string name="about_tagline">AiPicDetect. · sumber terbuka</string>
     <string name="about_model_note">Detektor ini adalah model terbuka dari Hugging Face yang dapat Anda periksa atau ganti.</string>
     <string name="about_view_source">Lihat kode sumber di GitHub</string>
 </resources>

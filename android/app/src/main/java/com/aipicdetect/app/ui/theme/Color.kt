@@ -1,8 +1,8 @@
-package com.picai.app.ui.theme
+package com.aipicdetect.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-/** Exact tokens from src/picai/static/styles.css :root — the site is dark-only, so is this app. */
+/** Exact tokens from src/aipicdetect/static/styles.css :root — the site is dark-only, so is this app. */
 val Background = Color(0xFF1D2130)
 val BackgroundInset = Color(0xFF232738)
 val Surface = Color(0xFF2A2F42)

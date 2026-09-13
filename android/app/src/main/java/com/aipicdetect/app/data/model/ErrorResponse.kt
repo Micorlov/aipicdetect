@@ -1,4 +1,4 @@
-package com.picai.app.data.model
+package com.aipicdetect.app.data.model
 
 import kotlinx.serialization.Serializable
 

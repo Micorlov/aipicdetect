@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">นิติวิทยาศาสตร์ภาพ AI แบบโอเพนซอร์ส</string>
     <string name="hero_heading_line1">ภาพนี้ของจริงหรือเปล่า?</string>
     <string name="hero_heading_line2">ดูคะแนนและหลักฐาน</string>
-    <string name="hero_lead">picai รันโมเดลตรวจจับ AI แบบเปิด และอ่านทุกฟิลด์ EXIF, C2PA และ IPTC ที่ภาพถ่ายมีอยู่ — จากนั้นส่งมอบสำเนาที่สะอาดโดยลบข้อมูลเหล่านั้นออกทั้งหมดให้คุณ ไม่ต้องสมัครสมาชิก ไม่มีกล่องดำ</string>
+    <string name="hero_lead">AiPicDetect รันโมเดลตรวจจับ AI แบบเปิด และอ่านทุกฟิลด์ EXIF, C2PA และ IPTC ที่ภาพถ่ายมีอยู่ — จากนั้นส่งมอบสำเนาที่สะอาดโดยลบข้อมูลเหล่านั้นออกทั้งหมดให้คุณ ไม่ต้องสมัครสมาชิก ไม่มีกล่องดำ</string>
 
     <string name="cta_pick_image">เลือกภาพ</string>
     <string name="cta_take_photo">ถ่ายภาพ</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">ตัวอย่างภาพที่เลือก</string>
     <string name="cd_close">ปิด</string>
 
-    <string name="about_tagline">picai. · โอเพนซอร์ส</string>
+    <string name="about_tagline">AiPicDetect. · โอเพนซอร์ส</string>
     <string name="about_model_note">เครื่องมือตรวจจับเป็นโมเดล Hugging Face แบบเปิดที่คุณสามารถตรวจสอบหรือเปลี่ยนได้</string>
     <string name="about_view_source">ดูซอร์สโค้ดบน GitHub</string>
 </resources>

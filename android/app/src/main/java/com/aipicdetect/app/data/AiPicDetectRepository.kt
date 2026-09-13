@@ -1,29 +1,29 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
 import android.content.Context
 import android.net.Uri
-import com.picai.app.data.model.AnalyzeResponse
-import com.picai.app.data.model.StatusResponse
-import com.picai.app.util.readPickedFile
-import com.picai.app.util.toMultipartPart
+import com.aipicdetect.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.data.model.StatusResponse
+import com.aipicdetect.app.util.readPickedFile
+import com.aipicdetect.app.util.toMultipartPart
 import java.io.IOException
 import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.first
 import retrofit2.Response
 
-/** Mirrors `MAX_UPLOAD_MB` in `src/picai/limits.py` so we can reject oversized files before a network call. */
+/** Mirrors `MAX_UPLOAD_MB` in `src/aipicdetect/limits.py` so we can reject oversized files before a network call. */
 private const val MAX_UPLOAD_BYTES = 50L * 1024 * 1024
 
-interface PicaiRepository {
+interface AiPicDetectRepository {
     suspend fun analyze(uri: Uri): Result<AnalyzeResponse>
     suspend fun downloadCleanImage(response: AnalyzeResponse): Result<ByteArray>
     suspend fun fetchDetectorStatus(): Result<StatusResponse>
 }
 
-class PicaiRepositoryImpl(
+class AiPicDetectRepositoryImpl(
     private val context: Context,
     private val settingsRepository: SettingsRepository,
-) : PicaiRepository {
+) : AiPicDetectRepository {
 
     override suspend fun analyze(uri: Uri): Result<AnalyzeResponse> = runCatching {
         val picked = context.readPickedFile(uri)

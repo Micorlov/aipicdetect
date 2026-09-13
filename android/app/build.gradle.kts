@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.picai.app"
+    namespace = "com.aipicdetect.app"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.picai.app"
+        applicationId = "com.aipicdetect.app"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
@@ -20,6 +20,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        // TODO(phase-B): the backend is being renamed from Cloud Run service "picai" to
+        // "aipicdetect"; Cloud Run has no in-place rename, so this URL stays valid only
+        // until that new service is deployed and this constant is updated to match its
+        // (unpredictable in advance) generated URL.
         buildConfigField(
             "String",
             "DEFAULT_BASE_URL",

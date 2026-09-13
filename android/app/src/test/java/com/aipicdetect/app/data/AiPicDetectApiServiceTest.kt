@@ -1,4 +1,4 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaType
@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Test
 
 /** Exercises the real Retrofit/OkHttp/kotlinx.serialization wiring against a local MockWebServer. */
-class PicaiApiServiceTest {
+class AiPicDetectApiServiceTest {
     private lateinit var server: MockWebServer
 
     @Before

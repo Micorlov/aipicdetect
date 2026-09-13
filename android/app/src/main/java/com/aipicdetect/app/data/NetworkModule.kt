@@ -1,6 +1,6 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
-import com.picai.app.BuildConfig
+import com.aipicdetect.app.BuildConfig
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.serialization.json.Json
@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 /**
- * Builds a [PicaiApiService] for a given base URL. The base URL is
+ * Builds a [AiPicDetectApiService] for a given base URL. The base URL is
  * user-configurable at runtime (see [SettingsRepository]), so callers should
  * request a fresh service whenever it changes rather than caching one for
  * the app's lifetime.
@@ -44,13 +44,13 @@ object NetworkModule {
             .build()
     }
 
-    fun apiServiceFor(baseUrl: String): PicaiApiService {
+    fun apiServiceFor(baseUrl: String): AiPicDetectApiService {
         val normalized = if (baseUrl.endsWith("/")) baseUrl else "$baseUrl/"
         val retrofit = Retrofit.Builder()
             .baseUrl(normalized)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
-        return retrofit.create(PicaiApiService::class.java)
+        return retrofit.create(AiPicDetectApiService::class.java)
     }
 }

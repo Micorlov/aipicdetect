@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">ИИ-криминалистика изображений с открытым кодом</string>
     <string name="hero_heading_line1">Это фото настоящее?</string>
     <string name="hero_heading_line2">Получите оценку и доказательство.</string>
-    <string name="hero_lead">picai запускает открытую модель для распознавания ИИ-изображений и считывает каждое поле EXIF, C2PA и IPTC, которое несёт фото, — а затем отдаёт вам чистую копию со всем этим удалённым. Без регистрации, без чёрного ящика.</string>
+    <string name="hero_lead">AiPicDetect запускает открытую модель для распознавания ИИ-изображений и считывает каждое поле EXIF, C2PA и IPTC, которое несёт фото, — а затем отдаёт вам чистую копию со всем этим удалённым. Без регистрации, без чёрного ящика.</string>
 
     <string name="cta_pick_image">Выбрать фото</string>
     <string name="cta_take_photo">Сделать фото</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Предпросмотр выбранного изображения</string>
     <string name="cd_close">Закрыть</string>
 
-    <string name="about_tagline">picai. · открытый код</string>
+    <string name="about_tagline">AiPicDetect. · открытый код</string>
     <string name="about_model_note">Детектор — это открытая модель Hugging Face, которую можно изучить или заменить.</string>
     <string name="about_view_source">Исходный код на GitHub</string>
 </resources>

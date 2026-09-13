@@ -1,4 +1,4 @@
-package com.picai.app.ui.components
+package com.aipicdetect.app.ui.components
 
 import android.content.Intent
 import android.net.Uri
@@ -16,8 +16,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.picai.app.R
-import com.picai.app.data.AppLinks
+import com.aipicdetect.app.R
+import com.aipicdetect.app.data.AppLinks
 
 private data class FooterLink(val labelRes: Int, val path: String)
 

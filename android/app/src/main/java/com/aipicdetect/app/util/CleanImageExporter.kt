@@ -1,10 +1,10 @@
-package com.picai.app.util
+package com.aipicdetect.app.util
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 
-/** Abstracts "save/share the scrubbed image" so [com.picai.app.ui.home.HomeViewModel] doesn't need an Android [Context]. */
+/** Abstracts "save/share the scrubbed image" so [com.aipicdetect.app.ui.home.HomeViewModel] doesn't need an Android [Context]. */
 interface CleanImageExporter {
     fun saveToGallery(bytes: ByteArray, displayName: String, mimeType: String): Uri
     fun shareIntent(bytes: ByteArray, displayName: String, mimeType: String): Intent

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Nyílt forráskódú AI-képforenzika</string>
     <string name="hero_heading_line1">Valódi ez a fotó?</string>
     <string name="hero_heading_line2">Nézd meg a pontszámot és a bizonyítékot.</string>
-    <string name="hero_lead">A picai egy nyílt AI-detektáló modellt futtat, és beolvassa a fotó minden EXIF, C2PA és IPTC mezőjét — majd egy tiszta másolatot ad, amelyből mindezt eltávolította. Regisztráció és fekete doboz nélkül.</string>
+    <string name="hero_lead">A AiPicDetect egy nyílt AI-detektáló modellt futtat, és beolvassa a fotó minden EXIF, C2PA és IPTC mezőjét — majd egy tiszta másolatot ad, amelyből mindezt eltávolította. Regisztráció és fekete doboz nélkül.</string>
 
     <string name="cta_pick_image">Fotó kiválasztása</string>
     <string name="cta_take_photo">Fotó készítése</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">A kiválasztott kép előnézete</string>
     <string name="cd_close">Bezárás</string>
 
-    <string name="about_tagline">picai. · open source</string>
+    <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">A detektor egy nyílt Hugging Face modell, amelyet megvizsgálhatsz vagy lecserélhetsz.</string>
     <string name="about_view_source">Forráskód megtekintése a GitHubon</string>
 </resources>

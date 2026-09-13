@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Ανοιχτού κώδικα εγκληματολογία εικόνων ΤΝ</string>
     <string name="hero_heading_line1">Είναι αληθινή αυτή η φωτογραφία;</string>
     <string name="hero_heading_line2">Δείτε τη βαθμολογία και την απόδειξη.</string>
-    <string name="hero_lead">Το picai εκτελεί ένα ανοιχτό μοντέλο ανίχνευσης ΤΝ και διαβάζει κάθε πεδίο EXIF, C2PA και IPTC που περιέχει μια φωτογραφία — και στη συνέχεια σας δίνει ένα καθαρό αντίγραφο απαλλαγμένο από όλα αυτά. Χωρίς εγγραφή, χωρίς μαύρο κουτί.</string>
+    <string name="hero_lead">Το AiPicDetect εκτελεί ένα ανοιχτό μοντέλο ανίχνευσης ΤΝ και διαβάζει κάθε πεδίο EXIF, C2PA και IPTC που περιέχει μια φωτογραφία — και στη συνέχεια σας δίνει ένα καθαρό αντίγραφο απαλλαγμένο από όλα αυτά. Χωρίς εγγραφή, χωρίς μαύρο κουτί.</string>
 
     <string name="cta_pick_image">Επιλογή φωτογραφίας</string>
     <string name="cta_take_photo">Λήψη φωτογραφίας</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Προεπισκόπηση επιλεγμένης εικόνας</string>
     <string name="cd_close">Κλείσιμο</string>
 
-    <string name="about_tagline">picai. · ανοιχτός κώδικας</string>
+    <string name="about_tagline">AiPicDetect. · ανοιχτός κώδικας</string>
     <string name="about_model_note">Ο ανιχνευτής είναι ένα ανοιχτό μοντέλο Hugging Face που μπορείτε να επιθεωρήσετε ή να αντικαταστήσετε.</string>
     <string name="about_view_source">Προβολή πηγαίου κώδικα στο GitHub</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.picai.app.ui.components
+package com.aipicdetect.app.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.picai.app.R
+import com.aipicdetect.app.R
 
 private data class Step(val number: String, val titleRes: Int, val bodyRes: Int)
 

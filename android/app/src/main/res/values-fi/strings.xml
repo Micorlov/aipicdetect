@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Avoimen lähdekoodin tekoälykuvien forensiikka</string>
     <string name="hero_heading_line1">Onko tämä valokuva aito?</string>
     <string name="hero_heading_line2">Katso pisteet ja todisteet.</string>
-    <string name="hero_lead">picai käyttää avointa tekoälyntunnistusmallia ja lukee jokaisen EXIF-, C2PA- ja IPTC-kentän, jonka valokuva sisältää — ja antaa sinulle sitten puhtaan kopion, josta kaikki tämä on poistettu. Ei rekisteröitymistä, ei mustaa laatikkoa.</string>
+    <string name="hero_lead">AiPicDetect käyttää avointa tekoälyntunnistusmallia ja lukee jokaisen EXIF-, C2PA- ja IPTC-kentän, jonka valokuva sisältää — ja antaa sinulle sitten puhtaan kopion, josta kaikki tämä on poistettu. Ei rekisteröitymistä, ei mustaa laatikkoa.</string>
 
     <string name="cta_pick_image">Valitse valokuva</string>
     <string name="cta_take_photo">Ota valokuva</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Valitun kuvan esikatselu</string>
     <string name="cd_close">Sulje</string>
 
-    <string name="about_tagline">picai. · avoin lähdekoodi</string>
+    <string name="about_tagline">AiPicDetect. · avoin lähdekoodi</string>
     <string name="about_model_note">Tunnistin on avoin Hugging Face -malli, jota voit tarkastella tai korvata.</string>
     <string name="about_view_source">Näytä lähdekoodi GitHubissa</string>
 </resources>

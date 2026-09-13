@@ -1,4 +1,4 @@
-package com.picai.app.util
+package com.aipicdetect.app.util
 
 import android.content.Context
 import android.net.Uri

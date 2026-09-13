@@ -1,16 +1,16 @@
-package com.picai.app.ui.home
+package com.aipicdetect.app.ui.home
 
-import com.picai.app.data.AppError
-import com.picai.app.data.AppException
-import com.picai.app.data.model.AnalyzeResponse
-import com.picai.app.data.model.Detection
-import com.picai.app.data.model.ImageInfo
-import com.picai.app.data.model.Metadata
-import com.picai.app.data.model.OutputInfo
-import com.picai.app.testutil.FakeCleanImageExporter
-import com.picai.app.testutil.FakePicaiRepository
-import com.picai.app.testutil.FakeSettingsRepository
-import com.picai.app.testutil.fakeUri
+import com.aipicdetect.app.data.AppError
+import com.aipicdetect.app.data.AppException
+import com.aipicdetect.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.data.model.Detection
+import com.aipicdetect.app.data.model.ImageInfo
+import com.aipicdetect.app.data.model.Metadata
+import com.aipicdetect.app.data.model.OutputInfo
+import com.aipicdetect.app.testutil.FakeCleanImageExporter
+import com.aipicdetect.app.testutil.FakeAiPicDetectRepository
+import com.aipicdetect.app.testutil.FakeSettingsRepository
+import com.aipicdetect.app.testutil.fakeUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -26,7 +26,7 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
     private val dispatcher = StandardTestDispatcher()
-    private lateinit var repository: FakePicaiRepository
+    private lateinit var repository: FakeAiPicDetectRepository
     private lateinit var settings: FakeSettingsRepository
     private lateinit var exporter: FakeCleanImageExporter
     private lateinit var viewModel: HomeViewModel
@@ -34,7 +34,7 @@ class HomeViewModelTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(dispatcher)
-        repository = FakePicaiRepository()
+        repository = FakeAiPicDetectRepository()
         settings = FakeSettingsRepository()
         exporter = FakeCleanImageExporter()
         viewModel = HomeViewModel(exporter, settings, repository)

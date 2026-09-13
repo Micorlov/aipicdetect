@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Kryminalistyka obrazów AI typu open source</string>
     <string name="hero_heading_line1">Czy to zdjęcie jest prawdziwe?</string>
     <string name="hero_heading_line2">Poznaj wynik i dowód.</string>
-    <string name="hero_lead">picai uruchamia otwarty model wykrywania AI i odczytuje każde pole EXIF, C2PA i IPTC, które niesie zdjęcie — a potem oddaje Ci czystą kopię, z której wszystko to zostało usunięte. Bez rejestracji, bez czarnej skrzynki.</string>
+    <string name="hero_lead">AiPicDetect uruchamia otwarty model wykrywania AI i odczytuje każde pole EXIF, C2PA i IPTC, które niesie zdjęcie — a potem oddaje Ci czystą kopię, z której wszystko to zostało usunięte. Bez rejestracji, bez czarnej skrzynki.</string>
 
     <string name="cta_pick_image">Wybierz zdjęcie</string>
     <string name="cta_take_photo">Zrób zdjęcie</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Podgląd wybranego zdjęcia</string>
     <string name="cd_close">Zamknij</string>
 
-    <string name="about_tagline">picai. · open source</string>
+    <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Detektor to otwarty model Hugging Face, który możesz sprawdzić lub zastąpić.</string>
     <string name="about_view_source">Zobacz kod źródłowy na GitHubie</string>
 </resources>

@@ -1,10 +1,10 @@
-package com.picai.app.ui.home
+package com.aipicdetect.app.ui.home
 
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.StringRes
-import com.picai.app.data.AppError
-import com.picai.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.data.AppError
+import com.aipicdetect.app.data.model.AnalyzeResponse
 
 sealed interface UiState {
     data object Idle : UiState

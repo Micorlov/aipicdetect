@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "picai-android"
+rootProject.name = "aipicdetect-android"
 include(":app")

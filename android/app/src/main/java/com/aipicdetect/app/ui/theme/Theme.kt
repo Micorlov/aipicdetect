@@ -1,12 +1,12 @@
-package com.picai.app.ui.theme
+package com.aipicdetect.app.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-/** picai's site is dark-only (color-scheme: dark, no prefers-color-scheme block) — one canonical theme. */
-private val PicaiColorScheme = darkColorScheme(
+/** AiPicDetect's site is dark-only (color-scheme: dark, no prefers-color-scheme block) — one canonical theme. */
+private val AiPicDetectColorScheme = darkColorScheme(
     primary = Accent,
     onPrimary = OnAccent,
     secondary = Success,
@@ -25,6 +25,6 @@ private val PicaiColorScheme = darkColorScheme(
 )
 
 @Composable
-fun PicaiTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = PicaiColorScheme, typography = PicaiTypography, content = content)
+fun AiPicDetectTheme(content: @Composable () -> Unit) {
+    MaterialTheme(colorScheme = AiPicDetectColorScheme, typography = AiPicDetectTypography, content = content)
 }

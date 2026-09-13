@@ -1,15 +1,15 @@
-package com.picai.app.ui.home
+package com.aipicdetect.app.ui.home
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.picai.app.BuildConfig
-import com.picai.app.R
-import com.picai.app.data.AppError
-import com.picai.app.data.AppException
-import com.picai.app.data.PicaiRepository
-import com.picai.app.data.SettingsRepository
-import com.picai.app.util.CleanImageExporter
+import com.aipicdetect.app.BuildConfig
+import com.aipicdetect.app.R
+import com.aipicdetect.app.data.AppError
+import com.aipicdetect.app.data.AppException
+import com.aipicdetect.app.data.AiPicDetectRepository
+import com.aipicdetect.app.data.SettingsRepository
+import com.aipicdetect.app.util.CleanImageExporter
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,7 +25,7 @@ const val COLD_START_HINT_DELAY_MILLIS = 8_000L
 class HomeViewModel(
     private val exporter: CleanImageExporter,
     private val settingsRepository: SettingsRepository,
-    private val repository: PicaiRepository,
+    private val repository: AiPicDetectRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Idle)

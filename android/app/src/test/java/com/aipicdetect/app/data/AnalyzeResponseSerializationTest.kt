@@ -1,7 +1,7 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
-import com.picai.app.data.model.AnalyzeResponse
-import com.picai.app.data.model.ErrorResponse
+import com.aipicdetect.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.data.model.ErrorResponse
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull

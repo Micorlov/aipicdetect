@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Analiză criminalistică open-source a imaginilor AI</string>
     <string name="hero_heading_line1">Această fotografie este reală?</string>
     <string name="hero_heading_line2">Află scorul și dovada.</string>
-    <string name="hero_lead">picai rulează un model deschis de detectare AI și citește fiecare câmp EXIF, C2PA și IPTC purtat de o fotografie — apoi îți oferă o copie curată din care toate acestea au fost eliminate. Fără înregistrare, fără cutie neagră.</string>
+    <string name="hero_lead">AiPicDetect rulează un model deschis de detectare AI și citește fiecare câmp EXIF, C2PA și IPTC purtat de o fotografie — apoi îți oferă o copie curată din care toate acestea au fost eliminate. Fără înregistrare, fără cutie neagră.</string>
 
     <string name="cta_pick_image">Alege fotografia</string>
     <string name="cta_take_photo">Fă o fotografie</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Previzualizarea imaginii selectate</string>
     <string name="cd_close">Închide</string>
 
-    <string name="about_tagline">picai. · open source</string>
+    <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Detectorul este un model deschis Hugging Face pe care îl poți inspecta sau înlocui.</string>
     <string name="about_view_source">Vezi codul sursă pe GitHub</string>
 </resources>

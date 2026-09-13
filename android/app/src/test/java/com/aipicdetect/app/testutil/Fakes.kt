@@ -1,12 +1,12 @@
-package com.picai.app.testutil
+package com.aipicdetect.app.testutil
 
 import android.content.Intent
 import android.net.Uri
-import com.picai.app.data.PicaiRepository
-import com.picai.app.data.SettingsRepository
-import com.picai.app.data.model.AnalyzeResponse
-import com.picai.app.data.model.StatusResponse
-import com.picai.app.util.CleanImageExporter
+import com.aipicdetect.app.data.AiPicDetectRepository
+import com.aipicdetect.app.data.SettingsRepository
+import com.aipicdetect.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.data.model.StatusResponse
+import com.aipicdetect.app.util.CleanImageExporter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.mockito.Mockito
@@ -20,7 +20,7 @@ fun fakeUri(): Uri = Mockito.mock(Uri::class.java)
 
 private fun fakeIntent(): Intent = Mockito.mock(Intent::class.java)
 
-class FakePicaiRepository : PicaiRepository {
+class FakeAiPicDetectRepository : AiPicDetectRepository {
     var analyzeResult: Result<AnalyzeResponse> = Result.failure(IllegalStateException("analyzeResult not stubbed"))
     var downloadResult: Result<ByteArray> = Result.failure(IllegalStateException("downloadResult not stubbed"))
     var detectorStatusResult: Result<StatusResponse> = Result.success(StatusResponse("test-model", true))

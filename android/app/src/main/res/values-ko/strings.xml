@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">오픈소스 AI 이미지 포렌식</string>
     <string name="hero_heading_line1">이 사진은 진짜일까요?</string>
     <string name="hero_heading_line2">점수와 근거를 확인하세요.</string>
-    <string name="hero_lead">picai는 오픈 AI 감지 모델을 실행하고 사진이 담고 있는 모든 EXIF, C2PA, IPTC 필드를 읽습니다 — 그런 다음 이 모든 것을 제거한 깨끗한 사본을 제공합니다. 가입도, 블랙박스도 없습니다.</string>
+    <string name="hero_lead">AiPicDetect는 오픈 AI 감지 모델을 실행하고 사진이 담고 있는 모든 EXIF, C2PA, IPTC 필드를 읽습니다 — 그런 다음 이 모든 것을 제거한 깨끗한 사본을 제공합니다. 가입도, 블랙박스도 없습니다.</string>
 
     <string name="cta_pick_image">사진 선택</string>
     <string name="cta_take_photo">사진 촬영</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">선택한 이미지 미리보기</string>
     <string name="cd_close">닫기</string>
 
-    <string name="about_tagline">picai. · 오픈소스</string>
+    <string name="about_tagline">AiPicDetect. · 오픈소스</string>
     <string name="about_model_note">감지기는 검토하거나 교체할 수 있는 오픈 Hugging Face 모델입니다.</string>
     <string name="about_view_source">GitHub에서 소스 보기</string>
 </resources>

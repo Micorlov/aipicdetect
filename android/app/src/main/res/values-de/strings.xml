@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Open-Source-KI-Bildforensik</string>
     <string name="hero_heading_line1">Ist dieses Foto echt?</string>
     <string name="hero_heading_line2">Sie erhalten den Score und den Beleg.</string>
-    <string name="hero_lead">picai nutzt ein offenes KI-Erkennungsmodell und liest jedes EXIF-, C2PA- und IPTC-Feld, das ein Foto enthält — und gibt Ihnen dann eine saubere Kopie, aus der alles entfernt wurde. Keine Registrierung, keine Blackbox.</string>
+    <string name="hero_lead">AiPicDetect nutzt ein offenes KI-Erkennungsmodell und liest jedes EXIF-, C2PA- und IPTC-Feld, das ein Foto enthält — und gibt Ihnen dann eine saubere Kopie, aus der alles entfernt wurde. Keine Registrierung, keine Blackbox.</string>
 
     <string name="cta_pick_image">Foto auswählen</string>
     <string name="cta_take_photo">Foto aufnehmen</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Vorschau des ausgewählten Bildes</string>
     <string name="cd_close">Schließen</string>
 
-    <string name="about_tagline">picai. · open source</string>
+    <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Der Detektor ist ein offenes Hugging-Face-Modell, das Sie prüfen oder ersetzen können.</string>
     <string name="about_view_source">Quellcode auf GitHub ansehen</string>
 </resources>

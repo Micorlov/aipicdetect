@@ -1,13 +1,13 @@
-package com.picai.app
+package com.aipicdetect.app
 
 import android.app.Application
-import com.picai.app.data.DataStoreSettingsRepository
-import com.picai.app.data.PicaiRepository
-import com.picai.app.data.PicaiRepositoryImpl
-import com.picai.app.data.SettingsRepository
+import com.aipicdetect.app.data.DataStoreSettingsRepository
+import com.aipicdetect.app.data.AiPicDetectRepository
+import com.aipicdetect.app.data.AiPicDetectRepositoryImpl
+import com.aipicdetect.app.data.SettingsRepository
 
 /** Minimal manual DI container — the app is small enough that a framework isn't warranted. */
-class PicaiApp : Application() {
+class AiPicDetectApp : Application() {
     val settingsRepository: SettingsRepository by lazy { DataStoreSettingsRepository(this) }
-    val picaiRepository: PicaiRepository by lazy { PicaiRepositoryImpl(this, settingsRepository) }
+    val aiPicDetectRepository: AiPicDetectRepository by lazy { AiPicDetectRepositoryImpl(this, settingsRepository) }
 }

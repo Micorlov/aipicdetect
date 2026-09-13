@@ -1,4 +1,4 @@
-package com.picai.app.ui.home
+package com.aipicdetect.app.ui.home
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -52,20 +52,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.picai.app.BuildConfig
-import com.picai.app.R
-import com.picai.app.data.model.AnalyzeResponse
-import com.picai.app.ui.components.AppFooter
-import com.picai.app.ui.components.ErrorBanner
-import com.picai.app.ui.components.FaqSection
-import com.picai.app.ui.components.HowItWorksSection
-import com.picai.app.ui.components.ImageSourceSheet
-import com.picai.app.ui.components.LoadingHint
-import com.picai.app.ui.components.MetadataCard
-import com.picai.app.ui.components.ScoreCard
-import com.picai.app.ui.settings.SettingsSheet
-import com.picai.app.ui.theme.Success
-import com.picai.app.util.createCaptureUri
+import com.aipicdetect.app.BuildConfig
+import com.aipicdetect.app.R
+import com.aipicdetect.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.ui.components.AppFooter
+import com.aipicdetect.app.ui.components.ErrorBanner
+import com.aipicdetect.app.ui.components.FaqSection
+import com.aipicdetect.app.ui.components.HowItWorksSection
+import com.aipicdetect.app.ui.components.ImageSourceSheet
+import com.aipicdetect.app.ui.components.LoadingHint
+import com.aipicdetect.app.ui.components.MetadataCard
+import com.aipicdetect.app.ui.components.ScoreCard
+import com.aipicdetect.app.ui.settings.SettingsSheet
+import com.aipicdetect.app.ui.theme.Success
+import com.aipicdetect.app.util.createCaptureUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

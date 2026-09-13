@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Açık kaynaklı yapay zeka görsel adli analizi</string>
     <string name="hero_heading_line1">Bu fotoğraf gerçek mi?</string>
     <string name="hero_heading_line2">Puanı ve kanıtı görün.</string>
-    <string name="hero_lead">picai açık bir yapay zeka tespit modeli çalıştırır ve bir fotoğrafın taşıdığı her EXIF, C2PA ve IPTC alanını okur — ardından hepsi temizlenmiş hâlde size temiz bir kopya verir. Kayıt yok, kara kutu yok.</string>
+    <string name="hero_lead">AiPicDetect açık bir yapay zeka tespit modeli çalıştırır ve bir fotoğrafın taşıdığı her EXIF, C2PA ve IPTC alanını okur — ardından hepsi temizlenmiş hâlde size temiz bir kopya verir. Kayıt yok, kara kutu yok.</string>
 
     <string name="cta_pick_image">Fotoğraf seç</string>
     <string name="cta_take_photo">Fotoğraf çek</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Seçilen görsel önizlemesi</string>
     <string name="cd_close">Kapat</string>
 
-    <string name="about_tagline">picai. · açık kaynak</string>
+    <string name="about_tagline">AiPicDetect. · açık kaynak</string>
     <string name="about_model_note">Dedektör, inceleyebileceğiniz veya değiştirebileceğiniz açık bir Hugging Face modelidir.</string>
     <string name="about_view_source">GitHub\'da kaynak kodu görüntüle</string>
 </resources>

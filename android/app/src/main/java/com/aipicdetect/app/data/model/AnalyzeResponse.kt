@@ -1,4 +1,4 @@
-package com.picai.app.data.model
+package com.aipicdetect.app.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -25,7 +25,7 @@ data class Detection(
 )
 
 /**
- * `removed` mirrors `find_metadata()` in `src/picai/inspect.py`: `{category: [matched signatures]}`,
+ * `removed` mirrors `find_metadata()` in `src/aipicdetect/inspect.py`: `{category: [matched signatures]}`,
  * with a category key present only when at least one signature was found in it.
  */
 @Serializable

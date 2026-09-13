@@ -1,10 +1,10 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.picai.app.BuildConfig
+import com.aipicdetect.app.BuildConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

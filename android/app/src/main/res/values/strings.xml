@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">\u2014 Open-source AI image forensics</string>
     <string name="hero_heading_line1">Is this photo real?</string>
     <string name="hero_heading_line2">Get the score and the proof.</string>
-    <string name="hero_lead">picai runs an open AI-detection model and reads every EXIF, C2PA, and IPTC field a photo is carrying \u2014 then hands you a clean copy with all of it stripped. No sign-up, no black box.</string>
+    <string name="hero_lead">AiPicDetect runs an open AI-detection model and reads every EXIF, C2PA, and IPTC field a photo is carrying \u2014 then hands you a clean copy with all of it stripped. No sign-up, no black box.</string>
 
     <string name="cta_pick_image">Choose photo</string>
     <string name="cta_take_photo">Take a photo</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Selected image preview</string>
     <string name="cd_close">Close</string>
 
-    <string name="about_tagline">picai. \u00B7 open source</string>
+    <string name="about_tagline">AiPicDetect. \u00B7 open source</string>
     <string name="about_model_note">The detector is an open Hugging Face model you can inspect or replace.</string>
     <string name="about_view_source">View source on GitHub</string>
 
@@ -67,13 +67,13 @@
     <string name="faq_a1">It reports a probability, not a verdict. Scores near 50% are labelled Uncertain; treat any single result as a signal and combine it with other evidence.</string>
 
     <string name="faq_q2">Does my image leave my computer?</string>
-    <string name="faq_a2">On this public instance, yes: the picture is uploaded to the picai server (a Google Cloud Run container run by the author), scored in memory and never written to disk. The scrubbed copy is held in memory only until 100 newer results replace it or the container restarts, and nothing is sent to a third-party API. If you want nothing to leave your machine, run picai yourself with one Docker command.</string>
+    <string name="faq_a2">On this public instance, yes: the picture is uploaded to the AiPicDetect server (a Google Cloud Run container run by the author), scored in memory and never written to disk. The scrubbed copy is held in memory only until 100 newer results replace it or the container restarts, and nothing is sent to a third-party API. If you want nothing to leave your machine, run AiPicDetect yourself with one Docker command.</string>
 
     <string name="faq_q3">Is it open source?</string>
-    <string name="faq_a3">Yes. The code, the Docker image, the CLI and the GitHub Action are all in the picai repository under the MIT licence. The detector is an open Hugging Face model you can inspect or replace.</string>
+    <string name="faq_a3">Yes. The code, the Docker image, the CLI and the GitHub Action are all in the AiPicDetect repository under the MIT licence. The detector is an open Hugging Face model you can inspect or replace.</string>
 
     <string name="faq_q4">Can I remove C2PA and other metadata?</string>
-    <string name="faq_a4">Yes. After checking a picture, use Save clean copy. picai rebuilds the image from its pixels, so EXIF, XMP, IPTC, C2PA and the ICC profile are all left behind.</string>
+    <string name="faq_a4">Yes. After checking a picture, use Save clean copy. AiPicDetect rebuilds the image from its pixels, so EXIF, XMP, IPTC, C2PA and the ICC profile are all left behind.</string>
 
     <string name="faq_q5">Which formats are supported?</string>
     <string name="faq_a5">JPEG, PNG, WebP, HEIC/HEIF and most formats Pillow can decode, up to 50 MB.</string>
@@ -82,9 +82,9 @@
     <string name="faq_a6">C2PA content credentials and editing-software tags are provenance hints. The panel shows which blocks (EXIF, XMP, IPTC, C2PA, ICC) the file carries so you can weigh them alongside the score.</string>
 
     <string name="faq_q7">Can I use a different model?</string>
-    <string name="faq_a7">Yes. Set PICAI_DETECTOR_MODEL to any Hugging Face image-classification model whose labels name AI/fake vs. human/real content.</string>
+    <string name="faq_a7">Yes. Set AIPICDETECT_DETECTOR_MODEL to any Hugging Face image-classification model whose labels name AI/fake vs. human/real content.</string>
 
-    <string name="footer_tagline">picai. \u00B7 open source</string>
+    <string name="footer_tagline">AiPicDetect. \u00B7 open source</string>
     <string name="footer_detector">Detector: %1$s</string>
     <string name="footer_link_remove_metadata">Remove metadata</string>
     <string name="footer_link_c2pa">C2PA</string>
@@ -101,7 +101,7 @@
     <string name="how_overline">\u2014 How it works</string>
     <string name="how_heading">Three steps. Nothing saved.</string>
     <string name="how_step1_title">Upload.</string>
-    <string name="how_step1_body">Drop, paste or pick a picture. It is sent to the picai server you are using, held in memory and never written to disk.</string>
+    <string name="how_step1_body">Drop, paste or pick a picture. It is sent to the AiPicDetect server you are using, held in memory and never written to disk.</string>
     <string name="how_step2_title">Detect.</string>
     <string name="how_step2_body">An open-source image classifier scores how likely the pixels were produced by a generator.</string>
     <string name="how_step3_title">Decide.</string>

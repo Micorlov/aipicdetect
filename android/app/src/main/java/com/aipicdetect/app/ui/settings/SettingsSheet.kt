@@ -1,4 +1,4 @@
-package com.picai.app.ui.settings
+package com.aipicdetect.app.ui.settings
 
 import android.content.Intent
 import android.net.Uri
@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.picai.app.R
+import com.aipicdetect.app.R
 
 
 
@@ -80,7 +80,7 @@ fun SettingsSheet(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             TextButton(onClick = {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(com.picai.app.data.AppLinks.REPO_URL)))
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(com.aipicdetect.app.data.AppLinks.REPO_URL)))
             }) { Text(stringResource(R.string.about_view_source)) }
         }
     }

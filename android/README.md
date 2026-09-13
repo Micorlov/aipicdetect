@@ -1,13 +1,13 @@
-# picai Android client
+# AiPicDetect Android client
 
-A thin native Android client for the [picai](../README.md) API: pick or take a photo,
+A thin native Android client for the [AiPicDetect](../README.md) API: pick or take a photo,
 send it to `/analyze`, see the AI-likelihood score and what metadata was found, then
 save or share the scrubbed copy.
 
 ## Stack
 
 Kotlin + Jetpack Compose (Material 3), Retrofit/OkHttp + kotlinx.serialization,
-Jetpack DataStore for the settings override. No DI framework — `PicaiApp` is a small
+Jetpack DataStore for the settings override. No DI framework — `AiPicDetectApp` is a small
 manual container, small enough not to need one.
 
 ## Requirements
@@ -33,17 +33,19 @@ echo "sdk.dir=$ANDROID_HOME" > local.properties
 
 ## Pointing at a different server
 
-The app defaults to the production Cloud Run instance
-(`https://picai-53480028562.europe-west1.run.app`). To point it at a local dev server
-instead, open the app's **Settings** (gear icon in the top bar) and set the base URL —
-e.g. `http://10.0.2.2:8000` for an emulator talking to `uv run picai serve` on the host.
+The app defaults to the production Cloud Run instance (currently still
+`https://picai-53480028562.europe-west1.run.app` — pending update once the backend's
+`aipicdetect` Cloud Run service is deployed, see the root README). To point it at a local
+dev server instead, open the app's **Settings** (gear icon in the top bar) and set the base
+URL — e.g. `http://10.0.2.2:8000` for an emulator talking to `uv run aipicdetect serve` on
+the host.
 Cleartext HTTP is only permitted for `10.0.2.2`/`localhost`/`127.0.0.1`
 (see `network_security_config.xml`); the production URL stays HTTPS-only.
 
 ## Notes
 
 - `/analyze` already returns the scrubbed image's `download_url`, so the app never calls
-  `/scrub` separately — see [PicaiRepository.kt](app/src/main/java/com/picai/app/data/PicaiRepository.kt).
+  `/scrub` separately — see [AiPicDetectRepository.kt](app/src/main/java/com/aipicdetect/app/data/AiPicDetectRepository.kt).
 - Cloud Run's `min-instances=0` means the first request after idle can take up to ~60s;
   the loading screen switches to a "waking up the server" hint after 8s
-  (`COLD_START_HINT_DELAY_MILLIS` in [HomeViewModel.kt](app/src/main/java/com/picai/app/ui/home/HomeViewModel.kt)).
+  (`COLD_START_HINT_DELAY_MILLIS` in [HomeViewModel.kt](app/src/main/java/com/aipicdetect/app/ui/home/HomeViewModel.kt)).

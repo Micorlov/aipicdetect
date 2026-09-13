@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">Analisi forense di immagini IA open source</string>
     <string name="hero_heading_line1">Questa foto è reale?</string>
     <string name="hero_heading_line2">Ottieni il punteggio e la prova.</string>
-    <string name="hero_lead">picai esegue un modello di rilevamento IA aperto e legge ogni campo EXIF, C2PA e IPTC presente in una foto — poi ti restituisce una copia pulita, privata di tutto questo. Nessuna registrazione, nessuna scatola nera.</string>
+    <string name="hero_lead">AiPicDetect esegue un modello di rilevamento IA aperto e legge ogni campo EXIF, C2PA e IPTC presente in una foto — poi ti restituisce una copia pulita, privata di tutto questo. Nessuna registrazione, nessuna scatola nera.</string>
 
     <string name="cta_pick_image">Scegli foto</string>
     <string name="cta_take_photo">Scatta una foto</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">Anteprima dell\'immagine selezionata</string>
     <string name="cd_close">Chiudi</string>
 
-    <string name="about_tagline">picai. · open source</string>
+    <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Il rilevatore è un modello Hugging Face aperto che puoi ispezionare o sostituire.</string>
     <string name="about_view_source">Visualizza il codice sorgente su GitHub</string>
 </resources>

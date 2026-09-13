@@ -1,10 +1,10 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
-import com.picai.app.data.model.ErrorResponse
+import com.aipicdetect.app.data.model.ErrorResponse
 import kotlinx.serialization.json.Json
 import retrofit2.Response
 
-/** Maps a non-2xx Retrofit [Response] to an [AppError], reading picai's `{"detail": "..."}` body when present. */
+/** Maps a non-2xx Retrofit [Response] to an [AppError], reading AiPicDetect's `{"detail": "..."}` body when present. */
 object ErrorMapper {
     private val json = Json { ignoreUnknownKeys = true }
 

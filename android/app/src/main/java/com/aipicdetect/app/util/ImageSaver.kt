@@ -1,4 +1,4 @@
-package com.picai.app.util
+package com.aipicdetect.app.util
 
 import android.content.ContentValues
 import android.content.Context
@@ -20,7 +20,7 @@ object ImageSaver {
             put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
             put(MediaStore.Images.Media.MIME_TYPE, mimeType)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/picai")
+                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/aipicdetect")
                 put(MediaStore.Images.Media.IS_PENDING, 1)
             }
         }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">开源 AI 图像取证</string>
     <string name="hero_heading_line1">这张照片是真的吗？</string>
     <string name="hero_heading_line2">获取分数和证据。</string>
-    <string name="hero_lead">picai 运行一个开放的 AI 检测模型，读取照片携带的每一个 EXIF、C2PA 和 IPTC 字段，然后为你提供一份清除了全部这些信息的干净副本。无需注册，没有黑箱。</string>
+    <string name="hero_lead">AiPicDetect 运行一个开放的 AI 检测模型，读取照片携带的每一个 EXIF、C2PA 和 IPTC 字段，然后为你提供一份清除了全部这些信息的干净副本。无需注册，没有黑箱。</string>
 
     <string name="cta_pick_image">选择照片</string>
     <string name="cta_take_photo">拍摄照片</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">已选图片预览</string>
     <string name="cd_close">关闭</string>
 
-    <string name="about_tagline">picai. · 开源</string>
+    <string name="about_tagline">AiPicDetect. · 开源</string>
     <string name="about_model_note">该检测器是一个开放的 Hugging Face 模型，你可以查看或替换它。</string>
     <string name="about_view_source">在 GitHub 上查看源码</string>
 </resources>

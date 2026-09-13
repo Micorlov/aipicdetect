@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">זיהוי פורנזי בקוד פתוח לתמונות בינה מלאכותית</string>
     <string name="hero_heading_line1">האם התמונה הזו אמיתית?</string>
     <string name="hero_heading_line2">קבלו את הציון וההוכחה.</string>
-    <string name="hero_lead">picai מריץ מודל גילוי בינה מלאכותית בקוד פתוח וקורא כל שדה EXIF, C2PA ו-IPTC שהתמונה נושאת — ואז מעביר לכם עותק נקי שממנו הוסר הכול. בלי הרשמה, בלי קופסה שחורה.</string>
+    <string name="hero_lead">AiPicDetect מריץ מודל גילוי בינה מלאכותית בקוד פתוח וקורא כל שדה EXIF, C2PA ו-IPTC שהתמונה נושאת — ואז מעביר לכם עותק נקי שממנו הוסר הכול. בלי הרשמה, בלי קופסה שחורה.</string>
 
     <string name="cta_pick_image">בחרו תמונה</string>
     <string name="cta_take_photo">צלמו תמונה</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">תצוגה מקדימה של התמונה שנבחרה</string>
     <string name="cd_close">סגירה</string>
 
-    <string name="about_tagline">picai. · קוד פתוח</string>
+    <string name="about_tagline">AiPicDetect. · קוד פתוח</string>
     <string name="about_model_note">הגלאי הוא מודל פתוח של Hugging Face שאפשר לבדוק או להחליף.</string>
     <string name="about_view_source">צפייה בקוד המקור ב-GitHub</string>
 </resources>

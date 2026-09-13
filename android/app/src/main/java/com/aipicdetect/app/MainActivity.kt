@@ -1,4 +1,4 @@
-package com.picai.app
+package com.aipicdetect.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,26 +10,26 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.picai.app.ui.home.HomeScreen
-import com.picai.app.ui.home.HomeViewModel
-import com.picai.app.ui.theme.PicaiTheme
-import com.picai.app.util.AndroidCleanImageExporter
+import com.aipicdetect.app.ui.home.HomeScreen
+import com.aipicdetect.app.ui.home.HomeViewModel
+import com.aipicdetect.app.ui.theme.AiPicDetectTheme
+import com.aipicdetect.app.util.AndroidCleanImageExporter
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PicaiTheme {
+            AiPicDetectTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    val app = application as PicaiApp
+                    val app = application as AiPicDetectApp
                     val viewModel: HomeViewModel = viewModel(
                         factory = viewModelFactory {
                             initializer {
                                 HomeViewModel(
                                     AndroidCleanImageExporter(app.applicationContext),
                                     app.settingsRepository,
-                                    app.picaiRepository,
+                                    app.aiPicDetectRepository,
                                 )
                             }
                         },

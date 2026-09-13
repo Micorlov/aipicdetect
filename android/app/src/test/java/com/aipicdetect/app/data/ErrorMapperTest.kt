@@ -1,4 +1,4 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody

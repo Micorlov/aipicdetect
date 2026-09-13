@@ -1,4 +1,4 @@
-package com.picai.app.ui.components
+package com.aipicdetect.app.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.picai.app.R
-import com.picai.app.data.model.Metadata
+import com.aipicdetect.app.R
+import com.aipicdetect.app.data.model.Metadata
 
 private val STANDARD_METADATA_BLOCKS = listOf("EXIF", "XMP", "IPTC", "C2PA", "ICC")
 

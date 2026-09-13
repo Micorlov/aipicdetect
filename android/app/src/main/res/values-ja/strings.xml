@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">オープンソースのAI画像フォレンジック</string>
     <string name="hero_heading_line1">この写真は本物？</string>
     <string name="hero_heading_line2">スコアと証拠を確認しよう。</string>
-    <string name="hero_lead">picaiはオープンなAI検出モデルを実行し、写真が持つすべてのEXIF、C2PA、IPTCフィールドを読み取ります — そして、それらをすべて取り除いたクリーンなコピーを渡します。登録不要、ブラックボックスなし。</string>
+    <string name="hero_lead">AiPicDetectはオープンなAI検出モデルを実行し、写真が持つすべてのEXIF、C2PA、IPTCフィールドを読み取ります — そして、それらをすべて取り除いたクリーンなコピーを渡します。登録不要、ブラックボックスなし。</string>
 
     <string name="cta_pick_image">写真を選択</string>
     <string name="cta_take_photo">写真を撮る</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">選択した画像のプレビュー</string>
     <string name="cd_close">閉じる</string>
 
-    <string name="about_tagline">picai. · オープンソース</string>
+    <string name="about_tagline">AiPicDetect. · オープンソース</string>
     <string name="about_model_note">検出器はオープンなHugging Faceモデルで、確認したり差し替えたりできます。</string>
     <string name="about_view_source">GitHubでソースを見る</string>
 </resources>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">تحليل جنائي مفتوح المصدر لصور الذكاء الاصطناعي</string>
     <string name="hero_heading_line1">هل هذه الصورة حقيقية؟</string>
     <string name="hero_heading_line2">احصل على النتيجة والدليل.</string>
-    <string name="hero_lead">يشغّل picai نموذج كشف مفتوح المصدر للذكاء الاصطناعي ويقرأ كل حقول EXIF وC2PA وIPTC التي تحملها الصورة — ثم يمنحك نسخة نظيفة تمت إزالة كل ذلك منها. بلا تسجيل، بلا صندوق أسود.</string>
+    <string name="hero_lead">يشغّل AiPicDetect نموذج كشف مفتوح المصدر للذكاء الاصطناعي ويقرأ كل حقول EXIF وC2PA وIPTC التي تحملها الصورة — ثم يمنحك نسخة نظيفة تمت إزالة كل ذلك منها. بلا تسجيل، بلا صندوق أسود.</string>
 
     <string name="cta_pick_image">اختر صورة</string>
     <string name="cta_take_photo">التقط صورة</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">معاينة الصورة المحددة</string>
     <string name="cd_close">إغلاق</string>
 
-    <string name="about_tagline">picai. · مفتوح المصدر</string>
+    <string name="about_tagline">AiPicDetect. · مفتوح المصدر</string>
     <string name="about_model_note">الكاشف هو نموذج مفتوح من Hugging Face يمكنك فحصه أو استبداله.</string>
     <string name="about_view_source">عرض الكود المصدري على GitHub</string>
 </resources>

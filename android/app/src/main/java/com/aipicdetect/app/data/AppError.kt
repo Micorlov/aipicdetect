@@ -1,8 +1,8 @@
-package com.picai.app.data
+package com.aipicdetect.app.data
 
 /**
  * Every failure the UI needs to distinguish. The fixed cases render a canned
- * string resource; the server-driven cases carry picai's own message through
+ * string resource; the server-driven cases carry AiPicDetect's own message through
  * verbatim since it already explains limits/retry windows in plain English.
  */
 sealed interface AppError {

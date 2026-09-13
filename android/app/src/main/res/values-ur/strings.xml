@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">picai</string>
+    <string name="app_name">AiPicDetect</string>
     <string name="hero_overline">اوپن سورس AI امیج فرانزکس</string>
     <string name="hero_heading_line1">کیا یہ تصویر اصلی ہے؟</string>
     <string name="hero_heading_line2">اسکور اور ثبوت حاصل کریں۔</string>
-    <string name="hero_lead">picai ایک اوپن AI شناختی ماڈل چلاتا ہے اور تصویر میں موجود ہر EXIF، C2PA اور IPTC فیلڈ کو پڑھتا ہے — پھر آپ کو ایک صاف کاپی دیتا ہے جس سے یہ سب ہٹا دیا گیا ہو۔ نہ کوئی سائن اپ، نہ کوئی بلیک باکس۔</string>
+    <string name="hero_lead">AiPicDetect ایک اوپن AI شناختی ماڈل چلاتا ہے اور تصویر میں موجود ہر EXIF، C2PA اور IPTC فیلڈ کو پڑھتا ہے — پھر آپ کو ایک صاف کاپی دیتا ہے جس سے یہ سب ہٹا دیا گیا ہو۔ نہ کوئی سائن اپ، نہ کوئی بلیک باکس۔</string>
 
     <string name="cta_pick_image">تصویر منتخب کریں</string>
     <string name="cta_take_photo">تصویر لیں</string>
@@ -55,7 +55,7 @@
     <string name="cd_picked_image">منتخب کردہ تصویر کا پیش منظر</string>
     <string name="cd_close">بند کریں</string>
 
-    <string name="about_tagline">picai. · اوپن سورس</string>
+    <string name="about_tagline">AiPicDetect. · اوپن سورس</string>
     <string name="about_model_note">ڈیٹیکٹر ایک اوپن Hugging Face ماڈل ہے جسے آپ دیکھ یا تبدیل کر سکتے ہیں۔</string>
     <string name="about_view_source">GitHub پر سورس کوڈ دیکھیں</string>
 </resources>
