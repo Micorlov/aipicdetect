@@ -5,7 +5,7 @@ from PIL import Image
 
 from picai import server
 from picai.detect import Detector
-from picai.ratelimit import WINDOW_SECONDS, DailyQuota
+from picai.ratelimit import WINDOW_SECONDS, DailyQuota, QuotaSnapshot, client_address
 
 import pytest
 
@@ -79,6 +79,45 @@ def test_quota_disabled_when_limit_is_zero():
     assert not quota.enabled
 
 
+def test_snapshot_is_empty_for_a_fresh_quota():
+    quota = DailyQuota(limit=5)
+    assert quota.snapshot() == QuotaSnapshot(clients=0, hits=0)
+
+
+def test_snapshot_aggregates_clients_and_hits_without_exposing_keys():
+    quota = DailyQuota(limit=5)
+    quota.record("a")
+    quota.record("a")
+    quota.record("b")
+    assert quota.snapshot() == QuotaSnapshot(clients=2, hits=3)
+
+
+def test_snapshot_prunes_expired_hits():
+    now = [0.0]
+    quota = DailyQuota(limit=5, clock=lambda: now[0])
+    quota.record("a")
+    now[0] = WINDOW_SECONDS + 1
+    assert quota.snapshot() == QuotaSnapshot(clients=0, hits=0)
+
+
+def _request(headers: dict[str, str], client_host: str | None = "192.0.2.1"):
+    from starlette.requests import Request
+
+    raw_headers = [(k.lower().encode(), v.encode()) for k, v in headers.items()]
+    scope = {"type": "http", "headers": raw_headers, "client": (client_host, 12345) if client_host else None}
+    return Request(scope)
+
+
+def test_client_address_trusts_only_the_last_forwarded_hop():
+    # Cloud Run appends the IP it observed to X-Forwarded-For rather than replacing it, so
+    # every hop except the last is a value the client itself could have sent.
+    assert client_address(_request({"x-forwarded-for": "203.0.113.7"})) == "203.0.113.7"
+    assert client_address(_request({"x-forwarded-for": "attacker-claim, 203.0.113.7"})) == "203.0.113.7"
+    assert client_address(_request({"x-forwarded-for": "a, b, 203.0.113.7"})) == "203.0.113.7"
+    assert client_address(_request({})) == "192.0.2.1"  # no header: falls back to the raw TCP peer
+    assert client_address(_request({}, client_host=None)) == "unknown"
+
+
 # --- Endpoint integration --------------------------------------------------
 
 
@@ -99,8 +138,12 @@ def test_other_ips_keep_their_own_quota():
     for _ in range(10):
         assert _analyze("203.0.113.7").status_code == 200
     assert _analyze("203.0.113.7").status_code == 429
-    assert _analyze("198.51.100.2").status_code == 200
-    assert _analyze("198.51.100.2, 10.0.0.1").status_code == 200  # first hop wins
+    for _ in range(10):
+        assert _analyze("198.51.100.2").status_code == 200
+    assert _analyze("198.51.100.2").status_code == 429
+    # Cloud Run appends the IP it observed; only the last (rightmost) hop is trustworthy —
+    # a client-supplied leading hop must not let someone dodge another IP's exhausted quota.
+    assert _analyze("spoofed-client-claim, 198.51.100.2").status_code == 429
 
 
 def test_rejected_uploads_do_not_consume_quota():

@@ -12,15 +12,18 @@ REPO_URL = "https://github.com/Micorlov/picai"
 LICENSE_NAME = "MIT"
 LICENSE_URL = "https://opensource.org/license/mit"
 
-ENTITY_SENTENCE = "picai is a free, open-source AI image detector and metadata scrubber."
+ENTITY_SENTENCE = (
+    "picai is a free, open-source tool that scores AI-generated images and strips hidden "
+    "metadata — hosted or self-hosted, take your pick."
+)
 SUMMARY = (
     f"{ENTITY_SENTENCE} It scores how likely a picture was produced by an AI generator using an "
     "open Hugging Face classifier, and can re-render images to strip EXIF, XMP, IPTC, ICC and "
     "C2PA metadata. Use the hosted instance or self-host with Docker or Python."
 )
 LEAD = (
-    "Score any picture with an open-source classifier. Use this hosted instance, or self-host "
-    "and nothing ever leaves your machine."
+    "picai runs an open AI-detection model and reads every EXIF, C2PA, and IPTC field a photo "
+    "is carrying — then hands you a clean copy with all of it stripped. No sign-up, no black box."
 )
 DROPZONE_NOTE = f"JPEG, PNG, WebP, HEIC · up to {MAX_UPLOAD_MB} MB · processed in memory, never written to disk"
 
@@ -39,7 +42,7 @@ DETECT_STEPS: tuple[Step, ...] = (
     ),
     Step("Detect.", "An open-source image classifier scores how likely the pixels were produced by a generator."),
     Step(
-        "Read the verdict.",
+        "Decide.",
         "You get an AI likelihood, a confidence band and the metadata blocks the file carries — "
         "as a probability, not a verdict.",
     ),

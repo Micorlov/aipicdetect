@@ -61,7 +61,10 @@ def test_llms_txt_has_h1_blockquote_and_every_page(public_url):
     response = client.get("/llms.txt")
     assert response.status_code == 200 and "text/plain" in response.headers["content-type"]
     body = response.text
-    assert body.startswith("# picai\n\n> picai is a free, open-source AI image detector and metadata scrubber.")
+    assert body.startswith(
+        "# picai\n\n> picai is a free, open-source tool that scores AI-generated images and "
+        "strips hidden metadata"
+    )
     for page in pages.PAGES:
         assert f"]({public_url}{page.path}): " in body
     for section in ("## Product", "## Guides", "## Developers", "## Optional"):

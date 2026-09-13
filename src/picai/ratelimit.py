@@ -15,6 +15,12 @@ WINDOW_SECONDS = 24 * 60 * 60
 
 
 @dataclass(frozen=True)
+class QuotaSnapshot:
+    clients: int  # distinct keys with at least one hit in the current window
+    hits: int  # hits recorded across all keys in the current window
+
+
+@dataclass(frozen=True)
 class QuotaStatus:
     limit: int
     remaining: int
@@ -59,6 +65,18 @@ class DailyQuota:
         with self._lock:
             self._hits.clear()
 
+    def snapshot(self) -> QuotaSnapshot:
+        """Aggregate window occupancy across all keys; never exposes the keys themselves."""
+        with self._lock:
+            cutoff = self._clock() - WINDOW_SECONDS
+            for key in list(self._hits):
+                hits = self._hits[key]
+                while hits and hits[0] <= cutoff:
+                    hits.popleft()
+                if not hits:
+                    del self._hits[key]
+            return QuotaSnapshot(len(self._hits), sum(len(hits) for hits in self._hits.values()))
+
     def _status(self, key: str, now: float) -> QuotaStatus:
         if not self.enabled:
             return QuotaStatus(limit=0, remaining=0, retry_after=0)
@@ -79,9 +97,14 @@ class DailyQuota:
 
 
 def client_address(request: Request) -> str:
-    """Client IP as seen through the Cloud Run proxy (first X-Forwarded-For hop)."""
+    """Client IP as seen through the Cloud Run proxy.
+
+    Cloud Run's edge appends (never replaces) the IP it observed to any
+    ``X-Forwarded-For`` the client sent, so every hop except the *last* is
+    freely client-controlled. Trust only the last hop.
+    """
     forwarded = request.headers.get("x-forwarded-for", "")
-    first_hop = forwarded.split(",")[0].strip()
-    if first_hop:
-        return first_hop
+    last_hop = forwarded.rsplit(",", 1)[-1].strip()
+    if last_hop:
+        return last_hop
     return request.client.host if request.client else "unknown"

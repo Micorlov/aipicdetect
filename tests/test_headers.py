@@ -16,6 +16,9 @@ def test_policy_headers_for_static_api_and_pages():
     assert page["Cache-Control"] == "public, max-age=300" and "X-Robots-Tag" not in page
     assert "Cache-Control" not in policy_headers("/nope", "text/html", 404)
     assert policy_headers("/")["X-Content-Type-Options"] == "nosniff"
+    admin = policy_headers("/admin")
+    assert admin["Cache-Control"] == "no-store" and admin["X-Robots-Tag"] == "noindex"
+    assert "identity-credentials-get" in admin["Permissions-Policy"]
 
 
 def test_docs_and_openapi_have_noindex_header():

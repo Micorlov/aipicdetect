@@ -1,0 +1,15 @@
+{{HEAD}}
+<body>
+  <main class="admin-shell admin-shell--narrow">
+    <h1>picai admin</h1>
+    <p class="admin-lead">Sign in with the Google account that manages this instance.</p>
+    <script src="/static/admin/admin.js?v={{ASSET_V}}"></script>
+    <div id="g_id_onload"
+         data-client_id="{{CLIENT_ID}}"
+         data-callback="picaiAdminLogin"
+         data-auto_prompt="false"></div>
+    <div class="g_id_signin" data-type="standard" data-theme="outline" data-size="large"></div>
+    <p id="admin-error" class="admin-error" role="alert" hidden></p>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </main>
+</body>

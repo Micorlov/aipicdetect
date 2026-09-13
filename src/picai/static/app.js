@@ -2,10 +2,11 @@
   const MAX_UPLOAD_BYTES = 50 * 1024 * 1024;
   const STATUS_POLL_MS = 2000;
   const BLOCKS = ["EXIF", "XMP", "IPTC", "C2PA", "ICC"];
+  const i18n = window.PICAI_I18N;
   const VERDICTS = {
-    AI: { text: "Likely AI-generated", tone: "ai" },
-    Real: { text: "Likely a real photo", tone: "real" },
-    Uncertain: { text: "Uncertain", tone: "uncertain" },
+    AI: { text: i18n.verdict_ai, tone: "ai" },
+    Real: { text: i18n.verdict_real, tone: "real" },
+    Uncertain: { text: i18n.verdict_uncertain, tone: "uncertain" },
   };
 
   const $ = (id) => document.getElementById(id);
@@ -32,7 +33,7 @@
     el.pick.disabled = el.snap.disabled = busy || disabled;
     el.loading.hidden = !busy;
     el.result.hidden = state !== "result";
-    el.note.textContent = disabled ? "Loading detector model (first run downloads ~750 MB)…" : READY_NOTE;
+    el.note.textContent = disabled ? i18n.loading_model_note : READY_NOTE;
   }
 
   async function pollStatus() {
@@ -43,13 +44,13 @@
       el.footerModel.textContent = status.model;
       el.status.classList.remove("is-offline");
       if (status.model_loaded) {
-        el.status.textContent = "Detector ready";
+        el.status.textContent = i18n.status_ready;
         if (document.body.dataset.state === "loading-model") setState("idle");
         return;
       }
-      el.status.textContent = "Loading detector…";
+      el.status.textContent = i18n.loading_status;
     } catch {
-      el.status.textContent = "Server unreachable";
+      el.status.textContent = i18n.status_unreachable;
       el.status.classList.add("is-offline");
     }
     setTimeout(pollStatus, STATUS_POLL_MS);
@@ -99,8 +100,10 @@
   function handleFiles(list) {
     const file = list && list[0];
     if (!file) return;
-    if (file.size === 0) return showError("That file is empty.");
-    if (file.size > MAX_UPLOAD_BYTES) return showError(`${file.name} is ${fmt(file.size)} — the limit is 50 MB.`);
+    if (file.size === 0) return showError(i18n.error_empty_file);
+    if (file.size > MAX_UPLOAD_BYTES) {
+      return showError(i18n.error_file_too_large.replace("{name}", file.name).replace("{size}", fmt(file.size)));
+    }
     analyze(file);
   }
 
@@ -121,7 +124,7 @@
       setState("result");
       el.result.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch (err) {
-      showError(`Could not reach the server: ${err.message}`);
+      showError(i18n.error_server_unreachable.replace("{message}", err.message));
     }
   }
 
@@ -141,7 +144,7 @@
 
   function renderQuota(q) {
     if (!q) return;
-    el.footerQuota.textContent = `${q.remaining} of ${q.limit} analyses left today`;
+    el.footerQuota.textContent = i18n.quota_remaining.replace("{remaining}", q.remaining).replace("{limit}", q.limit);
     el.footerQuota.hidden = false;
   }
 
@@ -150,7 +153,7 @@
     el.verdictLabel.textContent = verdict.text;
     el.verdictLabel.className = `v-label ${verdict.tone}`;
     el.percent.textContent = `${d.percent}%`;
-    el.confidence.textContent = `${d.confidence} confidence`;
+    el.confidence.textContent = `${d.confidence} ${i18n.confidence_suffix}`;
     el.confidence.className = `chip ${verdict.tone}`;
     el.marker.className = `meter-marker ${verdict.tone}`;
     el.marker.style.left = `${Math.round(d.ai_likelihood * 1000) / 10}%`;
@@ -166,7 +169,7 @@
     }
     el.preview.src = originalUrl;
     el.previewCaption.textContent =
-      `${input.width}×${input.height} · ${input.format || file.type || "unknown"} · ${fmt(input.bytes)}`;
+      `${input.width}×${input.height} · ${input.format || file.type || i18n.format_unknown} · ${fmt(input.bytes)}`;
   }
 
   function renderMetadata(m) {
@@ -176,7 +179,7 @@
     if (counts.size === 0) {
       const empty = document.createElement("span");
       empty.className = "empty";
-      empty.textContent = "No JPEG APP segments";
+      empty.textContent = i18n.no_jpeg_segments;
       el.segments.replaceChildren(empty);
       return;
     }
@@ -196,7 +199,7 @@
     name.textContent = block;
     const state = document.createElement("span");
     state.className = "state";
-    state.textContent = found ? "Present" : "Not present";
+    state.textContent = found ? i18n.metadata_present : i18n.metadata_not_present;
     li.append(name, state);
     if (found) {
       const sigs = document.createElement("span");

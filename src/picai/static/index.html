@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{LANG}}" dir="{{DIR}}">
 <head>
 {{HEAD}}
 </head>
@@ -10,30 +10,31 @@
     <img class="brand-mark" src="/static/icons/favicon-64.png" width="30" height="30" alt="">
     <span>picai.</span>
   </a>
-  <nav class="nav-links" aria-label="Main navigation">
+  <nav class="nav-links" aria-label="{{NAV_ARIA_LABEL}}">
     {{NAV}}
   </nav>
-  <span id="status" class="status" aria-live="polite">Loading detector…</span>
+  {{LANG_SWITCHER}}
+  <span id="status" class="status" aria-live="polite">{{LOADING_STATUS}}</span>
 </header>
 
 <main>
   <section class="hero">
     <div class="hero-copy">
-      <p class="overline">— AI image detector</p>
-      <h1>Detect AI-generated images.<span class="h1-break">Free and open source.</span></h1>
+      <p class="overline">{{HERO_OVERLINE}}</p>
+      <h1>{{HERO_HEADING_LINE1}}<span class="h1-break">{{HERO_HEADING_LINE2}}</span></h1>
       <span class="rule" aria-hidden="true"></span>
       <p class="lead">{{LEAD}}</p>
       <ul class="stats">{{STATS}}</ul>
     </div>
 
-    <section id="tool" class="card tool" aria-label="AI image detector">
-      <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Upload an image to analyze">
+    <section id="tool" class="card tool" aria-label="{{TOOL_ARIA_LABEL}}">
+      <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="{{DROPZONE_ARIA_LABEL}}">
         <svg class="upload-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-        <p class="dz-title"><span class="pointer-fine">Drag &amp; drop an image</span><span class="pointer-coarse">Check a photo</span></p>
-        <p class="dz-sub"><span class="pointer-fine">or paste from the clipboard, or</span><span class="pointer-coarse">from your library or camera</span></p>
+        <p class="dz-title"><span class="pointer-fine">{{DZ_TITLE_FINE}}</span><span class="pointer-coarse">{{DZ_TITLE_COARSE}}</span></p>
+        <p class="dz-sub"><span class="pointer-fine">{{DZ_SUB_FINE}}</span><span class="pointer-coarse">{{DZ_SUB_COARSE}}</span></p>
         <div class="dz-buttons">
-          <button id="pick" class="btn-primary" type="button"><span class="pointer-fine">Check image</span><span class="pointer-coarse">Choose photo</span></button>
-          <button id="snap" class="btn-secondary pointer-coarse" type="button">Take a photo</button>
+          <button id="pick" class="btn-primary" type="button"><span class="pointer-fine">{{BTN_CHECK_FINE}}</span><span class="pointer-coarse">{{BTN_CHOOSE_COARSE}}</span></button>
+          <button id="snap" class="btn-secondary pointer-coarse" type="button">{{BTN_TAKE_PHOTO}}</button>
         </div>
         <p id="dz-note" class="dz-note">{{DROPZONE_NOTE}}</p>
         <input id="file" type="file" accept="image/*" hidden>
@@ -42,19 +43,19 @@
 
       <div id="error" class="alert" role="alert" hidden>
         <span id="error-text"></span>
-        <button id="error-close" type="button" aria-label="Dismiss">&times;</button>
+        <button id="error-close" type="button" aria-label="{{DISMISS_ARIA_LABEL}}">&times;</button>
       </div>
 
       <div id="loading" class="analyzing" aria-live="polite" hidden>
         <span class="spinner" aria-hidden="true"></span>
-        <span>Analyzing <strong id="loading-name"></strong> · pixels · metadata blocks</span>
+        <span>{{ANALYZING_PREFIX}} <strong id="loading-name"></strong> {{ANALYZING_SUFFIX}}</span>
       </div>
     </section>
   </section>
 
   <section id="result" class="result" hidden>
     <div class="card verdict-card">
-      <p class="overline">— Verdict</p>
+      <p class="overline">{{VERDICT_OVERLINE}}</p>
       <div class="verdict-headline">
         <span id="verdict-label" class="v-label"></span>
         <strong id="percent" class="v-percent"></strong>
@@ -62,58 +63,59 @@
       <span id="confidence" class="chip"></span>
       <div class="meter" aria-hidden="true">
         <div class="meter-track"><div id="marker" class="meter-marker"></div></div>
-        <div class="meter-labels"><span>Real</span><span>Uncertain</span><span>AI</span></div>
+        <div class="meter-labels"><span>{{METER_REAL}}</span><span>{{METER_UNCERTAIN}}</span><span>{{METER_AI}}</span></div>
       </div>
-      <p class="fine">Model <code id="model"></code></p>
-      <p class="fine">Results are probabilities from a classifier, not verdicts. <a href="/how-accurate">How to read the score.</a></p>
+      <p class="fine">{{MODEL_LABEL}} <code id="model"></code></p>
+      <p class="fine">{{VERDICT_DISCLAIMER_HTML}}</p>
       <div class="actions">
-        <button id="reset" class="btn-primary" type="button">Analyze another image</button>
+        <button id="reset" class="btn-primary" type="button">{{BTN_CHECK_ANOTHER}}</button>
       </div>
     </div>
 
     <div class="card preview-card">
-      <p class="overline">— Preview</p>
-      <div class="preview-frame"><img id="preview" alt="Uploaded image preview"></div>
+      <p class="overline">{{PREVIEW_OVERLINE}}</p>
+      <div class="preview-frame"><img id="preview" alt="{{PREVIEW_ALT}}"></div>
       <p id="preview-caption" class="fine"></p>
     </div>
 
     <div class="card wide">
-      <p class="overline">— Metadata</p>
-      <h2>Found in the file.</h2>
+      <p class="overline">{{METADATA_OVERLINE}}</p>
+      <h2>{{METADATA_HEADING}}</h2>
       <ul id="metadata" class="meta-list"></ul>
-      <p class="fine">JPEG segments</p>
+      <p class="fine">{{JPEG_SEGMENTS_LABEL}}</p>
       <div id="segments" class="chips"></div>
       <div class="actions meta-actions">
-        <a id="download" class="btn-secondary" href="#" hidden>Download clean copy</a>
-        <span class="fine">Re-rendered from the pixels, so every block above is gone. <a href="/remove-image-metadata">How it works</a></span>
+        <a id="download" class="btn-secondary" href="#" hidden>{{BTN_DOWNLOAD_CLEAN}}</a>
+        <span class="fine">{{METADATA_SCRUB_NOTE_HTML}}</span>
       </div>
     </div>
   </section>
 
   <section id="how" class="section">
-    <p class="overline">— How it works</p>
-    <h2>Three steps, nothing stored.</h2>
+    <p class="overline">{{HOW_OVERLINE}}</p>
+    <h2>{{HOW_HEADING}}</h2>
     <ol class="steps">
 {{STEPS}}
     </ol>
-    <p class="fine section-note">{{ENTITY}} <a href="/how-to-tell-if-an-image-is-ai-generated">Read the guide to spotting AI images</a> or <a href="/self-host">run it on your own machine</a>.</p>
+    <p class="fine section-note">{{ENTITY}} {{HOW_LINKS_HTML}}</p>
   </section>
 
   <section id="faq" class="section">
-    <p class="overline">— FAQ</p>
-    <h2>Questions people ask.</h2>
+    <p class="overline">{{FAQ_OVERLINE}}</p>
+    <h2>{{FAQ_HEADING}}</h2>
 {{FAQ}}
-    <p class="fine section-note"><a href="/faq">More questions and answers →</a></p>
+    <p class="fine section-note"><a href="/faq">{{FAQ_MORE_LINK}}</a></p>
   </section>
 </main>
 
 <footer class="footer">
-  <span>picai. · open source</span>
-  <span>Detector: <code id="footer-model">…</code></span>
+  <span>{{FOOTER_TAGLINE}}</span>
+  <span>{{FOOTER_DETECTOR_LABEL}} <code id="footer-model">…</code></span>
   <span id="footer-quota" hidden></span>
   {{FOOTER_LINKS}}
 </footer>
 
+<script>window.PICAI_I18N = {{PICAI_I18N_JSON}};</script>
 <script src="/static/app.js?v={{ASSET_V}}"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{LANG}}" dir="{{DIR}}">
 <head>
 {{HEAD}}
 </head>
@@ -10,23 +10,24 @@
     <img class="brand-mark" src="/static/icons/favicon-64.png" width="30" height="30" alt="">
     <span>picai.</span>
   </a>
-  <nav class="nav-links" aria-label="Main navigation">
+  <nav class="nav-links" aria-label="{{NAV_ARIA_LABEL}}">
     {{NAV}}
   </nav>
+  {{LANG_SWITCHER}}
 </header>
 
 <main class="doc">
-  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">picai</a><span aria-hidden="true">›</span><span>{{H1}}</span></nav>
+  <nav class="breadcrumb" aria-label="{{BREADCRUMB_ARIA_LABEL}}"><a href="/">picai</a><span aria-hidden="true">›</span><span>{{H1}}</span></nav>
   <article class="prose">
     <h1>{{H1}}</h1>
 {{BODY}}
-    <p class="fine updated">Last updated {{LASTMOD}} · <a href="{{REPO_URL}}" rel="noopener">source on GitHub</a></p>
-    <p class="cta"><a class="btn-primary" href="/#tool">Try the detector</a></p>
+    <p class="fine updated">{{LAST_UPDATED_PREFIX}} {{LASTMOD}} · <a href="{{REPO_URL}}" rel="noopener">{{SOURCE_ON_GITHUB}}</a></p>
+    <p class="cta"><a class="btn-primary" href="/#tool">{{BTN_TRY_DETECTOR}}</a></p>
   </article>
 </main>
 
 <footer class="footer">
-  <span>picai. · open source</span>
+  <span>{{FOOTER_TAGLINE}}</span>
   {{FOOTER_LINKS}}
 </footer>
 </body>

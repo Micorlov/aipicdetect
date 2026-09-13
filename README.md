@@ -116,9 +116,12 @@ container still has full CPU. To redeploy after a change:
 gcloud run deploy picai --source . --project picai-260913 --region europe-west1 \
   --allow-unauthenticated --memory 4Gi --cpu 2 --min-instances 0 --max-instances 1 \
   --concurrency 4 --timeout 300 --cpu-boost --port 8000 \
-  --set-env-vars PICAI_PUBLIC_URL=https://picai-53480028562.europe-west1.run.app,PICAI_GA_MEASUREMENT_ID=G-X0LGV9CGFC \
+  --update-env-vars PICAI_PUBLIC_URL=https://picai-53480028562.europe-west1.run.app,PICAI_GA_MEASUREMENT_ID=G-X0LGV9CGFC \
   --startup-probe httpGet.path=/ready,initialDelaySeconds=10,periodSeconds=10,timeoutSeconds=5,failureThreshold=24
 ```
+
+`--update-env-vars` merges with what is already set on the service (the admin-panel
+variables below live there); `--set-env-vars` would wipe them.
 
 The `/ready` probe means a crawler that hits an idle instance waits for the model before
 it gets any HTML. If search-engine fetches start timing out, switch the probe to
@@ -154,6 +157,45 @@ about a minute for the model (the page shows *Loading detector…* meanwhile). B
 launch post or any traffic push, redeploy with `--min-instances 1` and a higher
 `--max-instances`; a warm 2-CPU/4 GiB instance costs roughly the whole monthly budget, so
 turn it back to 0 afterwards.
+
+### Admin panel (optional)
+
+`/admin` shows a small operator dashboard (detector/model status, rate-limit and cache
+occupancy, effective config) gated behind Google sign-in for one email address. It's off
+by default — leave the two env vars below unset and `/admin` just says so; self-hosted
+instances never see a login prompt unless they opt in.
+
+1. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials) (project
+   `picai-260913`), create an **OAuth 2.0 Client ID** of type **Web application**. Add the
+   deployed origin (`https://picai-53480028562.europe-west1.run.app`) and, for local
+   testing, `http://localhost:8000` to **Authorized JavaScript origins**. No redirect URI
+   is needed — sign-in verifies a Google Identity Services ID token directly, there's no
+   redirect/code exchange and no client secret involved.
+2. Configure the OAuth consent screen as **External**, status **Testing**, with
+   micorlov@gmail.com as the only test user and no scopes beyond the default
+   `openid email profile`.
+3. Generate a session-signing secret: `python -c "import secrets; print(secrets.token_urlsafe(32))"`.
+4. Add both to the `gcloud run deploy` command above:
+   `--set-env-vars PICAI_GOOGLE_CLIENT_ID=<id>.apps.googleusercontent.com,PICAI_ADMIN_SESSION_SECRET=<secret>`
+   (comma-separated into the existing `--set-env-vars` list; same plain-env-var pattern
+   the budget guard already uses — no Secret Manager here).
+
+The dashboard's **Usage** section reads two Google sources with the Cloud Run service
+account's own credentials (no keys to manage): visitor and page-view counts from the GA4
+Data API, and image-upload counts (total and per client IP) from Cloud Run's request logs.
+Set `PICAI_GA_PROPERTY_ID` to the numeric GA4 property ID, enable
+`analyticsdata.googleapis.com`, and give the service account **Viewer** access on the GA
+property (Admin → Property access management). Results are cached for five minutes; when a
+source is unreachable the panel says "unavailable" and the rest still renders.
+
+`PICAI_ADMIN_EMAIL` (default `micorlov@gmail.com`) only needs setting by forks that want
+their own instance gated to a different address. Two revocation levers: rotate
+`PICAI_ADMIN_SESSION_SECRET` to invalidate every existing session immediately, or change
+`PICAI_ADMIN_EMAIL` to hand the panel to a different account (also invalidates existing
+sessions right away — the email is re-checked on every request, not just at login).
+
+Known limitation: `/admin` has no dedicated Content-Security-Policy yet (the app sets none
+today), so it relies on Google Identity Services' own script rather than a CSP allowlist.
 
 ## GitHub Actions
 

@@ -182,8 +182,8 @@ def test_unknown_page_is_html_404_for_browsers_and_json_for_api():
 
 def test_layout_placeholders_are_all_filled():
     for page in pages.PAGES:
-        assert "{{" not in pages.render_page(page, "http://x")
-    assert "{{" not in pages.render_not_found("http://x")
+        assert "{{" not in pages.render_page(page, "http://x", "en")
+    assert "{{" not in pages.render_not_found("http://x", "en")
 
 
 def test_api_routes_are_not_shadowed_by_pages():

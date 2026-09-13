@@ -8,8 +8,9 @@ from importlib.metadata import PackageNotFoundError, version
 from typing import TYPE_CHECKING, Any
 
 from picai.content import home as copy
-from picai.content.faq import FAQ_ALL, FAQ_HOME, FaqEntry
+from picai.content.faq import FaqEntry
 from picai.content.home import Step
+from picai.content.locales import t
 from picai.detect import DEFAULT_MODEL
 
 if TYPE_CHECKING:
@@ -17,6 +18,36 @@ if TYPE_CHECKING:
 
 CONTEXT = "https://schema.org"
 MODEL_URL = f"https://huggingface.co/{DEFAULT_MODEL}"
+_FAQ_HOME_SLUGS: tuple[str, ...] = (
+    "accuracy",
+    "leaves_computer",
+    "open_source",
+    "remove_metadata",
+    "formats",
+    "why_metadata",
+    "different_model",
+)
+_FAQ_MORE_SLUGS: tuple[str, ...] = ("free", "screenshots", "which_generator", "false_positive", "offline", "rate_limit")
+_FAQ_ALL_SLUGS: tuple[str, ...] = _FAQ_HOME_SLUGS + _FAQ_MORE_SLUGS
+_DETECT_STEP_SLUGS: tuple[str, ...] = ("upload", "detect", "decide")
+_SCRUB_STEP_SLUGS: tuple[str, ...] = ("inspect", "scrub", "verify")
+
+
+def _localized_faq(locale: str, slugs: tuple[str, ...]) -> tuple[FaqEntry, ...]:
+    return tuple(FaqEntry(t(locale, f"faq.{slug}.question"), t(locale, f"faq.{slug}.answer_html")) for slug in slugs)
+
+
+def _localized_steps(locale: str, prefix: str, slugs: tuple[str, ...]) -> tuple[Step, ...]:
+    return tuple(
+        Step(t(locale, f"steps.{prefix}.{slug}.name"), t(locale, f"steps.{prefix}.{slug}.text")) for slug in slugs
+    )
+
+
+def _localized_h1(page: Page, locale: str) -> str:
+    """The page's ``<h1>`` as it actually renders: localized for home/faq, unchanged otherwise."""
+    if page.slug in ("", "faq"):
+        return t(locale, f"page.{page.slug or 'home'}.h1")
+    return page.h1
 
 
 def software_version() -> str | None:
@@ -34,12 +65,12 @@ def website(origin: str) -> dict[str, Any]:
     return {"@type": "WebSite", "@id": f"{origin}/#website", "name": copy.BRAND, "url": f"{origin}/", "publisher": person()}
 
 
-def software_application(origin: str) -> dict[str, Any]:
+def software_application(origin: str, locale: str) -> dict[str, Any]:
     app: dict[str, Any] = {
         "@type": "SoftwareApplication",
         "@id": f"{origin}/#app",
         "name": copy.BRAND,
-        "description": copy.SUMMARY,
+        "description": t(locale, "home.summary"),
         "url": f"{origin}/",
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Web, Linux, macOS, Windows",
@@ -73,12 +104,12 @@ def how_to(name: str, steps: tuple[Step, ...]) -> dict[str, Any]:
     }
 
 
-def breadcrumb(origin: str, page: Page) -> dict[str, Any]:
+def breadcrumb(origin: str, page: Page, locale: str) -> dict[str, Any]:
     return {
         "@type": "BreadcrumbList",
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": copy.BRAND, "item": f"{origin}/"},
-            {"@type": "ListItem", "position": 2, "name": page.h1, "item": f"{origin}{page.path}"},
+            {"@type": "ListItem", "position": 2, "name": _localized_h1(page, locale), "item": f"{origin}{page.path}"},
         ],
     }
 
@@ -96,27 +127,29 @@ def article(origin: str, page: Page, kind: str) -> dict[str, Any]:
     }
 
 
-def graph_for_page(page: Page, origin: str) -> list[dict[str, Any]]:
+def graph_for_page(page: Page, origin: str, locale: str) -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     if not page.is_home:
-        items.append(breadcrumb(origin, page))
+        items.append(breadcrumb(origin, page, locale))
     for kind in page.schema_types:
         if kind == "WebSite":
             items.append(website(origin))
         elif kind == "SoftwareApplication":
-            items.append(software_application(origin))
+            items.append(software_application(origin, locale))
         elif kind == "FAQPage":
-            items.append(faq_page(FAQ_HOME if page.is_home else FAQ_ALL))
+            slugs = _FAQ_HOME_SLUGS if page.is_home else _FAQ_ALL_SLUGS
+            items.append(faq_page(_localized_faq(locale, slugs)))
         elif kind == "HowTo":
-            steps = copy.DETECT_STEPS if page.is_home else copy.SCRUB_STEPS
-            items.append(how_to(page.h1, steps))
+            prefix = "detect" if page.is_home else "scrub"
+            slugs = _DETECT_STEP_SLUGS if page.is_home else _SCRUB_STEP_SLUGS
+            items.append(how_to(_localized_h1(page, locale), _localized_steps(locale, prefix, slugs)))
         else:  # Article / TechArticle
             items.append(article(origin, page, kind))
     return items
 
 
-def jsonld_for_page(page: Page, origin: str) -> str:
-    items = graph_for_page(page, origin)
+def jsonld_for_page(page: Page, origin: str, locale: str) -> str:
+    items = graph_for_page(page, origin, locale)
     if not items:
         return ""
     payload = json.dumps({"@context": CONTEXT, "@graph": items}, ensure_ascii=False)

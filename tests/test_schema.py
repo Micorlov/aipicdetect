@@ -54,7 +54,7 @@ def test_home_jsonld_has_expected_types_and_free_offer():
     app = items["SoftwareApplication"]
     assert app["offers"]["price"] == "0" and app["url"] == "https://picai.example/"
     assert app["codeRepository"] == "https://github.com/Micorlov/picai"
-    assert app["description"].startswith("picai is a free, open-source AI image detector")
+    assert app["description"].startswith("picai is a free, open-source tool that scores AI-generated images")
 
 
 def test_faq_jsonld_questions_equal_visible_faq():
@@ -79,7 +79,7 @@ def test_article_pages_carry_date_and_author():
 
 
 def test_jsonld_escapes_closing_script_tags():
-    out = schema.jsonld_for_page(pages.HOME, "https://x.example")
+    out = schema.jsonld_for_page(pages.HOME, "https://x.example", "en")
     assert "</script>" in out and out.count("</script>") == 1
 
 

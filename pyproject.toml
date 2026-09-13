@@ -7,9 +7,14 @@ license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115",
+    "google-analytics-data>=0.18",
+    "google-auth>=2.38",
+    "google-cloud-logging>=3.11",
+    "itsdangerous>=2.2",
     "pillow>=11",
     "pillow-heif>=1.7.0",
     "python-multipart>=0.0.20",
+    "requests>=2.32",
     "torch>=2.14.0",
     "transformers>=5.17.0",
     "uvicorn>=0.34",

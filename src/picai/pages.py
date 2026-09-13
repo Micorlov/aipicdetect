@@ -9,6 +9,7 @@ The public origin comes from ``PICAI_PUBLIC_URL`` when set, otherwise the reques
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import re
 from dataclasses import dataclass
@@ -20,9 +21,11 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 
 from picai.content import home as copy
-from picai.content.faq import FAQ_ALL, FAQ_HOME, FaqEntry
+from picai.content.faq import FaqEntry
 from picai.content.home import Step
+from picai.content.locales import t
 from picai.detect import DEFAULT_MODEL
+from picai.i18n import DEFAULT_LOCALE, LANG_COOKIE, LOCALE_NAMES, SUPPORTED_LOCALES, direction, resolve_locale
 from picai.limits import DEFAULT_DAILY_LIMIT, MAX_UPLOAD_MB, RESULT_CACHE_LIMIT
 from picai.schema import jsonld_for_page
 
@@ -40,7 +43,86 @@ GA_ID_PATTERN = re.compile(r"^G-[A-Z0-9]{4,20}$")
 OG_IMAGE_PATH = "/static/og/picai-og.png"
 PLACEHOLDER = re.compile(r"\{\{([A-Z0-9_]+)\}\}")
 LAST_REVIEWED = date(2026, 9, 13)
-VERSIONED_ASSETS = ("styles.css", "pages.css", "app.js")
+VERSIONED_ASSETS = ("styles.css", "pages.css", "app.js", "admin/admin.css", "admin/admin.js")
+LANG_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
+_FAQ_HOME_SLUGS: tuple[str, ...] = (
+    "accuracy",
+    "leaves_computer",
+    "open_source",
+    "remove_metadata",
+    "formats",
+    "why_metadata",
+    "different_model",
+)
+_FAQ_MORE_SLUGS: tuple[str, ...] = ("free", "screenshots", "which_generator", "false_positive", "offline", "rate_limit")
+_FAQ_ALL_SLUGS: tuple[str, ...] = _FAQ_HOME_SLUGS + _FAQ_MORE_SLUGS
+_DETECT_STEP_SLUGS: tuple[str, ...] = ("upload", "detect", "decide")
+_SCRUB_STEP_SLUGS: tuple[str, ...] = ("inspect", "scrub", "verify")
+_UI_TEXT_KEYS: dict[str, str] = {
+    "NAV_ARIA_LABEL": "ui.nav_aria_label",
+    "LOADING_STATUS": "ui.loading_status",
+    "HERO_OVERLINE": "ui.hero_overline",
+    "HERO_HEADING_LINE1": "ui.hero_heading_line1",
+    "HERO_HEADING_LINE2": "ui.hero_heading_line2",
+    "TOOL_ARIA_LABEL": "ui.tool_aria_label",
+    "DROPZONE_ARIA_LABEL": "ui.dropzone_aria_label",
+    "DZ_TITLE_FINE": "ui.dropzone_title_fine",
+    "DZ_TITLE_COARSE": "ui.dropzone_title_coarse",
+    "DZ_SUB_FINE": "ui.dropzone_sub_fine",
+    "DZ_SUB_COARSE": "ui.dropzone_sub_coarse",
+    "BTN_CHECK_FINE": "ui.btn_check_image_fine",
+    "BTN_CHOOSE_COARSE": "ui.btn_choose_photo_coarse",
+    "BTN_TAKE_PHOTO": "ui.btn_take_photo",
+    "DISMISS_ARIA_LABEL": "ui.dismiss_aria_label",
+    "ANALYZING_PREFIX": "ui.analyzing_prefix",
+    "ANALYZING_SUFFIX": "ui.analyzing_suffix",
+    "VERDICT_OVERLINE": "ui.verdict_overline",
+    "METER_REAL": "ui.meter_real",
+    "METER_UNCERTAIN": "ui.meter_uncertain",
+    "METER_AI": "ui.meter_ai",
+    "MODEL_LABEL": "ui.model_label",
+    "BTN_CHECK_ANOTHER": "ui.btn_check_another",
+    "PREVIEW_OVERLINE": "ui.preview_overline",
+    "PREVIEW_ALT": "ui.preview_alt",
+    "METADATA_OVERLINE": "ui.metadata_overline",
+    "METADATA_HEADING": "ui.metadata_heading",
+    "JPEG_SEGMENTS_LABEL": "ui.jpeg_segments_label",
+    "BTN_DOWNLOAD_CLEAN": "ui.btn_download_clean",
+    "HOW_OVERLINE": "ui.how_it_works_overline",
+    "HOW_HEADING": "ui.how_it_works_heading",
+    "FAQ_OVERLINE": "ui.faq_overline",
+    "FAQ_HEADING": "ui.faq_heading",
+    "FAQ_MORE_LINK": "ui.faq_more_link",
+    "FOOTER_TAGLINE": "ui.footer_tagline",
+    "FOOTER_DETECTOR_LABEL": "ui.footer_detector_label",
+    "BREADCRUMB_ARIA_LABEL": "ui.breadcrumb_aria_label",
+    "LAST_UPDATED_PREFIX": "ui.last_updated_prefix",
+    "SOURCE_ON_GITHUB": "ui.source_on_github",
+    "BTN_TRY_DETECTOR": "ui.btn_try_detector",
+}
+_UI_HTML_KEYS: dict[str, str] = {
+    "VERDICT_DISCLAIMER_HTML": "ui.verdict_disclaimer_html",
+    "METADATA_SCRUB_NOTE_HTML": "ui.metadata_scrub_note_html",
+    "HOW_LINKS_HTML": "ui.how_it_works_links_html",
+}
+_JS_UI_KEYS: tuple[str, ...] = (
+    "loading_status",
+    "status_ready",
+    "status_unreachable",
+    "loading_model_note",
+    "error_empty_file",
+    "error_file_too_large",
+    "error_server_unreachable",
+    "verdict_ai",
+    "verdict_real",
+    "verdict_uncertain",
+    "confidence_suffix",
+    "format_unknown",
+    "metadata_present",
+    "metadata_not_present",
+    "no_jpeg_segments",
+    "quota_remaining",
+)
 
 
 def asset_version() -> str:
@@ -83,10 +165,10 @@ class Page:
 PAGES: tuple[Page, ...] = (
     Page(
         "",
-        "picai: Free Open-Source AI Image Detector (Online & Local)",
+        "picai — Open-Source AI Image Detector & Metadata Scrubber",
         "Check whether a picture is AI-generated with picai, a free open-source detector. Use it in "
         "the browser or run it on your own machine with Docker or Python.",
-        "Detect AI-generated images. Free and open source.",
+        "Is this photo real? Get the score and the proof.",
         "Product",
         ("WebSite", "SoftwareApplication", "FAQPage", "HowTo"),
         priority=1.0,
@@ -229,12 +311,25 @@ def render(template: str, values: dict[str, str]) -> str:
     return PLACEHOLDER.sub(replace, template)
 
 
-def render_head(page: Page, origin: str) -> str:
+def localized_page_meta(page: Page, locale: str) -> tuple[str, str, str]:
+    """(title, description, h1) as they actually render: localized for home/faq, unchanged otherwise."""
+    if page.slug in ("", "faq"):
+        prefix = page.slug or "home"
+        return (
+            t(locale, f"page.{prefix}.title"),
+            t(locale, f"page.{prefix}.description"),
+            t(locale, f"page.{prefix}.h1"),
+        )
+    return page.title, page.description, page.h1
+
+
+def render_head(page: Page, origin: str, locale: str) -> str:
+    title, description, _ = localized_page_meta(page, locale)
     return render(
         HEAD_FILE.read_text(encoding="utf-8"),
         {
-            "TITLE": escape(page.title),
-            "DESCRIPTION": escape(page.description),
+            "TITLE": escape(title),
+            "DESCRIPTION": escape(description),
             "CANONICAL": escape(f"{origin}{page.path}"),
             "OG_IMAGE": escape(f"{origin}{OG_IMAGE_PATH}"),
             "OG_TYPE": "website" if page.is_home else "article",
@@ -242,7 +337,7 @@ def render_head(page: Page, origin: str) -> str:
             "ANALYTICS": analytics_tag(),
             "EXTRA_CSS": "" if page.is_home else f'<link rel="stylesheet" href="/static/pages.css?v={ASSET_VERSION}">',
             "ASSET_V": ASSET_VERSION,
-            "JSONLD": jsonld_for_page(page, origin),
+            "JSONLD": jsonld_for_page(page, origin, locale),
         },
     )
 
@@ -280,20 +375,35 @@ def analytics_tag() -> str:
     )
 
 
-def nav_links(current: Page) -> str:
-    links = ['<a href="/#tool"{}>Detector</a>'.format(' class="active"' if current.is_home else "")]
-    links.append('<a href="/#how">How it works</a>')
+def nav_links(current: Page, locale: str) -> str:
+    links = [
+        '<a href="/#tool"{}>{}</a>'.format(
+            ' class="active"' if current.is_home else "", escape(t(locale, "nav.detector"))
+        )
+    ]
+    links.append(f'<a href="/#how">{escape(t(locale, "nav.how_it_works"))}</a>')
     for page in PAGES:
         if page.nav_label:
             active = ' class="active"' if page == current else ""
-            links.append(f'<a href="{page.path}"{active}>{escape(page.nav_label)}</a>')
+            links.append(f'<a href="{page.path}"{active}>{escape(t(locale, f"nav.{page.slug}"))}</a>')
     return "\n    ".join(links)
 
 
-def footer_links() -> str:
-    links = [f'<a href="{p.path}">{escape(p.footer_label)}</a>' for p in PAGES if p.footer_label]
+def footer_links(locale: str) -> str:
+    links = [f'<a href="{p.path}">{escape(t(locale, f"footer.{p.slug}"))}</a>' for p in PAGES if p.footer_label]
     links.append(f'<a href="{copy.REPO_URL}" rel="noopener">GitHub</a>')
     return "\n  ".join(links)
+
+
+def render_lang_switcher(current_locale: str) -> str:
+    options = []
+    for code in SUPPORTED_LOCALES:
+        selected = " selected" if code == current_locale else ""
+        options.append(f'<option value="{code}"{selected}>{escape(LOCALE_NAMES[code])}</option>')
+    return (
+        '<label class="lang-switcher"><span class="sr-only">Language</span>'
+        f'<select onchange="location.search=\'?lang=\'+this.value">{"".join(options)}</select></label>'
+    )
 
 
 def render_faq(entries: tuple[FaqEntry, ...]) -> str:
@@ -312,20 +422,38 @@ def render_steps(steps: tuple[Step, ...]) -> str:
     return "\n".join(items)
 
 
-def body_values(page: Page, origin: str) -> dict[str, str]:
+def localized_faq(locale: str, slugs: tuple[str, ...]) -> tuple[FaqEntry, ...]:
+    return tuple(FaqEntry(t(locale, f"faq.{slug}.question"), t(locale, f"faq.{slug}.answer_html")) for slug in slugs)
+
+
+def localized_steps(locale: str, prefix: str, slugs: tuple[str, ...]) -> tuple[Step, ...]:
+    return tuple(
+        Step(t(locale, f"steps.{prefix}.{slug}.name"), t(locale, f"steps.{prefix}.{slug}.text")) for slug in slugs
+    )
+
+
+def _ui_values(locale: str) -> dict[str, str]:
+    values = {placeholder: escape(t(locale, key)) for placeholder, key in _UI_TEXT_KEYS.items()}
+    values.update({placeholder: t(locale, key) for placeholder, key in _UI_HTML_KEYS.items()})
+    return values
+
+
+def body_values(page: Page, origin: str, locale: str = DEFAULT_LOCALE) -> dict[str, str]:
     """Placeholders available inside body fragments and index.html."""
-    return {
+    _, _, h1 = localized_page_meta(page, locale)
+    stats = tuple((numeral, t(locale, f"home.stat.{i}")) for i, (numeral, _label) in enumerate(copy.STATS))
+    values: dict[str, str] = {
         "ORIGIN": escape(origin),
-        "LEAD": escape(copy.LEAD),
-        "ENTITY": escape(copy.ENTITY_SENTENCE),
-        "DROPZONE_NOTE": escape(copy.DROPZONE_NOTE),
-        "STATS": "".join(f"<li><strong>{n}</strong><span>{label}.</span></li>" for n, label in copy.STATS),
-        "STEPS": render_steps(copy.DETECT_STEPS),
-        "SCRUB_STEPS": render_steps(copy.SCRUB_STEPS),
-        "FAQ": render_faq(FAQ_HOME),
-        "FAQ_ALL": render_faq(FAQ_ALL),
-        "NAV": nav_links(page),
-        "FOOTER_LINKS": footer_links(),
+        "LEAD": escape(t(locale, "home.lead")),
+        "ENTITY": escape(t(locale, "home.entity_sentence")),
+        "DROPZONE_NOTE": escape(t(locale, "home.dropzone_note")),
+        "STATS": "".join(f"<li><strong>{n}</strong><span>{label}.</span></li>" for n, label in stats),
+        "STEPS": render_steps(localized_steps(locale, "detect", _DETECT_STEP_SLUGS)),
+        "SCRUB_STEPS": render_steps(localized_steps(locale, "scrub", _SCRUB_STEP_SLUGS)),
+        "FAQ": render_faq(localized_faq(locale, _FAQ_HOME_SLUGS)),
+        "FAQ_ALL": render_faq(localized_faq(locale, _FAQ_ALL_SLUGS)),
+        "NAV": nav_links(page, locale),
+        "FOOTER_LINKS": footer_links(locale),
         "MODEL": escape(DEFAULT_MODEL),
         "MAX_UPLOAD_MB": str(MAX_UPLOAD_MB),
         "RESULT_CACHE_LIMIT": str(RESULT_CACHE_LIMIT),
@@ -333,31 +461,46 @@ def body_values(page: Page, origin: str) -> dict[str, str]:
         "REPO_URL": copy.REPO_URL,
         "AUTHOR": escape(copy.AUTHOR),
         "LASTMOD": page.lastmod.isoformat(),
-        "H1": escape(page.h1),
+        "H1": escape(h1),
         "ASSET_V": ASSET_VERSION,
+        "LANG": locale,
+        "DIR": direction(locale),
+        "LANG_SWITCHER": render_lang_switcher(locale),
+        "FAQ_INTRO_SUFFIX": escape(t(locale, "page.faq.intro_suffix")),
+        "FAQ_STILL_UNSURE_HTML": t(locale, "page.faq.still_unsure_html"),
+        **_ui_values(locale),
     }
+    if page.is_home:
+        payload = json.dumps({key: t(locale, f"ui.{key}") for key in _JS_UI_KEYS}, ensure_ascii=False)
+        values["PICAI_I18N_JSON"] = payload.replace("</", "<\\/")
+    return values
 
 
-def render_page(page: Page, origin: str) -> str:
-    values = body_values(page, origin)
-    values["HEAD"] = render_head(page, origin)
+def render_page(page: Page, origin: str, locale: str) -> str:
+    values = body_values(page, origin, locale)
+    values["HEAD"] = render_head(page, origin, locale)
     if page.is_home:
         return render(INDEX_FILE.read_text(encoding="utf-8"), values)
     values["BODY"] = render(page.file.read_text(encoding="utf-8"), values)
     return render(LAYOUT_FILE.read_text(encoding="utf-8"), values)
 
 
-def render_not_found(origin: str) -> str:
+def render_not_found(origin: str, locale: str) -> str:
     page = Page("404", "Page not found | picai", "This page does not exist.", "Page not found", "Product")
-    values = body_values(page, origin)
-    values["HEAD"] = render_head(page, origin).replace('content="index, follow', 'content="noindex')
+    values = body_values(page, origin, locale)
+    values["HEAD"] = render_head(page, origin, locale).replace('content="index, follow', 'content="noindex')
     values["BODY"] = render(NOT_FOUND_FILE.read_text(encoding="utf-8"), values)
     return render(LAYOUT_FILE.read_text(encoding="utf-8"), values)
 
 
 def _endpoint(page: Page):
     def serve(request: Request) -> HTMLResponse:
-        return HTMLResponse(render_page(page, public_url(request)))
+        locale = resolve_locale(request)
+        response = HTMLResponse(render_page(page, public_url(request), locale))
+        query_lang = request.query_params.get("lang")
+        if query_lang in SUPPORTED_LOCALES:
+            response.set_cookie(LANG_COOKIE, query_lang, max_age=LANG_COOKIE_MAX_AGE, samesite="lax")
+        return response
 
     serve.__name__ = f"page_{page.slug or 'home'}"
     return serve

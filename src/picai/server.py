@@ -20,8 +20,10 @@ from fastapi.staticfiles import StaticFiles
 from PIL import Image
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from picai.admin import router as admin_router
 from picai.detect import DetectResult, get_detector
 from picai.headers import apply_policy
+from picai.i18n import resolve_locale
 from picai.inspect import find_metadata, jpeg_app_markers
 from picai.limits import DEFAULT_DAILY_LIMIT, MAX_UPLOAD_BYTES, MAX_UPLOAD_MB, RESULT_CACHE_LIMIT
 from picai.pages import public_url, render_not_found
@@ -56,13 +58,14 @@ app.middleware("http")(apply_policy)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.include_router(pages_router)
 app.include_router(seo_router)
+app.include_router(admin_router)
 
 
 @app.exception_handler(StarletteHTTPException)
 async def not_found_page(request: Request, exc: StarletteHTTPException) -> Response:
     """Browsers get an HTML 404 page; API clients keep FastAPI's JSON error body."""
     if exc.status_code == 404 and "text/html" in request.headers.get("accept", ""):
-        return HTMLResponse(render_not_found(public_url(request)), status_code=404)
+        return HTMLResponse(render_not_found(public_url(request), resolve_locale(request)), status_code=404)
     return await http_exception_handler(request, exc)
 
 
@@ -180,6 +183,12 @@ async def _read_upload(file: UploadFile) -> bytes:
     if len(payload) > MAX_UPLOAD_BYTES:
         raise HTTPException(status_code=413, detail=f"upload exceeds {MAX_UPLOAD_MB} MB")
     return payload
+
+
+def result_cache_size() -> int:
+    """Scrubbed results currently held in memory (read by the admin dashboard)."""
+    with _results_lock:
+        return len(_results)
 
 
 def _store_result(scrubbed: ScrubResult, filename: str) -> str:

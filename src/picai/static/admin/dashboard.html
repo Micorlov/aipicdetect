@@ -1,0 +1,40 @@
+{{HEAD}}
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <h1>picai admin</h1>
+      <form method="post" action="/admin/logout"><button type="submit">Sign out</button></form>
+    </header>
+    <p class="admin-lead">Signed in as {{EMAIL}}. Generated {{GENERATED}}.</p>
+
+    <section>
+      <h2>Usage</h2>
+      <dl class="stats">{{USAGE}}</dl>
+    </section>
+
+    <section>
+      <h2>Uploads by client (30 days)</h2>
+      {{CLIENTS}}
+    </section>
+
+    <section>
+      <h2>Runtime</h2>
+      <dl class="stats">{{RUNTIME}}</dl>
+    </section>
+
+    <section>
+      <h2>Rate limits</h2>
+      <dl class="stats">{{QUOTA}}</dl>
+    </section>
+
+    <section>
+      <h2>Configuration</h2>
+      <dl class="stats">{{CONFIG}}</dl>
+    </section>
+
+    <section class="admin-links">
+      <h2>Links</h2>
+      <ul>{{LINKS}}</ul>
+    </section>
+  </main>
+</body>
