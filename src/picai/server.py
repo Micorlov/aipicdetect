@@ -19,6 +19,7 @@ from PIL import Image
 
 from picai.detect import DetectResult, get_detector
 from picai.inspect import find_metadata, jpeg_app_markers
+from picai.pages import router as pages_router
 from picai.ratelimit import DailyQuota, QuotaStatus, client_address
 from picai.scrub import DEFAULT_JPEG_QUALITY, ScrubResult, UnsupportedImageError, scrub_bytes
 
@@ -197,3 +198,7 @@ def _describe_input(payload: bytes) -> dict[str, Any]:
         width = height = 0
         fmt = None
     return {"bytes": len(payload), "width": width, "height": height, "format": fmt}
+
+
+# Registered last so the catch-all content-page route never shadows an API route above.
+app.include_router(pages_router)

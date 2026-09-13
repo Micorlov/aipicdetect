@@ -1,0 +1,51 @@
+<p class="overline">— API</p>
+<h1>AI image detection and metadata scrubbing over HTTP.</h1>
+<p class="lead">Every picai instance exposes a small JSON API. The interactive OpenAPI reference lives at <a href="/docs">/docs</a>; this page is the short version.</p>
+
+<h2>Endpoints</h2>
+<div class="table-wrap"><table>
+  <tr><th>Route</th><th>Purpose</th></tr>
+  <tr><td><code>POST /analyze</code></td><td>Score an image and list its metadata blocks. Also prepares a scrubbed copy for download.</td></tr>
+  <tr><td><code>POST /scrub</code></td><td>Return a re-rendered copy of the image with every metadata block removed. Nothing is scored.</td></tr>
+  <tr><td><code>GET /download/{id}</code></td><td>Fetch the scrubbed copy prepared by <code>/analyze</code>. Kept in memory only, for the last 100 results.</td></tr>
+  <tr><td><code>GET /status</code></td><td>Model name and whether it is loaded.</td></tr>
+  <tr><td><code>GET /ready</code></td><td><code>200</code> once the model is loaded, <code>503</code> before. Use it as a readiness probe.</td></tr>
+</table></div>
+
+<h2>Analyze an image</h2>
+<pre><code>curl -F "file=@photo.jpg" https://YOUR-INSTANCE/analyze</code></pre>
+<p>The response carries the detection result, the metadata blocks found in the upload, and a link to the clean copy:</p>
+<pre><code>{
+  "detection": {
+    "ai_likelihood": 0.97,
+    "percent": 97,
+    "confidence": "High",
+    "classification": "AI",
+    "model": "haywoodsloan/ai-image-detector-deploy"
+  },
+  "metadata": {
+    "removed": { "EXIF": ["Exif\\0\\0"], "XMP": ["http://ns.adobe.com/xap/1.0/"] },
+    "jpeg_app_segments": ["APP1", "APP1"]
+  },
+  "input":  { "bytes": 412880, "width": 1600, "height": 1200, "format": "JPEG" },
+  "output": { "bytes": 398112, "format": "JPEG", "media_type": "image/jpeg" },
+  "download_url": "/download/3f9c…",
+  "download_name": "photo.clean.jpg",
+  "quota": { "limit": 10, "remaining": 9, "window_hours": 24 }
+}</code></pre>
+<p><code>classification</code> is one of <code>AI</code>, <code>Real</code> or <code>Uncertain</code>; <code>confidence</code> is <code>High</code>, <code>Medium</code> or <code>Low</code>. Treat it as a probability, not a verdict: see <a href="/how-accurate">how accurate is it?</a></p>
+
+<h2>Scrub only</h2>
+<pre><code>curl -F "file=@photo.jpg" -o photo.clean.jpg https://YOUR-INSTANCE/scrub
+curl -F "file=@photo.png" -o photo.clean.webp "https://YOUR-INSTANCE/scrub?format=webp&amp;quality=90"</code></pre>
+<p>The clean file comes back as the response body with a <code>Content-Disposition</code> filename and an <code>X-Picai-Removed</code> header listing the blocks that were dropped (for example <code>C2PA,EXIF,XMP</code>).</p>
+
+<h2>Parameters and limits</h2>
+<ul>
+  <li><code>format</code>: <code>jpeg</code>, <code>png</code> or <code>webp</code>. Defaults to the input format.</li>
+  <li><code>quality</code>: 1 to 100 for lossy formats. Defaults to 92.</li>
+  <li>Uploads up to 50 MB; JPEG, PNG, WebP, HEIC/HEIF and anything else Pillow can decode. Unsupported input returns <code>415</code>.</li>
+  <li>The public instance allows 10 analyses per client IP per rolling 24 hours and answers <code>429</code> with a <code>Retry-After</code> header after that. <a href="/self-host">Self-host</a> to remove the limit.</li>
+</ul>
+
+<div class="callout"><p>Images are processed in memory. The public instance never writes an upload to disk; the scrubbed copy is held in memory briefly so the browser can download it, then evicted.</p></div>

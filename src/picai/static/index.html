@@ -3,8 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>picai — AI image detector</title>
-  <meta name="description" content="Check whether a picture is AI-generated with an open-source detector that runs entirely on your machine.">
+  <title>picai — open-source AI image detector with metadata inspection</title>
+  <meta name="description" content="Check whether a picture is AI-generated with an open-source detector, see the EXIF, XMP, IPTC, C2PA and ICC blocks it carries, and download a clean copy. Self-host it and nothing leaves your machine.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="picai">
+  <meta property="og:title" content="picai — open-source AI image detector">
+  <meta property="og:description" content="Score a picture with an open-source AI detector, inspect its provenance metadata, download a clean copy. No sign-up. Self-hostable with one Docker command.">
+  <meta property="og:image" content="/static/icons/icon-512.png">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "picai",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web, Docker, Linux, macOS, Windows",
+    "description": "Open-source AI image detector that also inspects EXIF, XMP, IPTC, C2PA and ICC metadata and returns a metadata-free copy.",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "codeRepository": "https://github.com/Micorlov/picai",
+    "featureList": [
+      "AI-generated image likelihood score",
+      "EXIF, XMP, IPTC, C2PA and ICC metadata inspection",
+      "Metadata removal by re-rendering from pixels",
+      "HTTP API, CLI, Docker image and GitHub Action"
+    ]
+  }
+  </script>
   <meta name="theme-color" content="#1D2130">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,7 +55,9 @@
     <a href="#tool" class="active">Detector</a>
     <a href="#how">How it works</a>
     <a href="#faq">FAQ</a>
-    <a href="/docs">API</a>
+    <a href="/self-host">Self-host</a>
+    <a href="/api">API</a>
+    <a href="https://github.com/Micorlov/picai" rel="noopener">GitHub</a>
   </nav>
   <span id="status" class="status" aria-live="polite">Loading detector…</span>
 </header>
@@ -38,13 +65,13 @@
 <main>
   <section class="hero">
     <div class="hero-copy">
-      <p class="overline">— AI image detector</p>
-      <h1>Detect AI images.<br>On your machine.</h1>
+      <p class="overline">— Open-source AI image detector</p>
+      <h1>Detect AI images.<br>Read the provenance.</h1>
       <span class="rule" aria-hidden="true"></span>
-      <p class="lead">Score any picture with an open-source detector that runs locally. Nothing leaves your computer.</p>
+      <p class="lead">Score a picture with an open-source classifier and see every metadata block it carries: EXIF, XMP, IPTC, C2PA, ICC. Then download a clean copy. <a href="/self-host">Self-host it</a> and nothing leaves your machine.</p>
       <ul class="stats">
-        <li><strong>1</strong><span>Local model,<br>no cloud.</span></li>
         <li><strong>0</strong><span>Sign-ups<br>required.</span></li>
+        <li><strong>5</strong><span>Metadata blocks<br>inspected.</span></li>
         <li><strong>50</strong><span>MB max<br>upload.</span></li>
       </ul>
     </div>
@@ -58,7 +85,7 @@
           <button id="pick" class="btn-primary" type="button"><span class="pointer-fine">Check image</span><span class="pointer-coarse">Choose photo</span></button>
           <button id="snap" class="btn-secondary pointer-coarse" type="button">Take a photo</button>
         </div>
-        <p id="dz-note" class="dz-note">JPEG, PNG, WebP, HEIC · up to 50 MB · processed locally</p>
+        <p id="dz-note" class="dz-note">JPEG, PNG, WebP, HEIC · up to 50 MB · processed in memory, never stored</p>
         <input id="file" type="file" accept="image/*" hidden>
         <input id="camera" type="file" accept="image/*" capture="environment" hidden>
       </div>
@@ -78,10 +105,9 @@
   <section id="result" class="result" hidden>
     <div class="card verdict-card">
       <p class="overline">— Verdict</p>
-      <span id="verdict" class="badge"></span>
-      <div class="stat">
-        <strong id="percent"></strong>
-        <span>AI<br>likelihood.</span>
+      <div class="verdict-headline">
+        <span id="verdict-label" class="v-label"></span>
+        <strong id="percent" class="v-percent"></strong>
       </div>
       <span id="confidence" class="chip"></span>
       <div class="meter" aria-hidden="true">
@@ -107,14 +133,18 @@
       <ul id="metadata" class="meta-list"></ul>
       <p class="fine">JPEG segments</p>
       <div id="segments" class="chips"></div>
+      <div class="actions meta-actions">
+        <a id="download" class="btn-secondary" href="#" hidden>Download clean copy</a>
+        <span class="fine">Re-rendered from the pixels, so every block above is gone. <a href="/c2pa">How it works</a></span>
+      </div>
     </div>
   </section>
 
   <section id="how" class="section">
     <p class="overline">— How it works</p>
-    <h2>Three steps, all on this machine.</h2>
+    <h2>Three steps, nothing stored.</h2>
     <ol class="steps">
-      <li class="featured"><span class="step-num">01</span><h3>Upload.</h3><p>Drop, paste or pick a picture. It is sent only to the server running on localhost.</p></li>
+      <li class="featured"><span class="step-num">01</span><h3>Upload.</h3><p>Drop, paste or pick a picture. It is processed in memory by the picai server you are using: this public instance, or your own if you <a href="/self-host">self-host</a>.</p></li>
       <li><span class="step-num">02</span><h3>Detect.</h3><p>An open-source image classifier scores how likely the pixels were produced by a generator.</p></li>
       <li><span class="step-num">03</span><h3>Read the verdict.</h3><p>You get an AI likelihood, a confidence band and the metadata blocks the file carries — as a probability, not a verdict.</p></li>
     </ol>
@@ -123,8 +153,10 @@
   <section id="faq" class="section">
     <p class="overline">— FAQ</p>
     <h2>Questions people ask.</h2>
-    <details><summary>How accurate is the detector?</summary><p>It reports a probability, not a verdict. Scores near 50% are labelled <em>Uncertain</em>; treat any single result as a signal and combine it with other evidence.</p></details>
-    <details><summary>Does my image leave my computer?</summary><p>No. The server binds to localhost and the model runs locally. Nothing is uploaded to a third party.</p></details>
+    <details><summary>How accurate is the detector?</summary><p>It reports a probability, not a verdict. Scores near 50% are labelled <em>Uncertain</em>; treat any single result as a signal and combine it with other evidence. Detectors degrade on newer generators: <a href="/how-accurate">read what the benchmarks say</a>.</p></details>
+    <details><summary>Does my image leave my computer?</summary><p>On this public instance, yes: the picture is uploaded to the picai server, scored in memory and never written to disk. The scrubbed copy is held in memory briefly so you can download it, then evicted. If you want nothing to leave your machine, <a href="/self-host">run picai yourself</a> with one Docker command.</p></details>
+    <details><summary>Is it open source?</summary><p>Yes. The code, the Docker image, the CLI and the GitHub Action are all in the <a href="https://github.com/Micorlov/picai" rel="noopener">picai repository</a>. The detector is an open Hugging Face model you can inspect or replace.</p></details>
+    <details><summary>Can I remove C2PA and other metadata?</summary><p>Yes. After checking a picture, use <em>Download clean copy</em>. picai rebuilds the image from its pixels, so EXIF, XMP, IPTC, C2PA and the ICC profile are all left behind. <a href="/c2pa">More about content credentials</a>.</p></details>
     <details><summary>Which formats are supported?</summary><p>JPEG, PNG, WebP, HEIC/HEIF and most formats Pillow can decode, up to 50 MB.</p></details>
     <details><summary>Why is metadata listed?</summary><p>C2PA content credentials and editing-software tags are provenance hints. The panel shows which blocks (EXIF, XMP, IPTC, C2PA, ICC) the file carries so you can weigh them alongside the score.</p></details>
     <details><summary>Can I use a different model?</summary><p>Yes. Set <code>PICAI_DETECTOR_MODEL</code> to any Hugging Face image-classification model whose labels name AI/fake vs. human/real content.</p></details>
@@ -132,10 +164,14 @@
 </main>
 
 <footer class="footer">
-  <span>picai. · runs on localhost</span>
+  <span>picai. · open source</span>
   <span>Detector: <code id="footer-model">…</code></span>
   <span id="footer-quota" hidden></span>
-  <a class="arrow-link" href="/docs">API docs <span aria-hidden="true">→</span></a>
+  <a class="arrow-link" href="/self-host">Self-host</a>
+  <a class="arrow-link" href="/api">API</a>
+  <a class="arrow-link" href="/c2pa">C2PA</a>
+  <a class="arrow-link" href="/how-accurate">Accuracy</a>
+  <a class="arrow-link" href="https://github.com/Micorlov/picai" rel="noopener">GitHub <span aria-hidden="true">→</span></a>
 </footer>
 
 <script src="/static/app.js"></script>

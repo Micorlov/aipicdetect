@@ -52,6 +52,16 @@ change the number, or to `0` to turn the limit off. The counter is in memory, so
 resets when the process restarts, and behind Cloud Run the client IP is
 read from the first `X-Forwarded-For` hop.
 
+## Public pages and SEO
+
+Besides the detector page the server serves four content pages (`/self-host`, `/api`,
+`/c2pa`, `/how-accurate`) from `src/picai/static/pages/`, plus `/robots.txt` and
+`/sitemap.xml`. Each page is a body fragment wrapped in `_layout.html` at request time, so
+adding a page means dropping a fragment in that folder and registering it in
+`src/picai/pages.py`. Absolute links (sitemap, canonical, Open Graph image) use
+`PICAI_PUBLIC_URL` when set, otherwise the request origin; set it once the app is behind
+a custom domain.
+
 ## Deploying to Cloud Run
 
 The public instance runs on Google Cloud Run (project `picai-260913`, region
@@ -88,6 +98,12 @@ gcloud functions deploy picai-budget-guard --gen2 --project picai-260913 --regio
   --service-account picai-budget-guard@picai-260913.iam.gserviceaccount.com \
   --set-env-vars SERVICE_NAME=projects/picai-260913/locations/europe-west1/services/picai
 ```
+
+`--min-instances 0` keeps the bill near zero but means the first visitor after idle waits
+about a minute for the model (the page shows *Loading detector…* meanwhile). Before a
+launch post or any traffic push, redeploy with `--min-instances 1` and a higher
+`--max-instances`; a warm 2-CPU/4 GiB instance costs roughly the whole monthly budget, so
+turn it back to 0 afterwards.
 
 ## GitHub Actions
 

@@ -14,10 +14,10 @@
     pick: $("pick"), snap: $("snap"), note: $("dz-note"),
     error: $("error"), errorText: $("error-text"), errorClose: $("error-close"),
     loading: $("loading"), loadingName: $("loading-name"), result: $("result"),
-    verdict: $("verdict"), percent: $("percent"), confidence: $("confidence"), marker: $("marker"),
+    verdictLabel: $("verdict-label"), percent: $("percent"), confidence: $("confidence"), marker: $("marker"),
     model: $("model"), footerModel: $("footer-model"), footerQuota: $("footer-quota"), preview: $("preview"),
     previewFrame: $("preview").parentElement, previewCaption: $("preview-caption"),
-    metadata: $("metadata"), segments: $("segments"), reset: $("reset"),
+    metadata: $("metadata"), segments: $("segments"), reset: $("reset"), download: $("download"),
   };
   const READY_NOTE = el.note.textContent;
 
@@ -129,7 +129,14 @@
     renderVerdict(r.detection);
     renderPreview(file, r.input);
     renderMetadata(r.metadata);
+    renderDownload(r);
     renderQuota(r.quota);
+  }
+
+  function renderDownload(r) {
+    el.download.href = r.download_url;
+    el.download.setAttribute("download", r.download_name);
+    el.download.hidden = false;
   }
 
   function renderQuota(q) {
@@ -140,8 +147,8 @@
 
   function renderVerdict(d) {
     const verdict = VERDICTS[d.classification] || VERDICTS.Uncertain;
-    el.verdict.textContent = verdict.text;
-    el.verdict.className = `badge ${verdict.tone}`;
+    el.verdictLabel.textContent = verdict.text;
+    el.verdictLabel.className = `v-label ${verdict.tone}`;
     el.percent.textContent = `${d.percent}%`;
     el.confidence.textContent = `${d.confidence} confidence`;
     el.confidence.className = `chip ${verdict.tone}`;
