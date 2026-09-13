@@ -4,8 +4,8 @@ import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from picai import server
-from picai.detect import Detector
+from aipicdetect import server
+from aipicdetect.detect import Detector
 
 client = TestClient(server.app)
 

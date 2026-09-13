@@ -4,10 +4,10 @@ from pathlib import Path
 
 from PIL import Image
 
-from picai.batch import BatchItem, process_folder, render_markdown, write_report
-from picai.cli import main
-from picai.detect import DetectResult
-from picai.inspect import find_metadata
+from aipicdetect.batch import BatchItem, process_folder, render_markdown, write_report
+from aipicdetect.cli import main
+from aipicdetect.detect import DetectResult
+from aipicdetect.inspect import find_metadata
 
 
 def _write_jpeg(path: Path, with_exif: bool = True) -> None:

@@ -1,0 +1,31 @@
+<p class="intro">{{ENTITY}} It is built and maintained by {{AUTHOR}} and published under the MIT licence at <a href="{{REPO_URL}}" rel="noopener">github.com/Micorlov/aipicdetect</a>. The hosted instance at <code>{{ORIGIN}}</code> is a free demo of the same code.</p>
+
+<h2>What it does</h2>
+<ul>
+  <li>Scores how likely a picture was produced by an AI generator, with a confidence band, using an open image classifier that runs locally in the server process.</li>
+  <li>Lists the EXIF, XMP, IPTC, C2PA and ICC metadata blocks a file carries.</li>
+  <li>Produces a metadata-free copy by re-rendering the pixels, via the web page, the <code>aipicdetect</code> command line or the HTTP API.</li>
+</ul>
+
+<h2>Model credits</h2>
+<p>The default detector is <a href="https://huggingface.co/{{MODEL}}" rel="noopener"><code>{{MODEL}}</code></a>, an image-classification model published on Hugging Face by its author under that model card's licence. AiPicDetect downloads it on first run and performs no training of its own. Any Hugging Face image-classification model with AI/real labels can be substituted with <code>AIPICDETECT_DETECTOR_MODEL</code>.</p>
+
+<h2>Built with</h2>
+<p>Python 3.12, FastAPI, Pillow and pillow-heif for decoding, PyTorch and Hugging Face Transformers for inference, uvicorn for serving. The web page is plain HTML, CSS and JavaScript with no framework; the only third-party script is the optional Google Analytics tag on the hosted instance (see <a href="/privacy">privacy</a>), which self-hosted copies do not load.</p>
+
+<h2>Cite this</h2>
+<pre><code>{{AUTHOR}}. AiPicDetect: free open-source AI image detector and metadata scrubber (2026). {{REPO_URL}}</code></pre>
+<pre><code>@software{aipicdetect2026,
+  author = {Orlov, Michael},
+  title  = {AiPicDetect: free open-source AI image detector and metadata scrubber},
+  year   = {2026},
+  url    = {{{REPO_URL}}}
+}</code></pre>
+
+<h2>Changelog</h2>
+<ul>
+  <li><strong>2026-09-13</strong> — public content pages, structured data, <code>llms.txt</code>, honest hosted-instance privacy copy.</li>
+  <li><strong>2026-09</strong> — Cloud Run deployment with startup probe; per-IP daily limit on the hosted instance.</li>
+  <li><strong>2026-09</strong> — installable mobile PWA with camera capture; detection-only dashboard redesign.</li>
+  <li><strong>2026-08</strong> — metadata scrubbing CLI, batch mode and GitHub Actions inbox pipeline.</li>
+</ul>

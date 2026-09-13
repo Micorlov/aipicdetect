@@ -2,7 +2,7 @@ from io import BytesIO
 
 from PIL import Image
 
-from picai.detect import Detector, ai_probability, score_to_result
+from aipicdetect.detect import Detector, ai_probability, score_to_result
 
 
 def _png() -> bytes:
@@ -44,13 +44,13 @@ def test_detector_uses_injected_classifier_without_loading_a_model():
 
 
 def test_model_name_comes_from_environment(monkeypatch):
-    monkeypatch.setenv("PICAI_DETECTOR_MODEL", "org/custom-detector")
+    monkeypatch.setenv("AIPICDETECT_DETECTOR_MODEL", "org/custom-detector")
     assert Detector().model_name == "org/custom-detector"
     assert Detector(model_name="explicit/model").model_name == "explicit/model"
 
 
 def test_get_detector_returns_singleton(monkeypatch):
-    from picai import detect
+    from aipicdetect import detect
 
     monkeypatch.setattr(detect, "_default_detector", None)
     first = detect.get_detector()
@@ -68,7 +68,7 @@ def test_ai_probability_handles_all_zero_scores():
 
 
 def test_ai_label_hints_cover_common_names():
-    from picai.detect import _is_ai_label
+    from aipicdetect.detect import _is_ai_label
 
     assert all(_is_ai_label(n) for n in ("AI", "fake", "Artificial", "ai-generated", "synthetic"))
     assert not any(_is_ai_label(n) for n in ("hum", "real", "human", "photo"))

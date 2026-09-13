@@ -4,8 +4,8 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from picai.inspect import find_metadata
-from picai.scrub import UnsupportedImageError, scrub_bytes, scrub_file
+from aipicdetect.inspect import find_metadata
+from aipicdetect.scrub import UnsupportedImageError, scrub_bytes, scrub_file
 
 
 def _encode(image: Image.Image, fmt: str, **kwargs) -> bytes:

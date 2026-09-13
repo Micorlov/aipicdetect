@@ -2,7 +2,7 @@ from io import BytesIO
 
 from PIL import Image
 
-from picai.cli import main
+from aipicdetect.cli import main
 
 
 def test_cli_scrub_writes_clean_file_and_inspect_reports_nothing(tmp_path, capsys):
@@ -27,7 +27,7 @@ def test_cli_scrub_missing_file_returns_error(tmp_path, capsys):
 
 
 def test_serve_subcommand_parses_flags():
-    from picai.cli import build_parser
+    from aipicdetect.cli import build_parser
 
     args = build_parser().parse_args(["serve", "--port", "9000", "--reload"])
     assert (args.host, args.port, args.reload) == ("127.0.0.1", 9000, True)

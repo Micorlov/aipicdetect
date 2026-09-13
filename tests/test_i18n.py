@@ -2,7 +2,7 @@ from importlib import import_module
 
 from starlette.requests import Request
 
-from picai.i18n import (
+from aipicdetect.i18n import (
     DEFAULT_LOCALE,
     LANG_COOKIE,
     LOCALE_NAMES,
@@ -32,7 +32,7 @@ def test_supported_locales_default_and_rtl_membership():
     assert SUPPORTED_LOCALES[0] == DEFAULT_LOCALE == "en"
     assert RTL_LOCALES == {"he", "ar", "ur", "fa"}
     assert set(LOCALE_NAMES) == set(SUPPORTED_LOCALES)
-    assert LANG_COOKIE == "picai_lang"
+    assert LANG_COOKIE == "aipicdetect_lang"
 
 
 # --- parse_accept_language ----------------------------------------------------
@@ -91,7 +91,7 @@ def test_parse_accept_language_strips_region_subtags_and_deduplicates():
 
 def test_resolve_locale_prefers_query_param_over_cookie_and_header():
     # Arrange
-    request = _request(query_string="lang=he", headers={"cookie": "picai_lang=es", "accept-language": "fr"})
+    request = _request(query_string="lang=he", headers={"cookie": "aipicdetect_lang=es", "accept-language": "fr"})
 
     # Act / Assert
     assert resolve_locale(request) == "he"
@@ -99,7 +99,7 @@ def test_resolve_locale_prefers_query_param_over_cookie_and_header():
 
 def test_resolve_locale_ignores_unsupported_query_param_and_falls_back_to_cookie():
     # Arrange
-    request = _request(query_string="lang=xx", headers={"cookie": "picai_lang=es"})
+    request = _request(query_string="lang=xx", headers={"cookie": "aipicdetect_lang=es"})
 
     # Act / Assert
     assert resolve_locale(request) == "es"
@@ -107,7 +107,7 @@ def test_resolve_locale_ignores_unsupported_query_param_and_falls_back_to_cookie
 
 def test_resolve_locale_prefers_cookie_over_accept_language_header():
     # Arrange
-    request = _request(headers={"cookie": "picai_lang=de", "accept-language": "fr"})
+    request = _request(headers={"cookie": "aipicdetect_lang=de", "accept-language": "fr"})
 
     # Act / Assert
     assert resolve_locale(request) == "de"
@@ -154,9 +154,9 @@ def test_direction_is_ltr_for_default_locale():
 
 def test_all_locales_have_the_same_keys_as_english():
     # Arrange
-    english_keys = set(import_module("picai.content.locales.en").STRINGS)
+    english_keys = set(import_module("aipicdetect.content.locales.en").STRINGS)
 
     # Act / Assert
     for locale in SUPPORTED_LOCALES:
-        keys = set(import_module(f"picai.content.locales.{locale}").STRINGS)
+        keys = set(import_module(f"aipicdetect.content.locales.{locale}").STRINGS)
         assert keys == english_keys, f"{locale} has missing={english_keys - keys} extra={keys - english_keys}"

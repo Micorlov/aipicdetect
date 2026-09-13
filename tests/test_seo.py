@@ -3,17 +3,17 @@ import xml.etree.ElementTree as ET
 import pytest
 from fastapi.testclient import TestClient
 
-from picai import pages, server
-from picai.seo import AI_CRAWLERS, build_llms_txt
+from aipicdetect import pages, server
+from aipicdetect.seo import AI_CRAWLERS, build_llms_txt
 
 client = TestClient(server.app)
-PUBLIC = "https://picai.example"
+PUBLIC = "https://aipicdetect.example"
 NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
 
 @pytest.fixture
 def public_url(monkeypatch):
-    monkeypatch.setenv("PICAI_PUBLIC_URL", PUBLIC)
+    monkeypatch.setenv("AIPICDETECT_PUBLIC_URL", PUBLIC)
     return PUBLIC
 
 
@@ -42,7 +42,7 @@ def test_sitemap_contains_every_registered_page(public_url):
 
 
 def test_sitemap_uses_request_origin_without_public_url(monkeypatch):
-    monkeypatch.delenv("PICAI_PUBLIC_URL", raising=False)
+    monkeypatch.delenv("AIPICDETECT_PUBLIC_URL", raising=False)
     assert "<loc>http://testserver/</loc>" in client.get("/sitemap.xml").text
 
 
@@ -53,7 +53,7 @@ def test_favicon_ico_is_served():
 
 def test_security_txt_has_contact_and_expiry(public_url):
     body = client.get("/.well-known/security.txt").text
-    assert "Contact: https://github.com/Micorlov/picai/issues" in body
+    assert "Contact: https://github.com/Micorlov/aipicdetect/issues" in body
     assert "Expires: 20" in body and f"Canonical: {public_url}/.well-known/security.txt" in body
 
 
@@ -62,7 +62,7 @@ def test_llms_txt_has_h1_blockquote_and_every_page(public_url):
     assert response.status_code == 200 and "text/plain" in response.headers["content-type"]
     body = response.text
     assert body.startswith(
-        "# picai\n\n> picai is a free, open-source tool that scores AI-generated images and "
+        "# AiPicDetect\n\n> AiPicDetect is a free, open-source tool that scores AI-generated images and "
         "strips hidden metadata"
     )
     for page in pages.PAGES:

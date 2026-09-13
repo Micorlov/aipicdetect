@@ -4,8 +4,8 @@ from pathlib import Path
 
 from PIL import Image
 
-from picai import cli
-from picai.cli import main
+from aipicdetect import cli
+from aipicdetect.cli import main
 
 
 def _jpeg(path: Path, with_exif: bool = False) -> Path:
@@ -73,7 +73,7 @@ def test_serve_invokes_uvicorn_with_parsed_options(monkeypatch, capsys):
 
     assert main(["serve", "--host", "0.0.0.0", "--port", "9001", "--reload"]) == 0
 
-    assert calls == [("picai.server:app", {"host": "0.0.0.0", "port": 9001, "reload": True})]
+    assert calls == [("aipicdetect.server:app", {"host": "0.0.0.0", "port": 9001, "reload": True})]
     assert "http://0.0.0.0:9001" in capsys.readouterr().out
 
 

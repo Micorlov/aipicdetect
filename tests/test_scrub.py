@@ -5,8 +5,8 @@ from io import BytesIO
 import pytest
 from PIL import Image
 
-from picai.inspect import find_metadata, jpeg_app_markers
-from picai.scrub import UnsupportedImageError, scrub_bytes
+from aipicdetect.inspect import find_metadata, jpeg_app_markers
+from aipicdetect.scrub import UnsupportedImageError, scrub_bytes
 
 XMP_PACKET = (
     b"http://ns.adobe.com/xap/1.0/\x00"
@@ -106,7 +106,7 @@ def test_rejects_non_image_and_unknown_format():
 
 def test_scrub_bytes_decodes_heic():
     # Arrange: a HEIC written by pillow-heif (registered on package import)
-    import picai  # noqa: F401  (registers the HEIF opener)
+    import aipicdetect  # noqa: F401  (registers the HEIF opener)
 
     buffer = BytesIO()
     Image.new("RGB", (64, 48), (10, 120, 200)).save(buffer, format="HEIF")

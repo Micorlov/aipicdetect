@@ -6,16 +6,16 @@ import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from picai import pages, schema, server
-from picai.content.faq import FAQ_HOME
-from picai.content.home import DETECT_STEPS, SCRUB_STEPS
+from aipicdetect import pages, schema, server
+from aipicdetect.content.faq import FAQ_HOME
+from aipicdetect.content.home import DETECT_STEPS, SCRUB_STEPS
 
 client = TestClient(server.app)
 
 
 @pytest.fixture(autouse=True)
 def public_url(monkeypatch):
-    monkeypatch.setenv("PICAI_PUBLIC_URL", "https://picai.example")
+    monkeypatch.setenv("AIPICDETECT_PUBLIC_URL", "https://aipicdetect.example")
 
 
 def graph(path: str) -> list[dict]:
@@ -52,9 +52,9 @@ def test_home_jsonld_has_expected_types_and_free_offer():
     items = {item["@type"]: item for item in graph("/")}
     assert {"WebSite", "SoftwareApplication", "FAQPage", "HowTo"} <= items.keys()
     app = items["SoftwareApplication"]
-    assert app["offers"]["price"] == "0" and app["url"] == "https://picai.example/"
-    assert app["codeRepository"] == "https://github.com/Micorlov/picai"
-    assert app["description"].startswith("picai is a free, open-source tool that scores AI-generated images")
+    assert app["offers"]["price"] == "0" and app["url"] == "https://aipicdetect.example/"
+    assert app["codeRepository"] == "https://github.com/Micorlov/aipicdetect"
+    assert app["description"].startswith("AiPicDetect is a free, open-source tool that scores AI-generated images")
 
 
 def test_faq_jsonld_questions_equal_visible_faq():
@@ -84,6 +84,6 @@ def test_jsonld_escapes_closing_script_tags():
 
 
 def test_og_image_exists_and_is_1200x630():
-    with Image.open(pages.STATIC_DIR / "og" / "picai-og.png") as image:
+    with Image.open(pages.STATIC_DIR / "og" / "aipicdetect-og.png") as image:
         assert image.size == (1200, 630)
-    assert client.get("/static/og/picai-og.png").status_code == 200
+    assert client.get("/static/og/aipicdetect-og.png").status_code == 200

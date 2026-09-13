@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
-from picai import server
-from picai.headers import policy_headers
+from aipicdetect import server
+from aipicdetect.headers import policy_headers
 
 client = TestClient(server.app)
 

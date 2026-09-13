@@ -1,0 +1,17 @@
+<p class="intro">C2PA content credentials are cryptographically signed provenance records that cameras, editing software and AI generators can embed in an image file. They say who created or edited a picture and with what tool. AiPicDetect reports whether a C2PA manifest is present next to EXIF, XMP, IPTC and ICC blocks, and its scrubber removes all of them by re-rendering the pixels.</p>
+
+<h2>What a C2PA manifest contains</h2>
+<p>The Coalition for Content Provenance and Authenticity (C2PA) standard stores a manifest in a JUMBF container (JPEG APP11 segment, or a dedicated box in PNG, WebP and HEIF). The manifest lists assertions such as the capture device, the editing actions applied, whether an AI tool generated or altered the content, and a signature from the issuing organisation. Viewers can verify the signature and show a “Content Credentials” badge.</p>
+
+<h2>How AiPicDetect detects it</h2>
+<p>AiPicDetect scans the raw file bytes for the signatures of each metadata container: <code>Exif\0\0</code> for EXIF, the XMP namespace URI for XMP, <code>Photoshop 3.0</code>/<code>8BIM</code> for IPTC, <code>jumb</code>/<code>c2pa</code>/<code>caBX</code> for C2PA, and <code>ICC_PROFILE</code>/<code>iCCP</code> for colour profiles. The metadata panel shows which blocks were found and, for JPEG, which APP segments the file carries. It does not verify the C2PA signature; it tells you a manifest is there so you can check it with a dedicated verifier.</p>
+
+<h2>Why provenance and detection are complementary</h2>
+<ul>
+  <li>A valid C2PA manifest that names an AI generator is stronger evidence than any pixel classifier.</li>
+  <li>Missing credentials prove nothing: most images have none, and stripping them is trivial.</li>
+  <li>A classifier score is useful precisely when there is no provenance to rely on; read it as a probability, as explained on the <a href="/how-accurate">accuracy page</a>.</li>
+</ul>
+
+<h2>Removing C2PA and other metadata</h2>
+<p>Deleting a manifest tag by tag is fragile because each container has its own layout. AiPicDetect instead decodes the image to a pixel buffer, builds a brand-new image from that buffer alone and encodes it fresh, so the C2PA manifest, EXIF, XMP, IPTC and ICC blocks are never copied. The step-by-step commands are on the <a href="/remove-image-metadata">remove image metadata</a> page; the HTTP form is <code>POST /scrub</code> in the <a href="/api">API reference</a>.</p>

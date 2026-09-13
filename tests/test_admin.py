@@ -1,8 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from picai import admin, server
-from picai.detect import Detector
+from aipicdetect import admin, server
+from aipicdetect.detect import Detector
 
 client = TestClient(server.app)
 CLIENT_ID = "test-client-id.apps.googleusercontent.com"
@@ -25,9 +25,9 @@ def fake_detector(monkeypatch):
 
 @pytest.fixture
 def configured(monkeypatch):
-    monkeypatch.setenv("PICAI_GOOGLE_CLIENT_ID", CLIENT_ID)
-    monkeypatch.setenv("PICAI_ADMIN_SESSION_SECRET", SECRET)
-    monkeypatch.setenv("PICAI_ADMIN_EMAIL", EMAIL)
+    monkeypatch.setenv("AIPICDETECT_GOOGLE_CLIENT_ID", CLIENT_ID)
+    monkeypatch.setenv("AIPICDETECT_ADMIN_SESSION_SECRET", SECRET)
+    monkeypatch.setenv("AIPICDETECT_ADMIN_EMAIL", EMAIL)
     return admin.admin_config()
 
 
@@ -72,8 +72,8 @@ def test_session_endpoint_404_when_unconfigured():
 
 
 def test_weak_secret_is_treated_as_unconfigured(monkeypatch):
-    monkeypatch.setenv("PICAI_GOOGLE_CLIENT_ID", CLIENT_ID)
-    monkeypatch.setenv("PICAI_ADMIN_SESSION_SECRET", "short")
+    monkeypatch.setenv("AIPICDETECT_GOOGLE_CLIENT_ID", CLIENT_ID)
+    monkeypatch.setenv("AIPICDETECT_ADMIN_SESSION_SECRET", "short")
     assert "not configured" in client.get("/admin").text.lower()
     assert client.post("/admin/session", json={"credential": "x"}).status_code == 404
 
@@ -201,7 +201,7 @@ def test_expired_session_falls_back_to_login(configured, monkeypatch):
 
 def test_changing_admin_email_invalidates_existing_session(configured, monkeypatch):
     login(monkeypatch)
-    monkeypatch.setenv("PICAI_ADMIN_EMAIL", "someone-else@gmail.com")
+    monkeypatch.setenv("AIPICDETECT_ADMIN_EMAIL", "someone-else@gmail.com")
     response = client.get("/admin")
     assert "g_id_signin" in response.text
 
@@ -305,7 +305,7 @@ def test_console_links_shown_only_on_cloud_run(configured, monkeypatch):
     response = client.get("/admin")
     assert "console.cloud.google.com" not in response.text
 
-    monkeypatch.setenv("K_SERVICE", "picai")
+    monkeypatch.setenv("K_SERVICE", "aipicdetect")
     monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "picai-260913")
     response = client.get("/admin")
     assert "console.cloud.google.com/run/detail" in response.text
@@ -318,7 +318,7 @@ def test_console_links_shown_only_on_cloud_run(configured, monkeypatch):
 def test_dashboard_renders_visitor_and_upload_numbers(configured, monkeypatch):
     from datetime import datetime, timezone
 
-    from picai import usage
+    from aipicdetect import usage
 
     report = usage.UsageReport(
         visitors=(usage.Visitors(7, 12, 40), usage.Visitors(30, 57, 190)),
@@ -340,7 +340,7 @@ def test_dashboard_renders_visitor_and_upload_numbers(configured, monkeypatch):
 
 
 def test_dashboard_shows_unavailable_when_usage_sources_fail(configured, monkeypatch):
-    from picai import usage
+    from aipicdetect import usage
 
     monkeypatch.setattr(
         admin, "usage_report", lambda: usage.UsageReport(None, "PermissionError: no", None, "timed out after 15s")
@@ -353,7 +353,7 @@ def test_dashboard_shows_unavailable_when_usage_sources_fail(configured, monkeyp
 
 
 def test_dashboard_says_so_when_there_are_no_uploads(configured, monkeypatch):
-    from picai import usage
+    from aipicdetect import usage
 
     empty = usage.Uploads(windows=(usage.UploadWindow(7, 0), usage.UploadWindow(30, 0)), clients=())
     monkeypatch.setattr(admin, "usage_report", lambda: usage.UsageReport(None, "off", empty, None))

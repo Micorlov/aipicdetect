@@ -3,9 +3,9 @@ from io import BytesIO
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from picai import server
-from picai.detect import Detector
-from picai.ratelimit import WINDOW_SECONDS, DailyQuota, QuotaSnapshot, client_address
+from aipicdetect import server
+from aipicdetect.detect import Detector
+from aipicdetect.ratelimit import WINDOW_SECONDS, DailyQuota, QuotaSnapshot, client_address
 
 import pytest
 

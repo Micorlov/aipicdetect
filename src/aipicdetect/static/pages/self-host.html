@@ -1,0 +1,35 @@
+<p class="intro">{{ENTITY}} Self-hosting means the server binds to your own machine, the model runs on your CPU, and no picture ever leaves your network. One Docker command or one <code>uv</code> command is enough.</p>
+
+<h2>Docker (recommended)</h2>
+<pre><code>docker run -p 8000:8000 -v aipicdetect-models:/data ghcr.io/micorlov/aipicdetect:latest</code></pre>
+<p>Open <code>http://127.0.0.1:8000</code>. The named volume keeps the downloaded model between restarts. The image is rebuilt from <a href="{{REPO_URL}}" rel="noopener">the GitHub repository</a> on every change to <code>main</code> and listens on all interfaces, so phones on the same Wi-Fi can reach it at <code>http://&lt;your-LAN-IP&gt;:8000</code>.</p>
+
+<h2>Python with uv</h2>
+<pre><code>git clone {{REPO_URL}}.git
+cd aipicdetect
+uv sync
+uv run aipicdetect serve            # binds to 127.0.0.1:8000
+uv run aipicdetect serve --host 0.0.0.0   # also reachable from your phone</code></pre>
+<p>Python 3.12 or newer is required. The first run downloads the detector model <code>{{MODEL}}</code> (about 750 MB) into the Hugging Face cache; the status pill in the top bar reads “Detector ready” once it is loaded. After that the server works offline.</p>
+
+<h2>Environment variables</h2>
+<table>
+  <thead><tr><th>Variable</th><th>Default</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><code>AIPICDETECT_DETECTOR_MODEL</code></td><td><code>{{MODEL}}</code></td><td>Any Hugging Face image-classification model whose labels name AI/fake vs. human/real content.</td></tr>
+    <tr><td><code>AIPICDETECT_DAILY_LIMIT</code></td><td><code>{{DAILY_LIMIT}}</code></td><td>Analyses allowed per client IP in a rolling 24-hour window; <code>0</code> disables the limit.</td></tr>
+    <tr><td><code>AIPICDETECT_PUBLIC_URL</code></td><td>request origin</td><td>Public origin used in canonical links, the sitemap and <code>llms.txt</code> when the app sits behind a proxy or custom domain.</td></tr>
+    <tr><td><code>AIPICDETECT_SKIP_WARMUP</code></td><td>unset</td><td>Set to <code>1</code> to skip loading the model at startup (used by the test suite).</td></tr>
+    <tr><td><code>HF_HOME</code></td><td><code>/data/hf</code> in Docker</td><td>Where the model cache lives.</td></tr>
+  </tbody>
+</table>
+
+<h2>Running it as a public service</h2>
+<p>The hosted instance runs on Google Cloud Run with 4 GiB of memory, two CPUs and a startup probe on <code>GET /ready</code>, which returns 503 until the model is loaded. Set <code>AIPICDETECT_PUBLIC_URL</code> to the public origin so search engines see one canonical host, and keep the daily limit on unless you want to pay for unlimited inference. The exact <code>gcloud run deploy</code> command is in the repository README.</p>
+
+<h2>Command-line tools</h2>
+<pre><code>uv run aipicdetect scrub photo.jpg              # writes photo.clean.jpg with no metadata
+uv run aipicdetect scrub photo.png --format webp --quality 90
+uv run aipicdetect inspect photo.clean.jpg      # lists EXIF/XMP/IPTC/C2PA/ICC blocks found
+uv run aipicdetect batch inbox clean --detect   # scrub a folder, score it, write clean/report.json</code></pre>
+<p>See the <a href="/api">HTTP API reference</a> for scripting against a running server, and the <a href="/privacy">privacy page</a> for what the hosted instance does with uploads.</p>

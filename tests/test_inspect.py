@@ -4,7 +4,7 @@ from io import BytesIO
 
 from PIL import Image, PngImagePlugin
 
-from picai.inspect import find_metadata, jpeg_app_markers
+from aipicdetect.inspect import find_metadata, jpeg_app_markers
 
 
 def _segment(marker: int, payload: bytes) -> bytes:

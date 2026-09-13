@@ -6,12 +6,12 @@ from html.parser import HTMLParser
 import pytest
 from fastapi.testclient import TestClient
 
-from picai import pages, server
-from picai.content.faq import FAQ_ALL, FAQ_HOME
-from picai.detect import Detector
+from aipicdetect import pages, server
+from aipicdetect.content.faq import FAQ_ALL, FAQ_HOME
+from aipicdetect.detect import Detector
 
 client = TestClient(server.app)
-PUBLIC = "https://picai.example"
+PUBLIC = "https://aipicdetect.example"
 
 
 @pytest.fixture(autouse=True)
@@ -22,7 +22,7 @@ def fake_detector(monkeypatch):
 
 @pytest.fixture
 def public_url(monkeypatch):
-    monkeypatch.setenv("PICAI_PUBLIC_URL", PUBLIC + "/")
+    monkeypatch.setenv("AIPICDETECT_PUBLIC_URL", PUBLIC + "/")
     return PUBLIC
 
 
@@ -79,20 +79,20 @@ def test_index_has_canonical_and_og_from_public_url(public_url):
     html = client.get("/").text
     assert f'<link rel="canonical" href="{public_url}/">' in html
     assert f'<meta property="og:url" content="{public_url}/">' in html
-    assert f'<meta property="og:image" content="{public_url}/static/og/picai-og.png">' in html
+    assert f'<meta property="og:image" content="{public_url}/static/og/aipicdetect-og.png">' in html
     assert '<meta name="twitter:card" content="summary_large_image">' in html
     assert 'name="robots" content="index, follow' in html
 
 
 def test_index_falls_back_to_request_origin_when_unset(monkeypatch):
-    monkeypatch.delenv("PICAI_PUBLIC_URL", raising=False)
+    monkeypatch.delenv("AIPICDETECT_PUBLIC_URL", raising=False)
     assert '<link rel="canonical" href="http://testserver/">' in client.get("/").text
 
 
 def test_verification_tags_only_when_configured(monkeypatch):
     assert "google-site-verification" not in client.get("/").text
-    monkeypatch.setenv("PICAI_GSC_VERIFICATION", "abc123")
-    monkeypatch.setenv("PICAI_BING_VERIFICATION", "bing456")
+    monkeypatch.setenv("AIPICDETECT_GSC_VERIFICATION", "abc123")
+    monkeypatch.setenv("AIPICDETECT_BING_VERIFICATION", "bing456")
     html = client.get("/").text
     assert '<meta name="google-site-verification" content="abc123">' in html
     assert '<meta name="msvalidate.01" content="bing456">' in html
@@ -100,7 +100,7 @@ def test_verification_tags_only_when_configured(monkeypatch):
 
 def test_analytics_tag_only_when_configured(monkeypatch):
     assert "googletagmanager.com" not in client.get("/").text
-    monkeypatch.setenv("PICAI_GA_MEASUREMENT_ID", "G-ABC123")
+    monkeypatch.setenv("AIPICDETECT_GA_MEASUREMENT_ID", "G-ABC123")
     html = client.get("/").text
     assert '<script async src="https://www.googletagmanager.com/gtag/js?id=G-ABC123"></script>' in html
     assert "gtag('config', 'G-ABC123');" in html
@@ -207,8 +207,8 @@ def test_assets_are_versioned_by_content_hash():
 
 
 def test_analytics_id_must_be_a_ga4_measurement_id(monkeypatch):
-    monkeypatch.setenv("PICAI_GA_MEASUREMENT_ID", "G-ABC123'); alert(1); //")
+    monkeypatch.setenv("AIPICDETECT_GA_MEASUREMENT_ID", "G-ABC123'); alert(1); //")
     with pytest.raises(ValueError):
         pages.analytics_tag()
-    monkeypatch.setenv("PICAI_GA_MEASUREMENT_ID", "G-ABC12345")
+    monkeypatch.setenv("AIPICDETECT_GA_MEASUREMENT_ID", "G-ABC12345")
     assert "gtag('config', 'G-ABC12345')" in pages.analytics_tag()

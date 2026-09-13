@@ -4,9 +4,9 @@ import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from picai import server
-from picai.detect import Detector
-from picai.inspect import find_metadata
+from aipicdetect import server
+from aipicdetect.detect import Detector
+from aipicdetect.inspect import find_metadata
 
 client = TestClient(server.app)
 
@@ -67,7 +67,7 @@ def test_download_unknown_id_is_404():
 def test_scrub_endpoint_still_returns_clean_image():
     response = client.post("/scrub", files={"file": ("photo.jpg", _jpeg_with_exif(), "image/jpeg")})
     assert response.status_code == 200
-    assert "EXIF" in response.headers["x-picai-removed"].split(",")
+    assert "EXIF" in response.headers["x-aipicdetect-removed"].split(",")
     assert find_metadata(response.content) == {}
 
 
