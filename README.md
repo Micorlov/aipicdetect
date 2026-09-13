@@ -1,18 +1,10 @@
----
-title: picai
-emoji: 🔍
-colorFrom: yellow
-colorTo: gray
-sdk: docker
-app_port: 8000
-pinned: false
----
-
 # picai
 
 Local web dashboard that scores a picture with an open-source AI-image detector and
 hands back a re-rendered copy with no C2PA, IPTC, XMP, EXIF or ICC metadata.
-(The YAML block above is Hugging Face Space metadata; GitHub shows it as a table.)
+
+Public instance: <https://picai-53480028562.europe-west1.run.app> (Cloud Run; the first
+visit after idle takes about a minute while the model loads).
 
 ## Run
 
@@ -54,31 +46,25 @@ System Settings → Wi-Fi → Details). The Docker image already listens on all 
 Set `PICAI_DETECTOR_MODEL` to any Hugging Face image-classification model whose labels
 name AI/fake vs. human/real content to swap the detector.
 
-## Public demo on Hugging Face Spaces
+## Deploying to Cloud Run
 
-The **Deploy to Hugging Face Space** workflow
-([deploy-space.yml](.github/workflows/deploy-space.yml)) pushes `main` to a Docker Space
-named `picai` under your Hugging Face account on every push, creating the Space on first
-run. One-time setup:
+The public instance runs on Google Cloud Run (project `picai-260913`, region
+`europe-west1`), built from the Dockerfile by Cloud Build. `GET /ready` returns 503 until
+the model is loaded; Cloud Run's startup probe waits on it so the model loads while the
+container still has full CPU. To redeploy after a change:
 
-1. Create a Hugging Face account and a **write** access token
-   (Settings → Access Tokens → New token).
-2. Add it to this repo as the `HF_TOKEN` secret:
+```bash
+gcloud run deploy picai --source . --project picai-260913 --region europe-west1 \
+  --allow-unauthenticated --memory 4Gi --cpu 2 --min-instances 0 --max-instances 1 \
+  --concurrency 4 --timeout 300 --cpu-boost --port 8000 \
+  --startup-probe httpGet.path=/ready,initialDelaySeconds=10,periodSeconds=10,timeoutSeconds=5,failureThreshold=24
+```
 
-   ```bash
-   gh secret set HF_TOKEN --repo Micorlov/picai
-   ```
-
-3. Push to `main` (or run the workflow from the Actions tab). The run summary links to
-   `https://huggingface.co/spaces/<your-hf-username>/picai`; the first build takes a few
-   minutes while the Space installs torch and downloads the model.
-
-The free CPU tier is enough for the detector. Spaces go to sleep after 48 h without
-visitors and wake on the next request.
+A ₪19/month budget with 50/90/100 % email alerts is attached to the project.
 
 ## GitHub Actions
 
-Three workflows run in the repo (plus the Space deploy above):
+Two workflows run in the repo:
 
 - **Process inbox** ([process-inbox.yml](.github/workflows/process-inbox.yml)).
   Drop images into `inbox/` and push to `main`. The workflow scrubs and scores each

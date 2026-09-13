@@ -79,6 +79,12 @@ def test_status_reports_unloaded_model(monkeypatch):
     assert client.get("/status").json() == {"model": "lazy/model", "model_loaded": False}
 
 
+def test_ready_is_503_until_model_loads(monkeypatch):
+    assert client.get("/ready").json() == {"ready": True}
+    monkeypatch.setattr(server, "get_detector", lambda: Detector(model_name="lazy/model"))
+    assert client.get("/ready").status_code == 503
+
+
 def test_index_page_references_analyze_and_download_flow():
     html = client.get("/").text
     assert "/static/app.js" in html and 'id="dropzone"' in html

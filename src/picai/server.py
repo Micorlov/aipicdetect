@@ -59,6 +59,13 @@ def status() -> dict[str, Any]:
     return {"model": detector.model_name, "model_loaded": detector.is_loaded}
 
 
+@app.get("/ready")
+def ready() -> dict[str, bool]:
+    if not get_detector().is_loaded:
+        raise HTTPException(status_code=503, detail="detector is still loading")
+    return {"ready": True}
+
+
 @app.post("/analyze")
 async def analyze(
     file: UploadFile = File(...),
