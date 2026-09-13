@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "picai",
+      "name": "aipicdetect",
       "runtimeExecutable": "uv",
-      "runtimeArgs": ["run", "picai", "serve", "--port", "8000"],
+      "runtimeArgs": ["run", "aipicdetect", "serve", "--port", "8000"],
       "port": 8000
     }
   ]

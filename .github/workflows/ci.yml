@@ -17,5 +17,5 @@ jobs:
         run: uv sync --frozen
       - name: Run tests
         env:
-          PICAI_SKIP_WARMUP: "1"
+          AIPICDETECT_SKIP_WARMUP: "1"
         run: uv run pytest -q
