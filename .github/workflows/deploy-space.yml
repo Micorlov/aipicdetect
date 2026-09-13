@@ -1,0 +1,54 @@
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  SPACE_NAME: picai
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - name: Check for HF_TOKEN
+        if: env.HF_TOKEN == ''
+        run: |
+          echo "::notice::HF_TOKEN secret is not set, skipping deploy. Add a Hugging Face write token as the HF_TOKEN repository secret to enable it."
+          echo "skip=true" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v4
+        if: env.skip != 'true'
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v5
+        if: env.skip != 'true'
+
+      - name: Create the Space if it does not exist
+        if: env.skip != 'true'
+        run: |
+          uv run --with huggingface_hub python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          user = api.whoami()["name"]
+          repo_id = f"{user}/{os.environ['SPACE_NAME']}"
+          api.create_repo(repo_id, repo_type="space", space_sdk="docker", exist_ok=True)
+          with open(os.environ["GITHUB_ENV"], "a") as env:
+              env.write(f"HF_USER={user}\nSPACE_URL=https://huggingface.co/spaces/{repo_id}\n")
+          print(f"Space ready: https://huggingface.co/spaces/{repo_id}")
+          EOF
+
+      - name: Push main to the Space
+        if: env.skip != 'true'
+        run: |
+          git push --force "https://${HF_USER}:${HF_TOKEN}@huggingface.co/spaces/${HF_USER}/${SPACE_NAME}" HEAD:main
+          echo "### Deployed to $SPACE_URL" >> "$GITHUB_STEP_SUMMARY"

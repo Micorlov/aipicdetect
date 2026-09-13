@@ -1,7 +1,18 @@
+---
+title: picai
+emoji: 🔍
+colorFrom: yellow
+colorTo: gray
+sdk: docker
+app_port: 8000
+pinned: false
+---
+
 # picai
 
 Local web dashboard that scores a picture with an open-source AI-image detector and
 hands back a re-rendered copy with no C2PA, IPTC, XMP, EXIF or ICC metadata.
+(The YAML block above is Hugging Face Space metadata; GitHub shows it as a table.)
 
 ## Run
 
@@ -43,9 +54,31 @@ System Settings → Wi-Fi → Details). The Docker image already listens on all 
 Set `PICAI_DETECTOR_MODEL` to any Hugging Face image-classification model whose labels
 name AI/fake vs. human/real content to swap the detector.
 
+## Public demo on Hugging Face Spaces
+
+The **Deploy to Hugging Face Space** workflow
+([deploy-space.yml](.github/workflows/deploy-space.yml)) pushes `main` to a Docker Space
+named `picai` under your Hugging Face account on every push, creating the Space on first
+run. One-time setup:
+
+1. Create a Hugging Face account and a **write** access token
+   (Settings → Access Tokens → New token).
+2. Add it to this repo as the `HF_TOKEN` secret:
+
+   ```bash
+   gh secret set HF_TOKEN --repo Micorlov/picai
+   ```
+
+3. Push to `main` (or run the workflow from the Actions tab). The run summary links to
+   `https://huggingface.co/spaces/<your-hf-username>/picai`; the first build takes a few
+   minutes while the Space installs torch and downloads the model.
+
+The free CPU tier is enough for the detector. Spaces go to sleep after 48 h without
+visitors and wake on the next request.
+
 ## GitHub Actions
 
-Two workflows run in the repo:
+Three workflows run in the repo (plus the Space deploy above):
 
 - **Process inbox** ([process-inbox.yml](.github/workflows/process-inbox.yml)).
   Drop images into `inbox/` and push to `main`. The workflow scrubs and scores each
