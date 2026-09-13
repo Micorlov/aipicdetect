@@ -18,7 +18,7 @@ from html import escape
 from pathlib import Path
 
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from aipicdetect.content import home as copy
 from aipicdetect.content.faq import FaqEntry
@@ -239,17 +239,6 @@ PAGES: tuple[Page, ...] = (
         priority=0.5,
     ),
     Page(
-        "api",
-        f"{copy.BRAND} API: Detect AI Images, Scrub Metadata with curl",
-        f"Reference for {copy.BRAND}'s HTTP API: POST /analyze for an AI likelihood plus metadata report, "
-        "POST /scrub for a clean re-rendered image, plus curl examples.",
-        f"{copy.BRAND} HTTP API",
-        "Developers",
-        ("TechArticle",),
-        nav_label="API",
-        priority=0.7,
-    ),
-    Page(
         "self-host",
         f"Self-Host {copy.BRAND}: AI Image Detector with Docker or uv",
         f"Run {copy.BRAND} on your own machine or server with one Docker command or with uv. Model "
@@ -275,6 +264,37 @@ PAGES: tuple[Page, ...] = (
 )
 HOME = PAGES[0]
 _PAGES_BY_PATH = {page.path: page for page in PAGES}
+_PAGE_SLUGS: frozenset[str] = frozenset(p.slug for p in PAGES)
+
+
+def locale_path(page: Page, locale: str) -> str:
+    """Canonical URL path for *page* in *locale*.
+
+    English stays at the root path; every other locale gets a ``/{locale}`` prefix so
+    each translation is a real indexable URL:  ``/es/``,  ``/he/faq``, etc.
+    """
+    if locale == DEFAULT_LOCALE:
+        return page.path
+    # Home page: "/es/" — all others: "/es/how-to-tell-…"
+    return f"/{locale}{page.path}"
+
+
+def render_hreflang(page: Page, origin: str) -> str:
+    """``<link rel=alternate hreflang=…>`` tags for all 30 supported locales plus x-default.
+
+    Returns an empty string for synthetic pages (e.g. the 404 page) that are not in
+    the registered page registry and should not have cross-locale annotations.
+    """
+    if page.slug not in _PAGE_SLUGS:
+        return ""
+    tags = [
+        f'<link rel="alternate" hreflang="{lc}" href="{escape(origin + locale_path(page, lc))}">'
+        for lc in SUPPORTED_LOCALES
+    ]
+    # x-default points to the English (root) URL
+    tags.append(f'<link rel="alternate" hreflang="x-default" href="{escape(origin + page.path)}">')
+    return "\n".join(tags)
+
 
 router = APIRouter(include_in_schema=False)
 
@@ -330,7 +350,12 @@ def render_head(page: Page, origin: str, locale: str) -> str:
         {
             "TITLE": escape(title),
             "DESCRIPTION": escape(description),
-            "CANONICAL": escape(f"{origin}{page.path}"),
+            # Canonical always points to the authoritative locale URL:
+            #   • English: {origin}/slug  (root path)
+            #   • Others:  {origin}/{locale}/slug
+            # This means a cookie-language user on "/" still sees the correct canonical.
+            "CANONICAL": escape(f"{origin}{locale_path(page, locale)}"),
+            "HREFLANG": render_hreflang(page, origin),
             "OG_IMAGE": escape(f"{origin}{OG_IMAGE_PATH}"),
             "OG_TYPE": "website" if page.is_home else "article",
             "VERIFICATION": verification_tags(),
@@ -395,14 +420,31 @@ def footer_links(locale: str) -> str:
     return "\n  ".join(links)
 
 
-def render_lang_switcher(current_locale: str) -> str:
+def render_lang_switcher(page: Page, current_locale: str) -> str:
+    """Language switcher widget.
+
+    The visible ``<select>`` lets JS-enabled users pick a language (``?lang=xx`` triggers a
+    server-side redirect to the locale-prefixed URL).  The hidden ``<nav>`` carries real
+    ``<a href>`` links so search engines discover every locale URL from every page.
+    """
     options = []
     for code in SUPPORTED_LOCALES:
         selected = " selected" if code == current_locale else ""
         options.append(f'<option value="{code}"{selected}>{escape(LOCALE_NAMES[code])}</option>')
+
+    locale_links = "".join(
+        f'<a href="{escape(locale_path(page, code))}" hreflang="{code}" lang="{code}">'
+        f"{escape(LOCALE_NAMES[code])}</a>"
+        for code in SUPPORTED_LOCALES
+    )
+
     return (
-        '<label class="lang-switcher"><span class="sr-only">Language</span>'
+        '<div class="lang-switcher">'
+        '<label class="lang-select"><span class="sr-only">Language</span>'
         f'<select onchange="location.search=\'?lang=\'+this.value">{"".join(options)}</select></label>'
+        # Visually hidden but present in the DOM so crawlers follow locale URLs.
+        f'<nav class="lang-links sr-only" aria-label="Available languages">{locale_links}</nav>'
+        "</div>"
     )
 
 
@@ -465,7 +507,7 @@ def body_values(page: Page, origin: str, locale: str = DEFAULT_LOCALE) -> dict[s
         "ASSET_V": ASSET_VERSION,
         "LANG": locale,
         "DIR": direction(locale),
-        "LANG_SWITCHER": render_lang_switcher(locale),
+        "LANG_SWITCHER": render_lang_switcher(page, locale),
         "FAQ_INTRO_SUFFIX": escape(t(locale, "page.faq.intro_suffix")),
         "FAQ_STILL_UNSURE_HTML": t(locale, "page.faq.still_unsure_html"),
         **_ui_values(locale),
@@ -494,17 +536,51 @@ def render_not_found(origin: str, locale: str) -> str:
 
 
 def _endpoint(page: Page):
-    def serve(request: Request) -> HTMLResponse:
-        locale = resolve_locale(request)
-        response = HTMLResponse(render_page(page, public_url(request), locale))
+    """Root-path endpoint (English canonical).
+
+    When ``?lang=xx`` is present, redirect 302 to the locale-prefixed URL and set the
+    language cookie.  Otherwise render with the request-resolved locale (cookie /
+    Accept-Language / default English) so returning visitors keep their preference.
+    """
+
+    def serve(request: Request):
         query_lang = request.query_params.get("lang")
         if query_lang in SUPPORTED_LOCALES:
-            response.set_cookie(LANG_COOKIE, query_lang, max_age=LANG_COOKIE_MAX_AGE, samesite="lax")
-        return response
+            target = locale_path(page, query_lang)
+            resp = RedirectResponse(target, status_code=302)
+            resp.set_cookie(LANG_COOKIE, query_lang, max_age=LANG_COOKIE_MAX_AGE, samesite="lax")
+            return resp
+        locale = resolve_locale(request)
+        return HTMLResponse(render_page(page, public_url(request), locale))
 
     serve.__name__ = f"page_{page.slug or 'home'}"
     return serve
 
 
+def _locale_endpoint(page: Page, url_locale: str):
+    """Locale-prefixed endpoint (e.g. ``/es/``, ``/he/faq``).
+
+    The locale is baked into the URL, so we use it directly rather than negotiating.
+    No ``?lang=`` redirect needed here — the URL itself is canonical for this locale.
+    """
+
+    def serve(request: Request) -> HTMLResponse:
+        return HTMLResponse(render_page(page, public_url(request), url_locale))
+
+    serve.__name__ = f"page_{page.slug or 'home'}_{url_locale}"
+    return serve
+
+
 for _page in PAGES:
+    # English root: /  /faq  /how-to-tell-…  etc.
     router.add_api_route(_page.path, _endpoint(_page), methods=["GET"], response_class=HTMLResponse)
+    # Locale prefixes: /es/  /es/faq  /he/  /he/how-to-tell-…  etc.
+    for _locale in SUPPORTED_LOCALES:
+        if _locale != DEFAULT_LOCALE:
+            _locale_route = f"/{_locale}{_page.path}"  # e.g. "/es/" or "/es/how-to-tell-…"
+            router.add_api_route(
+                _locale_route,
+                _locale_endpoint(_page, _locale),
+                methods=["GET"],
+                response_class=HTMLResponse,
+            )

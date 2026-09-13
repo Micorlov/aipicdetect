@@ -82,3 +82,104 @@ def test_llms_full_contains_every_page_heading_and_text(public_url):
 
 def test_llms_builder_is_pure():
     assert build_llms_txt("https://a.example") != build_llms_txt("https://b.example")
+
+
+# ─── Locale URL, hreflang and sitemap alternate tests ──────────────────────
+
+XHTML_NS = "http://www.w3.org/1999/xhtml"
+NS_FULL = {**NS, "xhtml": XHTML_NS}
+from aipicdetect.i18n import SUPPORTED_LOCALES
+from aipicdetect.pages import locale_path
+
+
+def test_sitemap_has_hreflang_alternates_for_every_locale(public_url):
+    """Every <url> in the sitemap must carry 30 xhtml:link alternate entries + x-default."""
+    root = ET.fromstring(client.get("/sitemap.xml").text)
+    urls = root.findall("sm:url", NS)
+    assert urls, "sitemap has no <url> entries"
+    for url_el in urls:
+        links = url_el.findall(f"{{{XHTML_NS}}}link")
+        hreflangs = {lnk.get("hreflang") for lnk in links}
+        assert hreflangs == set(SUPPORTED_LOCALES) | {"x-default"}, (
+            f"Missing hreflang values: {(set(SUPPORTED_LOCALES) | {'x-default'}) - hreflangs}"
+        )
+
+
+def test_sitemap_alternate_hrefs_use_locale_prefix(public_url):
+    """Spanish alternates should start with /es/; English with /."""
+    root = ET.fromstring(client.get("/sitemap.xml").text)
+    # Check the home page entry
+    home_url = next(
+        u for u in root.findall("sm:url", NS)
+        if u.find("sm:loc", NS).text == f"{PUBLIC}/"
+    )
+    links = {lnk.get("hreflang"): lnk.get("href") for lnk in home_url.findall(f"{{{XHTML_NS}}}link")}
+    assert links["en"] == f"{PUBLIC}/", "English alternate should be root"
+    assert links["es"] == f"{PUBLIC}/es/", "Spanish alternate should be /es/"
+    assert links["he"] == f"{PUBLIC}/he/", "Hebrew alternate should be /he/"
+    assert links["x-default"] == f"{PUBLIC}/", "x-default should be English root"
+
+
+def test_locale_home_route_returns_200(public_url):
+    """Every non-English locale home URL should respond 200."""
+    for locale in SUPPORTED_LOCALES:
+        if locale == "en":
+            continue
+        path = locale_path(pages.HOME, locale)
+        resp = client.get(path)
+        assert resp.status_code == 200, f"GET {path} returned {resp.status_code}"
+
+
+def test_locale_content_page_returns_200():
+    """A sample non-English locale prefix on a content page should respond 200."""
+    for locale in ("es", "he", "de", "ja"):
+        path = locale_path(pages.PAGES[1], locale)  # how-to-tell page
+        resp = client.get(path)
+        assert resp.status_code == 200, f"GET {path} returned {resp.status_code}"
+
+
+def test_locale_page_has_correct_lang_attribute():
+    """The <html lang=> on a locale-prefix page should match the URL locale."""
+    for locale in ("es", "he", "ar"):
+        path = locale_path(pages.HOME, locale)
+        resp = client.get(path)
+        assert f'lang="{locale}"' in resp.text, f"/html> lang attribute missing for {locale}"
+
+
+def test_locale_page_has_correct_canonical(public_url):
+    """The canonical on /es/ should point to {origin}/es/ not /."""
+    resp = client.get("/es/")
+    assert f'href="{PUBLIC}/es/"' in resp.text, "canonical should be the Spanish locale URL"
+
+
+def test_lang_query_param_redirects_to_locale_prefix():
+    """?lang=es on / should redirect 302 to /es/."""
+    resp = client.get("/?lang=es", follow_redirects=False)
+    assert resp.status_code == 302
+    assert resp.headers["location"] == "/es/"
+
+
+def test_lang_en_query_param_redirects_to_root():
+    """?lang=en should redirect to the English root /."""
+    resp = client.get("/faq?lang=en", follow_redirects=False)
+    assert resp.status_code == 302
+    assert resp.headers["location"] == "/faq"
+
+
+def test_hreflang_tags_present_on_home_page(public_url):
+    """The home page HTML must contain hreflang link tags for every locale."""
+    html = client.get("/").text
+    assert 'hreflang="es"' in html
+    assert 'hreflang="he"' in html
+    assert 'hreflang="x-default"' in html
+    # Every locale should appear
+    for lc in SUPPORTED_LOCALES:
+        assert f'hreflang="{lc}"' in html, f"Missing hreflang for {lc} on home page"
+
+
+def test_lang_switcher_has_crawler_links():
+    """The rendered home page should contain <a> links to locale URLs in the lang switcher."""
+    html = client.get("/").text
+    assert 'href="/es/"' in html, "Spanish locale link missing from lang switcher"
+    assert 'href="/he/"' in html, "Hebrew locale link missing from lang switcher"
+    assert 'class="lang-links' in html

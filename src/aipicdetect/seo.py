@@ -13,7 +13,8 @@ from fastapi.responses import FileResponse, PlainTextResponse, Response
 from aipicdetect.content import home as copy
 from aipicdetect.content.faq import FAQ_HOME
 from aipicdetect.detect import DEFAULT_MODEL
-from aipicdetect.pages import PAGES, STATIC_DIR, Page, body_values, public_url, render
+from aipicdetect.i18n import SUPPORTED_LOCALES
+from aipicdetect.pages import PAGES, STATIC_DIR, Page, body_values, locale_path, public_url, render
 
 AI_CRAWLERS = ("GPTBot", "OAI-SearchBot", "ClaudeBot", "anthropic-ai", "PerplexityBot", "Google-Extended", "CCBot", "Applebot-Extended")
 DISALLOWED = ("/analyze", "/scrub", "/download/", "/openapi.json", "/health", "/status", "/ready")
@@ -36,14 +37,29 @@ def robots(request: Request) -> PlainTextResponse:
 @router.get("/sitemap.xml")
 def sitemap(request: Request) -> Response:
     origin = public_url(request)
-    entries = "".join(
-        f"  <url><loc>{escape(origin + p.path)}</loc><lastmod>{p.lastmod.isoformat()}</lastmod>"
-        f"<priority>{p.priority:.1f}</priority></url>\n"
-        for p in PAGES
-    )
+
+    def _url_entry(p: Page) -> str:
+        # xhtml:link alternate for every supported locale + x-default
+        alternates = "".join(
+            f'    <xhtml:link rel="alternate" hreflang="{lc}"'
+            f' href="{escape(origin + locale_path(p, lc))}"/>\n'
+            for lc in SUPPORTED_LOCALES
+        )
+        alternates += f'    <xhtml:link rel="alternate" hreflang="x-default" href="{escape(origin + p.path)}"/>\n'
+        return (
+            "  <url>\n"
+            f"    <loc>{escape(origin + p.path)}</loc>\n"
+            f"    <lastmod>{p.lastmod.isoformat()}</lastmod>\n"
+            f"    <priority>{p.priority:.1f}</priority>\n"
+            f"{alternates}"
+            "  </url>\n"
+        )
+
+    entries = "".join(_url_entry(p) for p in PAGES)
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+        ' xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
         f"{entries}</urlset>\n"
     )
     return Response(content=xml, media_type="application/xml")
