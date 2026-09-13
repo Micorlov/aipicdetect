@@ -14,6 +14,7 @@ from typing import Any, AsyncIterator
 from fastapi import FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, Response
+from fastapi.staticfiles import StaticFiles
 from PIL import Image
 
 from picai.detect import DetectResult, get_detector
@@ -39,6 +40,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 
 app = FastAPI(title="picai", description="AI-image likelihood + metadata scrubbing", lifespan=lifespan)
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/", include_in_schema=False)

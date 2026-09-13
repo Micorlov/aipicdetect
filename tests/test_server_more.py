@@ -81,4 +81,17 @@ def test_status_reports_unloaded_model(monkeypatch):
 
 def test_index_page_references_analyze_and_download_flow():
     html = client.get("/").text
-    assert "/analyze" in html and "/status" in html and 'id="download"' in html
+    assert "/static/app.js" in html and 'id="dropzone"' in html
+    js = client.get("/static/app.js").text
+    assert "/analyze" in js and "/status" in js
+
+
+def test_static_assets_are_served():
+    css = client.get("/static/styles.css")
+    js = client.get("/static/app.js")
+    assert css.status_code == 200 and "text/css" in css.headers["content-type"]
+    assert js.status_code == 200 and "javascript" in js.headers["content-type"]
+
+
+def test_static_unknown_file_is_404():
+    assert client.get("/static/missing.js").status_code == 404

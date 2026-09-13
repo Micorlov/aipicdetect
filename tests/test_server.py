@@ -38,7 +38,7 @@ def test_index_serves_dashboard_page():
     response = client.get("/")
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert 'type="file"' in response.text and "/analyze" in response.text
+    assert 'type="file"' in response.text and "/static/app.js" in response.text
 
 
 def test_analyze_returns_detection_metadata_and_download_link():

@@ -11,15 +11,19 @@ uv run picai serve
 ```
 
 Open <http://127.0.0.1:8000>. The first run downloads the detector model
-(`Ateeqq/ai-vs-human-image-detector`, about 370 MB) into the Hugging Face cache; the
-page shows "detector ready" once it is loaded. Everything runs on this machine and the
-server binds to localhost only.
+(`haywoodsloan/ai-image-detector-deploy`, about 750 MB) into the Hugging Face cache; the
+status pill in the top bar shows "Detector ready" once it is loaded. Everything runs on
+this machine and the server binds to localhost only.
 
-Drop an image on the page to get:
+Drop, paste or pick an image on the page to get:
 
-- **AI Likelihood**, **Confidence** and **Classification** from the detector
-- the metadata blocks found in the upload (C2PA, IPTC, XMP, EXIF, ICC)
-- side-by-side original and clean re-render, plus a **Download clean copy** button
+- a verdict (**Likely AI-generated** / **Likely a real photo** / **Uncertain**), the AI
+  likelihood percentage, a confidence label and a probability meter
+- every metadata block found in the upload (EXIF, XMP, IPTC, C2PA, ICC) with the matched
+  signatures, plus the JPEG APP segments
+
+The web page is detection-only. Metadata scrubbing is still available through the CLI
+and the `POST /scrub` / `POST /analyze` API endpoints below.
 
 Set `PICAI_DETECTOR_MODEL` to any Hugging Face image-classification model whose labels
 name AI/fake vs. human/real content to swap the detector.
