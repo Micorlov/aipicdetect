@@ -15,7 +15,7 @@ from typing import Any, Callable
 
 from PIL import Image
 
-DEFAULT_MODEL = "Ateeqq/ai-vs-human-image-detector"
+DEFAULT_MODEL = "haywoodsloan/ai-image-detector-deploy"
 AI_LABEL_HINTS = ("ai", "fake", "artificial", "generated", "synthetic")
 HIGH_CONFIDENCE_MARGIN = 0.35  # |p - 0.5| above this -> High
 MEDIUM_CONFIDENCE_MARGIN = 0.15

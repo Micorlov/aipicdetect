@@ -102,3 +102,18 @@ def test_rejects_non_image_and_unknown_format():
         scrub_bytes(b"definitely not an image")
     with pytest.raises(UnsupportedImageError):
         scrub_bytes(_tagged_jpeg(), output_format="bmp")
+
+
+def test_scrub_bytes_decodes_heic():
+    # Arrange: a HEIC written by pillow-heif (registered on package import)
+    import picai  # noqa: F401  (registers the HEIF opener)
+
+    buffer = BytesIO()
+    Image.new("RGB", (64, 48), (10, 120, 200)).save(buffer, format="HEIF")
+
+    # Act
+    result = scrub_bytes(buffer.getvalue())
+
+    # Assert: it decoded and re-rendered (as JPEG, since HEIC is input-only) instead of raising
+    assert result.format == "JPEG"
+    assert Image.open(BytesIO(result.data)).size == (64, 48)
