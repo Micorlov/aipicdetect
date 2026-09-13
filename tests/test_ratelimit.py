@@ -1,0 +1,125 @@
+from io import BytesIO
+
+from fastapi.testclient import TestClient
+from PIL import Image
+
+from picai import server
+from picai.detect import Detector
+from picai.ratelimit import WINDOW_SECONDS, DailyQuota
+
+import pytest
+
+client = TestClient(server.app)
+
+
+def _png() -> bytes:
+    buffer = BytesIO()
+    Image.new("RGB", (8, 8), "red").save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+@pytest.fixture(autouse=True)
+def fake_detector(monkeypatch):
+    detector = Detector(model_name="fake/model", classifier=lambda image: [{"label": "ai", "score": 0.5}])
+    monkeypatch.setattr(server, "get_detector", lambda: detector)
+
+
+def _analyze(ip: str | None = None):
+    headers = {"X-Forwarded-For": ip} if ip else {}
+    return client.post("/analyze", files={"file": ("p.png", _png(), "image/png")}, headers=headers)
+
+
+# --- DailyQuota unit tests -------------------------------------------------
+
+
+def test_quota_counts_down_and_blocks_at_limit():
+    now = [1000.0]
+    quota = DailyQuota(limit=3, clock=lambda: now[0])
+
+    assert quota.check("a").remaining == 3
+    for expected in (2, 1, 0):
+        assert quota.check("a").allowed
+        assert quota.record("a").remaining == expected
+
+    blocked = quota.check("a")
+    assert not blocked.allowed
+    assert blocked.retry_after == WINDOW_SECONDS
+    assert blocked.headers() == {"X-RateLimit-Limit": "3", "X-RateLimit-Remaining": "0", "Retry-After": str(WINDOW_SECONDS)}
+
+
+def test_quota_window_slides_after_24_hours():
+    now = [0.0]
+    quota = DailyQuota(limit=2, clock=lambda: now[0])
+    quota.record("a")
+    now[0] = 3600
+    quota.record("a")
+    assert not quota.check("a").allowed
+
+    now[0] = WINDOW_SECONDS + 1  # first hit expired, second still counted
+    status = quota.check("a")
+    assert status.allowed and status.remaining == 1
+
+    now[0] = WINDOW_SECONDS + 3601
+    assert quota.check("a").remaining == 2
+
+
+def test_quota_keys_are_independent_and_reset_clears_all():
+    quota = DailyQuota(limit=1)
+    quota.record("a")
+    assert not quota.check("a").allowed
+    assert quota.check("b").allowed
+    quota.reset()
+    assert quota.check("a").allowed
+
+
+def test_quota_disabled_when_limit_is_zero():
+    quota = DailyQuota(limit=0)
+    for _ in range(50):
+        assert quota.record("a").allowed
+    assert not quota.enabled
+
+
+# --- Endpoint integration --------------------------------------------------
+
+
+def test_analyze_allows_ten_then_returns_429_for_same_ip():
+    for i in range(10):
+        response = _analyze("203.0.113.7")
+        assert response.status_code == 200, response.text
+        assert response.json()["quota"] == {"limit": 10, "remaining": 9 - i, "window_hours": 24}
+
+    blocked = _analyze("203.0.113.7")
+    assert blocked.status_code == 429
+    assert blocked.headers["X-RateLimit-Remaining"] == "0"
+    assert int(blocked.headers["Retry-After"]) > 0
+    assert "10 images per 24 hours" in blocked.json()["detail"]
+
+
+def test_other_ips_keep_their_own_quota():
+    for _ in range(10):
+        assert _analyze("203.0.113.7").status_code == 200
+    assert _analyze("203.0.113.7").status_code == 429
+    assert _analyze("198.51.100.2").status_code == 200
+    assert _analyze("198.51.100.2, 10.0.0.1").status_code == 200  # first hop wins
+
+
+def test_rejected_uploads_do_not_consume_quota():
+    for _ in range(10):
+        response = client.post("/analyze", files={"file": ("x.txt", b"not an image", "text/plain")},
+                               headers={"X-Forwarded-For": "203.0.113.9"})
+        assert response.status_code == 415
+    assert _analyze("203.0.113.9").status_code == 200
+
+
+def test_scrub_endpoint_is_not_rate_limited():
+    for _ in range(12):
+        assert client.post("/scrub", files={"file": ("p.png", _png(), "image/png")},
+                           headers={"X-Forwarded-For": "203.0.113.7"}).status_code == 200
+
+
+def test_quota_can_be_disabled(monkeypatch):
+    monkeypatch.setattr(server, "_quota", DailyQuota(limit=0))
+    for _ in range(12):
+        response = _analyze("203.0.113.7")
+        assert response.status_code == 200
+        assert response.json()["quota"] is None

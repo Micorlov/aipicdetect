@@ -46,6 +46,12 @@ System Settings → Wi-Fi → Details). The Docker image already listens on all 
 Set `PICAI_DETECTOR_MODEL` to any Hugging Face image-classification model whose labels
 name AI/fake vs. human/real content to swap the detector.
 
+`POST /analyze` is limited to 10 images per client IP in any rolling 24-hour window
+(the 11th request gets `429` with a `Retry-After` header). Set `PICAI_DAILY_LIMIT` to
+change the number, or to `0` to turn the limit off. The counter is in memory, so it
+resets when the process restarts, and behind Cloud Run the client IP is
+read from the first `X-Forwarded-For` hop.
+
 ## Deploying to Cloud Run
 
 The public instance runs on Google Cloud Run (project `picai-260913`, region

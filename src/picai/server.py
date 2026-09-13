@@ -11,7 +11,7 @@ from io import BytesIO
 from pathlib import Path
 from typing import Any, AsyncIterator
 
-from fastapi import FastAPI, File, HTTPException, Query, UploadFile
+from fastapi import FastAPI, File, HTTPException, Query, Request, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -19,6 +19,7 @@ from PIL import Image
 
 from picai.detect import DetectResult, get_detector
 from picai.inspect import find_metadata, jpeg_app_markers
+from picai.ratelimit import DailyQuota, QuotaStatus, client_address
 from picai.scrub import DEFAULT_JPEG_QUALITY, ScrubResult, UnsupportedImageError, scrub_bytes
 
 MAX_UPLOAD_BYTES = 50 * 1024 * 1024
@@ -26,6 +27,11 @@ RESULT_CACHE_LIMIT = 100
 STATIC_DIR = Path(__file__).parent / "static"
 INDEX_PAGE = STATIC_DIR / "index.html"
 FORMAT_PATTERN = "^(?i)(jpe?g|png|webp)$"
+DEFAULT_DAILY_LIMIT = 10
+# Analyses allowed per client IP in any rolling 24 h window; 0 disables the limit.
+DAILY_LIMIT = int(os.environ.get("PICAI_DAILY_LIMIT", DEFAULT_DAILY_LIMIT))
+
+_quota = DailyQuota(DAILY_LIMIT)
 
 # id -> (bytes, media type, download filename); newest last
 _results: OrderedDict[str, tuple[bytes, str, str]] = OrderedDict()
@@ -68,10 +74,13 @@ def ready() -> dict[str, bool]:
 
 @app.post("/analyze")
 async def analyze(
+    request: Request,
     file: UploadFile = File(...),
     format: str | None = Query(default=None, pattern=FORMAT_PATTERN),
     quality: int = Query(default=DEFAULT_JPEG_QUALITY, ge=1, le=100),
 ) -> dict[str, Any]:
+    client = client_address(request)
+    _enforce_quota(client)
     payload = await _read_upload(file)
     try:
         scrubbed = scrub_bytes(payload, format, quality)
@@ -82,6 +91,7 @@ async def analyze(
     stem = (file.filename or "image").rsplit(".", 1)[0]
     download_name = f"{stem}.clean{scrubbed.extension}"
     result_id = _store_result(scrubbed, download_name)
+    quota = _quota.record(client)
     return {
         "id": result_id,
         "download_url": f"/download/{result_id}",
@@ -93,6 +103,7 @@ async def analyze(
         },
         "input": _describe_input(payload),
         "output": {"bytes": len(scrubbed.data), "format": scrubbed.format, "media_type": scrubbed.media_type},
+        "quota": _quota_payload(quota),
     }
 
 
@@ -130,6 +141,24 @@ def download(result_id: str) -> Response:
         media_type=media_type,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+
+
+def _enforce_quota(client: str) -> None:
+    status = _quota.check(client)
+    if status.allowed:
+        return
+    hours = max(1, -(-status.retry_after // 3600))
+    raise HTTPException(
+        status_code=429,
+        detail=f"Daily limit reached: {status.limit} images per 24 hours. Try again in about {hours} h.",
+        headers=status.headers(),
+    )
+
+
+def _quota_payload(status: QuotaStatus) -> dict[str, Any] | None:
+    if not _quota.enabled:
+        return None
+    return {"limit": status.limit, "remaining": status.remaining, "window_hours": 24}
 
 
 async def _read_upload(file: UploadFile) -> bytes:

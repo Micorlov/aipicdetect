@@ -15,7 +15,7 @@
     error: $("error"), errorText: $("error-text"), errorClose: $("error-close"),
     loading: $("loading"), loadingName: $("loading-name"), result: $("result"),
     verdict: $("verdict"), percent: $("percent"), confidence: $("confidence"), marker: $("marker"),
-    model: $("model"), footerModel: $("footer-model"), preview: $("preview"),
+    model: $("model"), footerModel: $("footer-model"), footerQuota: $("footer-quota"), preview: $("preview"),
     previewFrame: $("preview").parentElement, previewCaption: $("preview-caption"),
     metadata: $("metadata"), segments: $("segments"), reset: $("reset"),
   };
@@ -129,6 +129,13 @@
     renderVerdict(r.detection);
     renderPreview(file, r.input);
     renderMetadata(r.metadata);
+    renderQuota(r.quota);
+  }
+
+  function renderQuota(q) {
+    if (!q) return;
+    el.footerQuota.textContent = `${q.remaining} of ${q.limit} analyses left today`;
+    el.footerQuota.hidden = false;
   }
 
   function renderVerdict(d) {
