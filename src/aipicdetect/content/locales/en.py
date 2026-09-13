@@ -25,10 +25,10 @@ _DETECT_SLUGS = ("upload", "detect", "decide")
 _SCRUB_SLUGS = ("inspect", "scrub", "verify")
 
 STRINGS: dict[str, str] = {
-    "page.home.title": "AiPicDetect — Open-Source AI Detector & Metadata Scrubber",
+    "page.home.title": "AiPicDetect — Free AI Image Detector & Metadata Scrubber",
     "page.home.description": (
-        "Check whether a picture is AI-generated with AiPicDetect, a free open-source detector. Use it in "
-        "the browser or on your own machine with Docker or Python."
+        "Check whether a picture is AI-generated with AiPicDetect, a free AI image detector. Get a "
+        "score, a confidence band, and a metadata report in your browser."
     ),
     "page.home.h1": "Is this photo real? Get the score and the proof.",
     "page.faq.title": "AI Image Detector FAQ: Accuracy, Privacy, Formats, Models",
@@ -42,9 +42,88 @@ STRINGS: dict[str, str] = {
         "happens to the images they upload."
     ),
     "page.faq.still_unsure_html": (
-        'Still unsure? Open an issue on <a href="https://github.com/Micorlov/aipicdetect/issues" '
-        'rel="noopener">GitHub</a>.'
+        "Still unsure? Run the same image through more than one detector before drawing a conclusion."
     ),
+    # ── Guide & product page meta (English baseline; non-English locales override these) ────────
+    "page.how-to-tell-if-an-image-is-ai-generated.title": "How to Tell If an Image Is AI-Generated (2026 Guide)",
+    "page.how-to-tell-if-an-image-is-ai-generated.description": (
+        "A practical checklist for spotting AI-generated images: visual tells, C2PA and EXIF "
+        "metadata, reverse image search, and how to read a detector score."
+    ),
+    "page.how-to-tell-if-an-image-is-ai-generated.h1": "How to tell if an image is AI-generated",
+    "page.how-accurate.title": "How Accurate Are AI Detectors? Reading an AiPicDetect Score",
+    "page.how-accurate.description": (
+        "AI image detectors give probabilities, not proof. How AiPicDetect turns classifier scores into "
+        "a percentage and confidence band, and where detectors fail."
+    ),
+    "page.how-accurate.h1": "How accurate is an AI image detector?",
+    "page.remove-image-metadata.title": "Remove EXIF, XMP, IPTC and C2PA Metadata from Images",
+    "page.remove-image-metadata.description": (
+        "Strip EXIF, XMP, IPTC, ICC and C2PA content credentials from JPEG, PNG, WebP and HEIC "
+        "files by re-rendering the pixels with AiPicDetect's free CLI or HTTP API."
+    ),
+    "page.remove-image-metadata.h1": "Remove all metadata from an image",
+    "page.c2pa.title": "C2PA Content Credentials: How to Check and Remove Them",
+    "page.c2pa.description": (
+        "What C2PA content credentials are, how AiPicDetect finds them next to EXIF, XMP, IPTC and ICC "
+        "blocks, and how re-rendering leaves every one of them behind."
+    ),
+    "page.c2pa.h1": "C2PA content credentials: what they are and how AiPicDetect handles them",
+    "page.privacy.title": "Privacy: What Happens to Images You Upload to AiPicDetect",
+    "page.privacy.description": (
+        "AiPicDetect processes uploads in memory, never writes them to disk, keeps scrubbed copies only "
+        "briefly and sends no image to any third-party service."
+    ),
+    "page.privacy.h1": "What happens to an image you upload",
+    "page.about.title": "About AiPicDetect: Author and Model Credits",
+    "page.about.description": (
+        "Who builds AiPicDetect and which open-source Hugging Face model powers the AI image "
+        "detector behind it."
+    ),
+    "page.about.h1": "About AiPicDetect",
+    "page.self-host.title": "Self-Host AiPicDetect: AI Image Detector with Docker or uv",
+    "page.self-host.description": (
+        "Run AiPicDetect on your own machine or server with one Docker command or with uv. Model "
+        "download size, environment variables, phone access and Cloud Run notes."
+    ),
+    "page.self-host.h1": "Run AiPicDetect on your own machine",
+    "page.detect-midjourney-images.title": "Detect Midjourney Images: Visual Tells and Metadata",
+    "page.detect-midjourney-images.description": (
+        "Identify Midjourney AI images by XMP prompt metadata, painterly skin texture, unusual bokeh, "
+        "and AiPicDetect pixel-level detector score."
+    ),
+    "page.detect-midjourney-images.h1": "How to detect Midjourney images",
+    "page.detect-dall-e-images.title": "Detect DALL-E Images: C2PA Credentials and Pixel Score",
+    "page.detect-dall-e-images.description": (
+        "DALL-E 3 images carry C2PA credentials signed by OpenAI — the strongest AI proof. "
+        "How to verify them and read the pixel-level detector score."
+    ),
+    "page.detect-dall-e-images.h1": "How to detect DALL-E images",
+    "page.detect-stable-diffusion-images.title": "Detect Stable Diffusion Images: Metadata and Pixel Score",
+    "page.detect-stable-diffusion-images.description": (
+        "Stable Diffusion PNGs often embed sampler metadata in PNG chunks. How to check ComfyUI "
+        "and A1111 outputs, use the AI detector, and spot each checkpoint."
+    ),
+    "page.detect-stable-diffusion-images.h1": "How to detect Stable Diffusion images",
+    "page.ai-detector-false-positives.title": "AI Detector False Positives: When Scores Can Be Wrong",
+    "page.ai-detector-false-positives.description": (
+        "AI image detectors return probabilities, not verdicts. When real photos score as AI and "
+        "AI images score as real — and how to interpret uncertain scores."
+    ),
+    "page.ai-detector-false-positives.h1": "When can an AI image detector be wrong?",
+    "page.view-exif-data.title": "View EXIF Data Online: Free Image Metadata Inspector",
+    "page.view-exif-data.description": (
+        "View EXIF, XMP, IPTC, ICC and C2PA metadata in any JPEG, PNG, WebP or HEIC file. "
+        "Free, no account, processed in the browser — nothing stored server-side."
+    ),
+    "page.view-exif-data.h1": "View the EXIF and metadata in an image",
+    "page.does-screenshot-remove-metadata.title": "Does a Screenshot Remove Metadata? EXIF, GPS, AI Proof",
+    "page.does-screenshot-remove-metadata.description": (
+        "Screenshots strip EXIF and C2PA from the original image but add new device metadata "
+        "from the capturing phone or PC. What this means for AI detection."
+    ),
+    "page.does-screenshot-remove-metadata.h1": "Does taking a screenshot remove image metadata?",
+    # ── Home-page copy ───────────────────────────────────────────────────────────────────────────
     "home.entity_sentence": ENTITY_SENTENCE,
     "home.lead": LEAD,
     "home.dropzone_note": DROPZONE_NOTE,
@@ -69,9 +148,10 @@ STRINGS: dict[str, str] = {
     "footer.privacy": "Privacy",
     "footer.self-host": "Self-host",
     "footer.about": "About",
+    "ui.source_on_github": "source on GitHub",
     "ui.nav_aria_label": "Main navigation",
     "ui.loading_status": "Loading detector…",
-    "ui.hero_overline": "— Open-source AI image forensics",
+    "ui.hero_overline": "— AI image forensics",
     "ui.hero_heading_line1": "Is this photo real?",
     "ui.hero_heading_line2": "Get the score and the proof.",
     "ui.tool_aria_label": "AI image detector",
@@ -109,17 +189,15 @@ STRINGS: dict[str, str] = {
     "ui.how_it_works_overline": "— How it works",
     "ui.how_it_works_heading": "Three steps. Nothing saved.",
     "ui.how_it_works_links_html": (
-        '<a href="/how-to-tell-if-an-image-is-ai-generated">Read the guide to spotting AI images</a> '
-        'or <a href="/self-host">run it on your own machine</a>.'
+        '<a href="/how-to-tell-if-an-image-is-ai-generated">Read the guide to spotting AI images</a>.'
     ),
     "ui.faq_overline": "— FAQ",
     "ui.faq_heading": "Before you ask.",
     "ui.faq_more_link": "More questions and answers →",
-    "ui.footer_tagline": "AiPicDetect. · open source",
+    "ui.footer_tagline": "AiPicDetect.",
     "ui.footer_detector_label": "Detector:",
     "ui.breadcrumb_aria_label": "Breadcrumb",
     "ui.last_updated_prefix": "Last updated",
-    "ui.source_on_github": "source on GitHub",
     "ui.btn_try_detector": "Try the detector",
     "ui.status_ready": "Detector ready",
     "ui.status_unreachable": "Server unreachable",

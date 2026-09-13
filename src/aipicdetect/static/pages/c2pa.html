@@ -14,4 +14,4 @@
 </ul>
 
 <h2>Removing C2PA and other metadata</h2>
-<p>Deleting a manifest tag by tag is fragile because each container has its own layout. AiPicDetect instead decodes the image to a pixel buffer, builds a brand-new image from that buffer alone and encodes it fresh, so the C2PA manifest, EXIF, XMP, IPTC and ICC blocks are never copied. The step-by-step commands are on the <a href="/remove-image-metadata">remove image metadata</a> page; the HTTP form is <code>POST /scrub</code> in the <a href="/api">API reference</a>.</p>
+<p>Deleting a manifest tag by tag is fragile because each container has its own layout. AiPicDetect instead decodes the image to a pixel buffer, builds a brand-new image from that buffer alone and encodes it fresh, so the C2PA manifest, EXIF, XMP, IPTC and ICC blocks are never copied. The step-by-step commands are on the <a href="/remove-image-metadata">remove image metadata</a> page; the HTTP form is <code>POST /scrub</code>.</p>

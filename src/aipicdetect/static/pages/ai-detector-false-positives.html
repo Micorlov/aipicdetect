@@ -1,0 +1,51 @@
+<p class="intro">AI image detectors produce probabilities, not verdicts. A "Likely AI" score can be wrong. Knowing when false positives and false negatives occur helps you interpret results correctly instead of over-relying on a single number.</p>
+
+<h2>What a detector score actually means</h2>
+<p>AiPicDetect's detector returns a percentage and a confidence band. A score of 82% means the model assigns roughly 82% probability that the image is AI-generated — it does not mean 82% of pixels are "fake". The <a href="/how-accurate">how-accurate page</a> explains the full interpretation. In practice:</p>
+<ul>
+  <li><strong>High confidence (&gt;90%)</strong>: almost certainly right, but not infallible.</li>
+  <li><strong>Medium (50–90%)</strong>: treat as one data point. Check metadata and apply visual inspection.</li>
+  <li><strong>Uncertain (&lt;50%)</strong>: the model genuinely cannot tell. Do not conclude either way from the score alone.</li>
+</ul>
+
+<h2>Common false positive scenarios (real photo scored as AI)</h2>
+<dl>
+  <dt>Heavy retouching and skin smoothing</dt>
+  <dd>Professional portrait retouching removes skin texture in ways that resemble AI synthesis. Heavy Photoshop retouching is one of the most frequent false-positive triggers.</dd>
+
+  <dt>Composite and product photography</dt>
+  <dd>Commercial product shots with uniform studio lighting, clean backgrounds, and perfectly matched colour grades score higher than snapshots because they share composition patterns with AI outputs.</dd>
+
+  <dt>HDR and tone-mapped photos</dt>
+  <dd>Aggressive HDR processing adds an "over-rendered" quality that looks similar to early diffusion model outputs.</dd>
+
+  <dt>Shallow depth of field from long lenses</dt>
+  <dd>Extreme bokeh from a 600mm telephoto or macro lens can resemble the soft, dreamy backgrounds Midjourney v5 produces.</dd>
+
+  <dt>Screenshots and re-saves</dt>
+  <dd>JPEG compression artefacts added by a screenshot tool can push scores in either direction by masking the original pixel distribution.</dd>
+</dl>
+
+<h2>Common false negative scenarios (AI image scored as real)</h2>
+<dl>
+  <dt>AI images passed through photo editors</dt>
+  <dd>Running a Midjourney output through Lightroom, adding film grain, and sharpening edges adds "real photo" signal that moves the score toward Uncertain.</dd>
+
+  <dt>Very recent model checkpoints</dt>
+  <dd>The training set lags the newest generators. Flux, SDXL turbo, and Midjourney v7 are harder for the underlying model because it has seen fewer examples.</dd>
+
+  <dt>Low-information crops</dt>
+  <dd>Cropping to a small texture patch (sky, fabric, grass) strips context that the model uses to make its prediction. Scores become unreliable on tight crops.</dd>
+
+  <dt>Anime and illustration styles</dt>
+  <dd>The training distribution is skewed toward photorealistic images. Stylized anime-style AI art is more likely to score Uncertain even though it is clearly AI-generated.</dd>
+</dl>
+
+<h2>What to do when the score surprises you</h2>
+<ol>
+  <li>Check the metadata panel in AiPicDetect. Metadata often tells you more than the score.</li>
+  <li>Run the four-step check from the <a href="/how-to-tell-if-an-image-is-ai-generated">main guide</a>: visual inspection, metadata, reverse image search, C2PA.</li>
+  <li>If the original file is available, upload that rather than a screenshot.</li>
+  <li>Treat any score between 40% and 85% as "uncertain" for high-stakes decisions.</li>
+</ol>
+<p><a href="/#tool" class="btn-inline">Run a check on your image →</a></p>

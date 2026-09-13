@@ -23,6 +23,22 @@ STRINGS: dict[str, str] = {
         'Ainda com dúvidas? Abra uma issue no <a href="https://github.com/Micorlov/aipicdetect/issues" '
         'rel="noopener">GitHub</a>.'
     ),
+    # ── Guide page meta ─────────────────────────────────────────────────────────────────────
+    "page.how-to-tell-if-an-image-is-ai-generated.title": 'Como saber se uma imagem foi feita por IA (Guia 2026)',
+    "page.how-to-tell-if-an-image-is-ai-generated.description": (
+        'Lista de verificação para detectar imagens geradas por IA: sinais visuais, metadados C2PA e EXIF, pesquisa reversa de imagens e como ler a pontuação do detector.'
+    ),
+    "page.how-to-tell-if-an-image-is-ai-generated.h1": 'Como saber se uma imagem foi gerada por IA',
+    "page.how-accurate.title": 'Quão precisos são os detectores de IA? Lendo uma pontuação do AiPicDetect',
+    "page.how-accurate.description": (
+        'Detectores de imagens de IA fornecem probabilidades, não provas. Como o AiPicDetect transforma pontuações do classificador em porcentagem e faixa de confiança.'
+    ),
+    "page.how-accurate.h1": 'Quão preciso é um detector de imagens de IA?',
+    "page.remove-image-metadata.title": 'Remover metadados EXIF, XMP, IPTC e C2PA de imagens',
+    "page.remove-image-metadata.description": (
+        'Remova EXIF, XMP, IPTC, ICC e credenciais de conteúdo C2PA de arquivos JPEG, PNG, WebP e HEIC re-renderizando os pixels com a CLI gratuita do AiPicDetect.'
+    ),
+    "page.remove-image-metadata.h1": 'Remover todos os metadados de uma imagem',
     "home.entity_sentence": (
         "O AiPicDetect é uma ferramenta gratuita e open source que avalia imagens geradas por IA e remove "
         "metadados ocultos — alojado ou autoalojado, a escolha é sua."

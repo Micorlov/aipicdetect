@@ -17,6 +17,22 @@ STRINGS: dict[str, str] = {
     "page.faq.intro_suffix": """AiPicDetectの仕組み、精度、アップロードした画像がどうなるかについて、よく寄せられる質問をまとめました。""",
     "page.faq.still_unsure_html": """まだ疑問がありますか？<a href="https://github.com/Micorlov/aipicdetect/issues" rel="noopener">GitHub</a>でissueを開いてください。""",
     # Home page copy
+    # ── Guide page meta ─────────────────────────────────────────────────────────────────────
+    "page.how-to-tell-if-an-image-is-ai-generated.title": 'AI生成画像の見分け方 — 実践ガイド2026',
+    "page.how-to-tell-if-an-image-is-ai-generated.description": (
+        'AI生成画像を見分けるための実践チェックリスト：視覚的な手がかり、C2PA・EXIFメタデータ、逆画像検索、そして検出スコアの読み方。'
+    ),
+    "page.how-to-tell-if-an-image-is-ai-generated.h1": 'AI生成画像の見分け方',
+    "page.how-accurate.title": 'AI画像検出の精度は？AiPicDetectスコアの読み方',
+    "page.how-accurate.description": (
+        'AI画像検出器は確率を示すものであり、証拠ではありません。AiPicDetectが分類スコアをパーセントと信頼帯に変換する仕組みと、検出器が失敗するケース。'
+    ),
+    "page.how-accurate.h1": 'AI画像検出器の精度はどのくらいですか？',
+    "page.remove-image-metadata.title": '画像からEXIF・XMP・IPTC・C2PAメタデータを削除する方法',
+    "page.remove-image-metadata.description": (
+        'AiPicDetectの無料CLIでJPEG、PNG、WebP、HEICファイルのEXIF、XMP、IPTC、ICC、C2PAコンテンツ資格情報をピクセル再レンダリングで削除。'
+    ),
+    "page.remove-image-metadata.h1": '画像からすべてのメタデータを削除する',
     "home.entity_sentence": """AiPicDetectは、AI生成画像にスコアを付け、隠れたメタデータを削除する無料のオープンソースツールです — ホスト版でもセルフホストでも、お好きな方を選べます。""",
     "home.lead": """AiPicDetectはオープンなAI検出モデルを実行し、写真が持つすべてのEXIF、C2PA、IPTCフィールドを読み取ります — そして、それらをすべて取り除いたクリーンなコピーを渡します。登録不要、ブラックボックスなし。""",
     "home.dropzone_note": """JPEG、PNG、WebP、HEIC・最大50 MB・メモリ内で処理され、ディスクには一切書き込まれません""",

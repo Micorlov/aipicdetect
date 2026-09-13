@@ -25,6 +25,27 @@ STRINGS: dict[str, str] = {
         '¿Aún tienes dudas? Abre un issue en <a href="https://github.com/Micorlov/aipicdetect/issues" '
         'rel="noopener">GitHub</a>.'
     ),
+    # ── Guide page meta ─────────────────────────────────────────────────────────────────────
+    "page.how-to-tell-if-an-image-is-ai-generated.title": 'Cómo saber si una imagen fue generada por IA (Guía 2026)',
+    "page.how-to-tell-if-an-image-is-ai-generated.description": (
+        'Lista de verificación para detectar imágenes generadas por IA: señales visuales, metadatos C2PA y EXIF, búsqueda inversa de imágenes y cómo leer la puntuación del detector.'
+    ),
+    "page.how-to-tell-if-an-image-is-ai-generated.h1": 'Cómo saber si una imagen fue generada por IA',
+    "page.how-accurate.title": '¿Cuán precisos son los detectores de IA? Cómo leer una puntuación de AiPicDetect',
+    "page.how-accurate.description": (
+        'Los detectores de imágenes de IA dan probabilidades, no veredictos. Cómo AiPicDetect convierte las puntuaciones del clasificador en un porcentaje y banda de confianza.'
+    ),
+    "page.how-accurate.h1": '¿Qué tan preciso es un detector de imágenes de IA?',
+    "page.remove-image-metadata.title": 'Eliminar metadatos EXIF, XMP, IPTC y C2PA de imágenes',
+    "page.remove-image-metadata.description": (
+        'Elimina EXIF, XMP, IPTC, ICC y credenciales de contenido C2PA de archivos JPEG, PNG, WebP y HEIC volviendo a renderizar los píxeles con la CLI gratuita de AiPicDetect.'
+    ),
+    "page.remove-image-metadata.h1": 'Eliminar todos los metadatos de una imagen',
+    "page.privacy.title": 'Privacidad: qué ocurre con las imágenes que subes a AiPicDetect',
+    "page.privacy.description": (
+        'AiPicDetect procesa las subidas en memoria, nunca las escribe en disco, conserva las copias limpias solo brevemente y no envía ninguna imagen a servicios de terceros.'
+    ),
+    "page.privacy.h1": 'Qué ocurre con una imagen que subes',
     "home.entity_sentence": (
         "AiPicDetect es una herramienta gratuita y de código abierto que puntúa imágenes generadas por IA "
         "y elimina los metadatos ocultos — alojada o autoalojada, tú eliges."

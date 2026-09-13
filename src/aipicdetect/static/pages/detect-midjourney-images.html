@@ -1,0 +1,38 @@
+<p class="intro">Midjourney images have a distinctive look and leave specific metadata traces. Knowing what to look for — and why pixel-level detectors sometimes miss them — makes identification much more reliable.</p>
+
+<h2>Visual characteristics of Midjourney images</h2>
+<p>Midjourney produces highly stylized, painterly results. Common tells include:</p>
+<ul>
+  <li><strong>Hyper-realistic skin</strong> with an airbrushed, pore-free quality unlike any camera.</li>
+  <li><strong>Ornate, symmetrical compositions</strong> — Midjourney tends to centre subjects and add elaborate backgrounds.</li>
+  <li><strong>Unusual bokeh</strong>: soft, dreamy out-of-focus areas that don't match the apparent lens.</li>
+  <li><strong>Warped or absent text</strong>: signs, labels and badges are the most reliable visual tell in Midjourney v5 and earlier; v6 improved text but still produces subtle errors.</li>
+  <li><strong>Hands and fingers</strong>: Midjourney has improved significantly since v5, but merged or extra fingers still appear under unusual angles.</li>
+</ul>
+<p>None of these alone is conclusive. Recent versions (v6 and Niji 6) are substantially harder to spot by eye.</p>
+
+<h2>Metadata traces</h2>
+<p>Midjourney images served directly from their CDN carry minimal EXIF, but the XMP block often contains the prompt text or a Midjourney job ID. Upload the file to <a href="/#tool">AiPicDetect</a> and open the metadata panel — if you see an <code>xmp:Description</code> or <code>Iptc4xmpCore</code> field referencing "Midjourney", that is near-conclusive evidence.</p>
+<p>Midjourney does not (as of 2026) sign C2PA content credentials on standard image exports, so the absence of a C2PA block tells you nothing about origin.</p>
+
+<h2>Using AiPicDetect on Midjourney images</h2>
+<p>The underlying model was trained on a broad mix of AI generators. Midjourney tends to score High-confidence AI on direct exports. However:</p>
+<ul>
+  <li>Screenshots and re-uploads reduce the score — JPEG compression artifacts add "real-photo" signal.</li>
+  <li>Heavily edited Midjourney images (composited, run through photo editors) may score Uncertain.</li>
+  <li>A Medium or Uncertain score on a visually suspicious image should be treated as a hint, not clearance.</li>
+</ul>
+<p>For the most reliable result, upload the <em>original</em> file rather than a screenshot. If you only have a screenshot, run all four checks from the <a href="/how-to-tell-if-an-image-is-ai-generated">main guide</a>.</p>
+
+<h2>Quick reference</h2>
+<table>
+  <thead><tr><th>Signal</th><th>Weight for Midjourney</th></tr></thead>
+  <tbody>
+    <tr><td>XMP prompt or job-ID field present</td><td>Strong</td></tr>
+    <tr><td>High-confidence AiPicDetect score on original file</td><td>Strong</td></tr>
+    <tr><td>Painterly skin, centred composition, unusual bokeh</td><td>Supporting</td></tr>
+    <tr><td>Warped text or off-count fingers</td><td>Supporting (weaker on v6)</td></tr>
+    <tr><td>Screenshot, no original available</td><td>Inconclusive without metadata</td></tr>
+  </tbody>
+</table>
+<p><a href="/#tool" class="btn-inline">Try the detector on your image →</a></p>

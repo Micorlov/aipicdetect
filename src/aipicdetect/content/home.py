@@ -19,7 +19,7 @@ ENTITY_SENTENCE = (
 SUMMARY = (
     f"{ENTITY_SENTENCE} It scores how likely a picture was produced by an AI generator using an "
     "open Hugging Face classifier, and can re-render images to strip EXIF, XMP, IPTC, ICC and "
-    "C2PA metadata. Use the hosted instance or self-host with Docker or Python."
+    "C2PA metadata. Use the hosted instance in your browser."
 )
 LEAD = (
     f"{BRAND} runs an open AI-detection model and reads every EXIF, C2PA, and IPTC field a photo "
@@ -37,8 +37,8 @@ class Step:
 DETECT_STEPS: tuple[Step, ...] = (
     Step(
         "Upload.",
-        f"Drop, paste or pick a picture. It is sent to the {BRAND} server you are using (your own "
-        "machine when self-hosted), held in memory and never written to disk.",
+        f"Drop, paste or pick a picture. It is sent to the {BRAND} server, held in memory and "
+        "never written to disk.",
     ),
     Step("Detect.", "An open-source image classifier scores how likely the pixels were produced by a generator."),
     Step(
@@ -49,13 +49,13 @@ DETECT_STEPS: tuple[Step, ...] = (
 )
 
 SCRUB_STEPS: tuple[Step, ...] = (
-    Step("Inspect.", "Run <code>aipicdetect inspect photo.jpg</code> to list the EXIF, XMP, IPTC, C2PA and ICC blocks the file carries."),
+    Step("Inspect.", "The metadata panel lists every EXIF, XMP, IPTC, C2PA and ICC block the file carries."),
     Step(
         "Scrub.",
-        f"Run <code>aipicdetect scrub photo.jpg</code> (or <code>POST /scrub</code>). {BRAND} decodes the pixels, "
+        f"Use <em>Download clean copy</em> (or <code>POST /scrub</code>). {BRAND} decodes the pixels, "
         "applies the EXIF orientation, and builds a brand-new image from the raw pixel buffer.",
     ),
-    Step("Verify.", "Run <code>aipicdetect inspect photo.clean.jpg</code>; it should print “no metadata signatures found”."),
+    Step("Verify.", "Upload the clean copy again; it should report no metadata signatures found."),
 )
 
 STATS = (

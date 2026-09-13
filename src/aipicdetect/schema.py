@@ -58,7 +58,7 @@ def software_version() -> str | None:
 
 
 def person() -> dict[str, Any]:
-    return {"@type": "Person", "name": copy.AUTHOR, "url": copy.REPO_URL}
+    return {"@type": "Person", "name": copy.AUTHOR}
 
 
 def website(origin: str) -> dict[str, Any]:
@@ -76,8 +76,6 @@ def software_application(origin: str, locale: str) -> dict[str, Any]:
         "operatingSystem": "Web, Linux, macOS, Windows",
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
         "isAccessibleForFree": True,
-        "license": copy.LICENSE_URL,
-        "codeRepository": copy.REPO_URL,
         "author": person(),
         "isBasedOn": MODEL_URL,
     }

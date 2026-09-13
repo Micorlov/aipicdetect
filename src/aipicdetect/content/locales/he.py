@@ -25,6 +25,22 @@ STRINGS: dict[str, str] = {
         'עדיין לא בטוחים? פתחו issue ב-<a href="https://github.com/Micorlov/aipicdetect/issues" '
         'rel="noopener">GitHub</a>.'
     ),
+    # ── Guide page meta ─────────────────────────────────────────────────────────────────────
+    "page.how-to-tell-if-an-image-is-ai-generated.title": 'איך לדעת אם תמונה נוצרה ב-AI (מדריך 2026)',
+    "page.how-to-tell-if-an-image-is-ai-generated.description": (
+        'רשימת בדיקה מעשית לזיהוי תמונות שנוצרו בבינה מלאכותית: סימנים ויזואליים, מטא-דאטה C2PA ו-EXIF, חיפוש תמונות הפוך וקריאת ציון הגלאי.'
+    ),
+    "page.how-to-tell-if-an-image-is-ai-generated.h1": 'איך לדעת אם תמונה נוצרה ב-AI',
+    "page.how-accurate.title": 'כמה מדויקים גלאי AI? קריאת ציון AiPicDetect',
+    "page.how-accurate.description": (
+        'גלאי תמונות AI נותנים הסתברויות, לא הוכחות. כיצד AiPicDetect הופך ציוני מסווג לאחוז ורצועת ביטחון, ואיפה הגלאים נכשלים.'
+    ),
+    "page.how-accurate.h1": 'כמה מדויק גלאי תמונות AI?',
+    "page.remove-image-metadata.title": 'הסרת מטא-דאטה EXIF, XMP, IPTC ו-C2PA מתמונות',
+    "page.remove-image-metadata.description": (
+        'מחק EXIF, XMP, IPTC, ICC ואישורי תוכן C2PA מקובצי JPEG, PNG, WebP ו-HEIC על-ידי רינדור מחדש של הפיקסלים עם הכלי החינמי AiPicDetect.'
+    ),
+    "page.remove-image-metadata.h1": 'הסרת כל המטא-דאטה מתמונה',
     "home.entity_sentence": (
         "AiPicDetect הוא כלי חינמי בקוד פתוח שמדרג תמונות שנוצרו בבינה מלאכותית ומסיר מטא-דאטה נסתרת — "
         "מתארח או באירוח עצמי, הבחירה בידיכם."

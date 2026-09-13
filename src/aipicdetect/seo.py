@@ -101,8 +101,8 @@ def _header(origin: str) -> list[str]:
         "",
         f"> {summary}",
         "",
-        f"Author: {copy.AUTHOR}. Source: {copy.REPO_URL} ({copy.LICENSE_NAME}). "
-        f"Default model: {DEFAULT_MODEL}. Last updated: {max(p.lastmod for p in PAGES).isoformat()}.",
+        f"Author: {copy.AUTHOR}. Default model: {DEFAULT_MODEL}. "
+        f"Last updated: {max(p.lastmod for p in PAGES).isoformat()}.",
         "",
     ]
 

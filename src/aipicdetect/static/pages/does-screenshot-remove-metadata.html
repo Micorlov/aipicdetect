@@ -1,0 +1,27 @@
+<p class="intro">Taking a screenshot of a photo does strip most metadata — but not completely, and not in the way most people assume. Here is exactly what a screenshot removes, what it preserves, and what it adds.</p>
+
+<h2>What a screenshot removes</h2>
+<p>When you screenshot an image displayed on screen, the screenshot tool captures raw pixels from the display buffer. It does not copy the source file. As a result, the screenshot contains <strong>no EXIF, XMP, IPTC, or C2PA data</strong> from the original image. GPS coordinates, camera model, shutter speed, copyright fields, AI-generation provenance — all gone.</p>
+<p>This is why screenshots are frequently used to "launder" AI-generated images: a Midjourney image screenshotted on an iPhone loses the XMP prompt data and any detector fingerprint. The resulting PNG looks like a photo taken on that phone.</p>
+
+<h2>What a screenshot adds</h2>
+<p>The screenshot file itself is not metadata-free. Depending on the platform:</p>
+<ul>
+  <li><strong>iOS (iPhone/iPad)</strong>: adds EXIF <code>Make: Apple</code>, <code>Model: iPhone XX</code>, the current date and time, and (if Location Services are on for screenshots) GPS coordinates of where the screenshot was taken.</li>
+  <li><strong>macOS</strong>: adds <code>Make: Apple</code>, <code>Model: MacBook…</code> (or equivalent), creation timestamp, and the screen's ICC colour profile.</li>
+  <li><strong>Android</strong>: adds device make and model, timestamp, and sometimes GPS if the screenshots app has location access.</li>
+  <li><strong>Windows</strong>: minimal metadata, typically just a creation timestamp in the file system.</li>
+</ul>
+
+<h2>Screenshots and AI detection</h2>
+<p>JPEG compression and colour-space conversion during screenshot capture change the pixel-level statistics that AI detectors rely on. Uploading a screenshot of an AI image typically lowers the AiPicDetect confidence score compared to uploading the original file. This does not mean the image is real — it means the detector has less signal to work with.</p>
+<p>For accurate AI detection, always prefer the original file. If only a screenshot is available:</p>
+<ol>
+  <li>Check the screenshot's own metadata — the device and timestamp may still be informative.</li>
+  <li>Use visual inspection alongside the detector score.</li>
+  <li>Run a reverse image search — the original source may still be indexable.</li>
+</ol>
+
+<h2>Does removing metadata from the original prevent detection?</h2>
+<p>No. <a href="/remove-image-metadata">Stripping metadata</a> removes file-level tags; it does not change the pixels. A metadata-scrubbed AI image still scores AI on a pixel-level detector. Only re-rendering (such as passing the image through a diffusion inpainting model) would change the pixel signature, and even that is not guaranteed to fool a modern detector.</p>
+<p><a href="/#tool" class="btn-inline">Check a screenshot for AI origin →</a></p>

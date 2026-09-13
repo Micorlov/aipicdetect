@@ -153,10 +153,22 @@ def test_direction_is_ltr_for_default_locale():
 
 
 def test_all_locales_have_the_same_keys_as_english():
-    # Arrange
-    english_keys = set(import_module("aipicdetect.content.locales.en").STRINGS)
+    """All locales must define every core key that English defines.
 
-    # Act / Assert
+    Page-meta keys for non-home/faq pages (page.<slug>.title/description/h1) are
+    intentionally optional: missing keys fall back to the English value via t().
+    """
+    import re as _re
+    _optional_pattern = _re.compile(r"^page\.(?!home\.|faq\.).")
+    english_strings = import_module("aipicdetect.content.locales.en").STRINGS
+    required_keys = {k for k in english_strings if not _optional_pattern.match(k)}
+
     for locale in SUPPORTED_LOCALES:
         keys = set(import_module(f"aipicdetect.content.locales.{locale}").STRINGS)
-        assert keys == english_keys, f"{locale} has missing={english_keys - keys} extra={keys - english_keys}"
+        all_en_keys = set(english_strings)
+        # Must have all required (non-optional) English keys
+        missing_required = required_keys - keys
+        assert not missing_required, f"{locale} missing required keys: {missing_required}"
+        # Must not define keys that English does not have
+        extra = keys - all_en_keys
+        assert not extra, f"{locale} has extra keys not in English: {extra}"

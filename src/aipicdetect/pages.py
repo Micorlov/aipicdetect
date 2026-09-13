@@ -97,7 +97,6 @@ _UI_TEXT_KEYS: dict[str, str] = {
     "FOOTER_DETECTOR_LABEL": "ui.footer_detector_label",
     "BREADCRUMB_ARIA_LABEL": "ui.breadcrumb_aria_label",
     "LAST_UPDATED_PREFIX": "ui.last_updated_prefix",
-    "SOURCE_ON_GITHUB": "ui.source_on_github",
     "BTN_TRY_DETECTOR": "ui.btn_try_detector",
 }
 _UI_HTML_KEYS: dict[str, str] = {
@@ -165,9 +164,9 @@ class Page:
 PAGES: tuple[Page, ...] = (
     Page(
         "",
-        f"{copy.BRAND} — Open-Source AI Detector & Metadata Scrubber",
-        f"Check whether a picture is AI-generated with {copy.BRAND}, a free open-source detector. Use it in "
-        "the browser or on your own machine with Docker or Python.",
+        f"{copy.BRAND} — Free AI Image Detector & Metadata Scrubber",
+        f"Check whether a picture is AI-generated with {copy.BRAND}, a free AI image detector. Get a "
+        "score, a confidence band, and a metadata report in your browser.",
         "Is this photo real? Get the score and the proof.",
         "Product",
         ("WebSite", "SoftwareApplication", "FAQPage", "HowTo"),
@@ -186,7 +185,7 @@ PAGES: tuple[Page, ...] = (
     ),
     Page(
         "how-accurate",
-        f"How Accurate Are AI Detectors? Reading a {copy.BRAND} Score",
+        f"How Accurate Are AI Detectors? Reading an {copy.BRAND} Score",
         f"AI image detectors give probabilities, not proof. How {copy.BRAND} turns classifier scores into "
         "a percentage and confidence band, and where detectors fail.",
         "How accurate is an AI image detector?",
@@ -261,6 +260,60 @@ PAGES: tuple[Page, ...] = (
         footer_label="About",
         priority=0.4,
     ),
+    Page(
+        "detect-midjourney-images",
+        "Detect Midjourney Images: Visual Tells and Metadata",
+        "Identify Midjourney AI images by XMP prompt metadata, painterly skin texture, unusual bokeh, and AiPicDetect pixel-level detector score.",
+        "How to detect Midjourney images",
+        "Guides",
+        ("Article",),
+        priority=0.7,
+    ),
+    Page(
+        "detect-dall-e-images",
+        "Detect DALL-E Images: C2PA Credentials and Pixel Score",
+        "DALL-E 3 images carry C2PA credentials signed by OpenAI — the strongest AI proof. How to verify them and read the pixel-level detector score.",
+        "How to detect DALL-E images",
+        "Guides",
+        ("Article",),
+        priority=0.7,
+    ),
+    Page(
+        "detect-stable-diffusion-images",
+        "Detect Stable Diffusion Images: Metadata and Pixel Score",
+        "Stable Diffusion PNGs often embed sampler metadata in PNG chunks. How to check ComfyUI and A1111 outputs, use the AI detector, and spot each checkpoint.",
+        "How to detect Stable Diffusion images",
+        "Guides",
+        ("Article",),
+        priority=0.7,
+    ),
+    Page(
+        "ai-detector-false-positives",
+        "AI Detector False Positives: When Scores Can Be Wrong",
+        "AI image detectors return probabilities, not verdicts. When real photos score as AI and AI images score as real — and how to interpret uncertain scores.",
+        "When can an AI image detector be wrong?",
+        "Guides",
+        ("Article",),
+        priority=0.7,
+    ),
+    Page(
+        "view-exif-data",
+        "View EXIF Data Online: Free Image Metadata Inspector",
+        "View EXIF, XMP, IPTC, ICC and C2PA metadata in any JPEG, PNG, WebP or HEIC file. Free, no account, processed in the browser — nothing stored server-side.",
+        "View the EXIF and metadata in an image",
+        "Guides",
+        ("HowTo",),
+        priority=0.8,
+    ),
+    Page(
+        "does-screenshot-remove-metadata",
+        "Does a Screenshot Remove Metadata? EXIF, GPS, AI Proof",
+        "Screenshots strip EXIF and C2PA from the original image but add new device metadata from the capturing phone or PC. What this means for AI detection.",
+        "Does taking a screenshot remove image metadata?",
+        "Guides",
+        ("Article", "FAQPage"),
+        priority=0.7,
+    ),
 )
 HOME = PAGES[0]
 _PAGES_BY_PATH = {page.path: page for page in PAGES}
@@ -332,11 +385,16 @@ def render(template: str, values: dict[str, str]) -> str:
 
 
 def localized_page_meta(page: Page, locale: str) -> tuple[str, str, str]:
-    """(title, description, h1) as they actually render: localized for home/faq, unchanged otherwise."""
-    if page.slug in ("", "faq"):
-        prefix = page.slug or "home"
+    """(title, description, h1) as they actually render: looked up from the locale table for every
+    page.  Falls back to the English Page-object value if the locale file has no entry for that
+    key (handled by :func:`~aipicdetect.content.locales.t`)."""
+    prefix = page.slug or "home"
+    title_key = f"page.{prefix}.title"
+    # Only look up locale strings when the English baseline exists; otherwise use the Page value.
+    from aipicdetect.content.locales import _TABLES  # local import to avoid circularity at module level
+    if title_key in _TABLES.get("en", {}):
         return (
-            t(locale, f"page.{prefix}.title"),
+            t(locale, title_key),
             t(locale, f"page.{prefix}.description"),
             t(locale, f"page.{prefix}.h1"),
         )
@@ -416,7 +474,6 @@ def nav_links(current: Page, locale: str) -> str:
 
 def footer_links(locale: str) -> str:
     links = [f'<a href="{p.path}">{escape(t(locale, f"footer.{p.slug}"))}</a>' for p in PAGES if p.footer_label]
-    links.append(f'<a href="{copy.REPO_URL}" rel="noopener">GitHub</a>')
     return "\n  ".join(links)
 
 
@@ -500,7 +557,6 @@ def body_values(page: Page, origin: str, locale: str = DEFAULT_LOCALE) -> dict[s
         "MAX_UPLOAD_MB": str(MAX_UPLOAD_MB),
         "RESULT_CACHE_LIMIT": str(RESULT_CACHE_LIMIT),
         "DAILY_LIMIT": str(DEFAULT_DAILY_LIMIT),
-        "REPO_URL": copy.REPO_URL,
         "AUTHOR": escape(copy.AUTHOR),
         "LASTMOD": page.lastmod.isoformat(),
         "H1": escape(h1),
@@ -510,6 +566,8 @@ def body_values(page: Page, origin: str, locale: str = DEFAULT_LOCALE) -> dict[s
         "LANG_SWITCHER": render_lang_switcher(page, locale),
         "FAQ_INTRO_SUFFIX": escape(t(locale, "page.faq.intro_suffix")),
         "FAQ_STILL_UNSURE_HTML": t(locale, "page.faq.still_unsure_html"),
+        "REPO_URL": escape(copy.REPO_URL),
+        "SOURCE_ON_GITHUB": escape(t(locale, "ui.source_on_github")),
         **_ui_values(locale),
     }
     if page.is_home:

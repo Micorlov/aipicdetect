@@ -139,9 +139,10 @@ def test_every_registered_page_returns_html_200(public_url):
         assert response.status_code == 200, page.path
         assert "text/html" in response.headers["content-type"]
         html = response.text
-        assert f"<title>{escape(page.title)}</title>" in html
+        title, _, _ = pages.localized_page_meta(page, "en")
+        assert f"<title>{escape(title)}</title>" in html
         assert f'<link rel="canonical" href="{public_url}{page.path}">' in html
-        assert "localhost" not in html or page.slug in {"self-host", "privacy", "api", "faq"}
+        assert "localhost" not in html or page.slug in {"self-host", "privacy", "faq"}
 
 
 def test_interior_pages_have_breadcrumb_and_declared_schema(public_url):

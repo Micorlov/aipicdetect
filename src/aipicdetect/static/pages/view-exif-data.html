@@ -1,0 +1,32 @@
+<p class="intro">Upload any JPEG, PNG, WebP or HEIC file to view all of its embedded metadata — EXIF camera data, GPS coordinates, XMP copyright fields, IPTC captions, and C2PA content credentials — right in your browser, with nothing uploaded to a third-party server.</p>
+
+<h2>How to view the EXIF data in an image</h2>
+<ol>
+  <li>Open <a href="/#tool">AiPicDetect</a>.</li>
+  <li>Drag your image into the dropzone, paste it from the clipboard, or tap "Choose photo" on mobile.</li>
+  <li>Once the analysis completes, scroll to the <strong>Metadata</strong> section.</li>
+  <li>Every block found in the file is listed: EXIF, XMP, IPTC, ICC colour profile, C2PA content credentials, and JPEG APP segments.</li>
+</ol>
+<p>The metadata check takes under a second and runs entirely in the browser — your image is sent to the server only to run the AI detector, never to an external analytics service.</p>
+
+<h2>What each metadata type contains</h2>
+<dl>
+  <dt>EXIF</dt>
+  <dd>Camera make and model, lens, shutter speed, aperture, ISO, flash, orientation. Critically: GPS latitude and longitude if location sharing was enabled on the device that took the photo.</dd>
+
+  <dt>XMP</dt>
+  <dd>Adobe-defined fields used by Lightroom, Photoshop, and other editors: copyright notice, creator, rating, colour label, edit history, and — for AI-generated images — sometimes the prompt text.</dd>
+
+  <dt>IPTC</dt>
+  <dd>News-wire standard fields: byline, caption, keywords, city, country, copyright notice. Common in stock photos and news images.</dd>
+
+  <dt>ICC colour profile</dt>
+  <dd>The colour space embedded by the camera or editor (sRGB, Adobe RGB, Display P3). Not privacy-sensitive, but present in nearly all photos.</dd>
+
+  <dt>C2PA content credentials</dt>
+  <dd>A cryptographically signed provenance record that says who created the content and with what tool. DALL-E 3, Adobe Firefly, and some cameras embed these. See <a href="/c2pa">the C2PA page</a> for details.</dd>
+</dl>
+
+<h2>Remove metadata after viewing</h2>
+<p>If you find GPS coordinates, camera serial numbers, or other sensitive fields you want removed, AiPicDetect can strip all metadata by re-rendering the image from its pixels. The clean copy is available to download immediately — no account required. See <a href="/remove-image-metadata">how metadata removal works</a>.</p>
+<p><a href="/#tool" class="btn-inline">View the EXIF data in your image →</a></p>

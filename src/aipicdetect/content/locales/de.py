@@ -23,6 +23,22 @@ STRINGS: dict[str, str] = {
         'Noch unsicher? Erstelle ein Issue auf <a href="https://github.com/Micorlov/aipicdetect/issues" '
         'rel="noopener">GitHub</a>.'
     ),
+    # ── Guide page meta ─────────────────────────────────────────────────────────────────────
+    "page.how-to-tell-if-an-image-is-ai-generated.title": 'Wie erkenne ich, ob ein Bild KI-generiert ist? (Leitfaden 2026)',
+    "page.how-to-tell-if-an-image-is-ai-generated.description": (
+        'Praxischeckliste zur Erkennung KI-generierter Bilder: visuelle Hinweise, C2PA- und EXIF-Metadaten, umgekehrte Bildersuche und Auswertung des Detektorwerts.'
+    ),
+    "page.how-to-tell-if-an-image-is-ai-generated.h1": 'Wie erkenne ich, ob ein Bild KI-generiert ist?',
+    "page.how-accurate.title": 'Wie genau sind KI-Bilddetektoren? Den AiPicDetect-Score verstehen',
+    "page.how-accurate.description": (
+        'KI-Bilddetektoren liefern Wahrscheinlichkeiten, keine Beweise. Wie AiPicDetect Klassifikatorwerte in Prozent und Konfidenzband umrechnet und wo Detektoren versagen.'
+    ),
+    "page.how-accurate.h1": 'Wie genau ist ein KI-Bilddetektor?',
+    "page.remove-image-metadata.title": 'EXIF-, XMP-, IPTC- und C2PA-Metadaten aus Bildern entfernen',
+    "page.remove-image-metadata.description": (
+        'Entfernen Sie EXIF, XMP, IPTC, ICC und C2PA Content Credentials aus JPEG-, PNG-, WebP- und HEIC-Dateien durch Neurendern der Pixel mit der kostenlosen AiPicDetect-CLI.'
+    ),
+    "page.remove-image-metadata.h1": 'Alle Metadaten aus einem Bild entfernen',
     "home.entity_sentence": (
         "AiPicDetect ist ein kostenloses Open-Source-Tool, das KI-generierte Bilder bewertet und versteckte "
         "Metadaten entfernt — gehostet oder selbst gehostet, Sie haben die Wahl."

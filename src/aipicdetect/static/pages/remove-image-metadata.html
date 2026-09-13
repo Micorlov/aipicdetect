@@ -20,7 +20,7 @@ aipicdetect batch inbox clean --detect            # whole folder plus an AI-like
 
 <h2>Over HTTP</h2>
 <pre><code>curl -s -F "file=@photo.jpg" -o photo.clean.jpg "{{ORIGIN}}/scrub"</code></pre>
-<p>The response carries an <code>X-AiPicDetect-Removed</code> header naming the blocks found in the upload. <code>POST /analyze</code> does the same and adds an AI-likelihood score and a download link; see the <a href="/api">API reference</a>. On the hosted instance uploads are processed in memory only (<a href="/privacy">privacy</a>); for sensitive material, <a href="/self-host">run AiPicDetect locally</a>.</p>
+<p>The response carries an <code>X-AiPicDetect-Removed</code> header naming the blocks found in the upload. <code>POST /analyze</code> does the same and adds an AI-likelihood score and a download link. On the hosted instance uploads are processed in memory only (<a href="/privacy">privacy</a>); for sensitive material, <a href="/self-host">run AiPicDetect locally</a>.</p>
 
 <h2>Caveats</h2>
 <ul>

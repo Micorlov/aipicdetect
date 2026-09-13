@@ -31,6 +31,22 @@ STRINGS: dict[str, str] = {
         'rel="noopener">GitHub</a>.'
     ),
     # Home page copy
+    # ── Guide page meta ─────────────────────────────────────────────────────────────────────
+    "page.how-to-tell-if-an-image-is-ai-generated.title": 'Как понять, что картинка сгенерирована нейросетью (руководство 2026)',
+    "page.how-to-tell-if-an-image-is-ai-generated.description": (
+        'Практический чеклист для выявления изображений, созданных ИИ: визуальные признаки, метаданные C2PA и EXIF, обратный поиск изображений и интерпретация оценки детектора.'
+    ),
+    "page.how-to-tell-if-an-image-is-ai-generated.h1": 'Как понять, что изображение создано ИИ',
+    "page.how-accurate.title": 'Насколько точны детекторы ИИ? Как читать оценку AiPicDetect',
+    "page.how-accurate.description": (
+        'Детекторы ИИ-изображений дают вероятности, а не доказательства. Как AiPicDetect превращает оценки классификатора в процент и полосу доверия.'
+    ),
+    "page.how-accurate.h1": 'Насколько точен детектор изображений ИИ?',
+    "page.remove-image-metadata.title": 'Удалить EXIF, XMP, IPTC и C2PA метаданные из изображений',
+    "page.remove-image-metadata.description": (
+        'Удалите EXIF, XMP, IPTC, ICC и учётные данные C2PA из файлов JPEG, PNG, WebP и HEIC, перерендерив пиксели с помощью бесплатного инструмента AiPicDetect.'
+    ),
+    "page.remove-image-metadata.h1": 'Удалить все метаданные из изображения',
     "home.entity_sentence": (
         "AiPicDetect — бесплатный инструмент с открытым исходным кодом, который оценивает вероятность "
         "того, что изображение создано ИИ, и удаляет скрытые метаданные — облачная версия или "
