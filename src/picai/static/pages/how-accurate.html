@@ -1,30 +1,32 @@
-<p class="overline">— Accuracy</p>
-<h1>How accurate is an AI image detector?</h1>
-<p class="lead">Less than the marketing suggests, and picai is no exception. This page explains what the score means, where the model is likely to be wrong, and how to use the result responsibly.</p>
+<p class="intro">An AI image detector reports a probability, not proof. picai runs an open-source image classifier and turns its label scores into an AI likelihood between 0 and 100%, a classification (AI, Real or Uncertain) and a confidence band (High, Medium or Low). No detector, picai included, is reliable on every image, and a single score should never be treated as a verdict.</p>
 
-<h2>The score is a probability</h2>
-<p>The detector is an image classifier trained on pictures labelled "generated" or "real". For a new picture it outputs how strongly the pixels resemble each class. picai reports that as an AI likelihood from 0 to 100 percent, labels anything near the middle <em>Uncertain</em>, and attaches a confidence band. It never says "this is fake". A 90 percent score means the pixels look a lot like the generated images the model has seen, not that a court would agree.</p>
+<h2>How picai computes the score</h2>
+<p>The default model, <code>{{MODEL}}</code>, is a Hugging Face image-classification model. picai sums the probability mass of every label that names AI, fake, artificial, generated or synthetic content and divides by the total, giving the AI likelihood <em>p</em>.</p>
+<table>
+  <thead><tr><th>Distance of <em>p</em> from 50%</th><th>Classification</th><th>Confidence</th></tr></thead>
+  <tbody>
+    <tr><td>less than 10 points</td><td>Uncertain</td><td>Low</td></tr>
+    <tr><td>10–15 points</td><td>AI or Real</td><td>Low</td></tr>
+    <tr><td>15–35 points</td><td>AI or Real</td><td>Medium</td></tr>
+    <tr><td>35 points or more</td><td>AI or Real</td><td>High</td></tr>
+  </tbody>
+</table>
 
-<h2>What the benchmarks say</h2>
-<p>Independent evaluations paint a consistent picture: detectors do well on the generators they were trained against and degrade on newer ones. A 2025 benchmark of sixteen public detectors found average accuracy around three quarters on images from 2020 and 2021 generators, falling to well under half on 2024 models, and to a coin flip or worse on the latest commercial generators such as Flux and recent Midjourney versions. Commercial detectors that retrain continuously report much higher numbers on their own test sets; those numbers rarely transfer to images found in the wild.</p>
-<p>picai ships with an open-source model, <code>haywoodsloan/ai-image-detector-deploy</code>, chosen because it runs on a CPU and can be inspected. Expect it to be strongest on Stable Diffusion-era images and weakest on the newest generators. If a better open model appears, point <code>PICAI_DETECTOR_MODEL</code> at it: see <a href="/self-host">self-hosting</a>.</p>
-
-<h2>What makes results worse</h2>
+<h2>Where detectors fail</h2>
 <ul>
-  <li><strong>Re-encoding.</strong> Screenshots, messaging apps, social media uploads and heavy JPEG compression all erase the fine-grained patterns detectors rely on.</li>
-  <li><strong>Resizing and cropping.</strong> Small thumbnails carry little signal; tight crops remove context.</li>
-  <li><strong>Post-processing.</strong> Filters, grain, upscaling and editing an AI image in a photo editor push it toward "real"; heavy retouching of a real photo can push it toward "AI".</li>
-  <li><strong>Unusual subjects.</strong> Illustrations, renders, scans and medical or scientific imagery sit outside the training distribution.</li>
+  <li><strong>Newer generators.</strong> A classifier only knows the artefacts present in its training data. Images from generators released later can score as real.</li>
+  <li><strong>Re-encoding and resizing.</strong> Screenshots, social-media compression and upscaling blur the pixel-level traces the model relies on, pushing scores toward Uncertain.</li>
+  <li><strong>Non-photographic real images.</strong> Illustrations, 3D renders, HDR photos and heavily filtered pictures share statistics with generated images and can produce false positives.</li>
+  <li><strong>Small crops.</strong> Very small or heavily cropped images carry little evidence either way.</li>
 </ul>
+<p>Published evaluations of AI-image detectors consistently show accuracy dropping sharply on generators the detector was not trained on and after ordinary post-processing, so treat vendor accuracy figures as upper bounds measured on friendly data.</p>
 
 <h2>How to read a result</h2>
 <ol>
-  <li>Look at the confidence band before the number. <em>Low</em> or <em>Uncertain</em> means the model is guessing.</li>
-  <li>Check the <em>Metadata</em> card. A <a href="/c2pa">C2PA manifest</a> naming a generator, or a camera EXIF block with a plausible lens and exposure, is often more informative than the score.</li>
-  <li>Get a second opinion. Run the picture through another detector, and do a reverse image search to find the earliest copy.</li>
-  <li>Never act on a single score. Treat it as one signal among several, especially when the consequence is accusing someone of fabrication.</li>
+  <li>Treat High-confidence scores as a strong signal, Medium as a hint, and Uncertain as no information.</li>
+  <li>Check the metadata panel: <a href="/c2pa">C2PA content credentials</a> or generator-specific XMP tags are stronger evidence than any score.</li>
+  <li>Combine the score with context: source, reverse image search and the visual checks in the <a href="/how-to-tell-if-an-image-is-ai-generated">guide to spotting AI images</a>.</li>
+  <li>Never act on one score alone when the stakes are high.</li>
 </ol>
-
-<div class="callout"><p>Detectors are an arms race. A score that is reliable today can be meaningless after the next generator release. That is a reason to prefer open tools whose model you can see and replace, not a reason to trust any of them blindly.</p></div>
-
-<a class="btn-primary cta" href="/#tool">Try it on a picture</a>
+<div class="callout"><p>Detectors are an arms race: a score that is reliable today can be meaningless after the next generator release. That is a reason to prefer open tools whose model you can inspect and replace, not a reason to trust any of them blindly.</p></div>
+<p>You can swap the classifier for any Hugging Face image-classification model with <code>PICAI_DETECTOR_MODEL</code>; see <a href="/self-host">self-hosting</a>.</p>

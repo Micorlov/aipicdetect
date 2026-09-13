@@ -1,4 +1,4 @@
-/* Content pages (/self-host, /api, /c2pa, /how-accurate) — layered on styles.css */
+/* Content pages (everything registered in pages.py) — layered on styles.css */
 .doc { max-width: 720px; margin: 0 auto; padding: 32px 24px 72px; }
 .doc h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; letter-spacing: -.02em; margin: 6px 0 18px; }
 .doc h2 { font-size: 22px; margin: 44px 0 12px; }
@@ -32,3 +32,20 @@
   .doc-page .nav-links a { white-space: nowrap; }
   .doc-page .nav-links a:not(:last-child) { display: inline; font-size: 14px; }
 }
+
+.breadcrumb { display: flex; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.doc .intro { font-size: 17px; color: var(--text-2); }
+.doc h2 + p, .doc h2 + pre, .doc h2 + ul, .doc h2 + ol, .doc h2 + table { margin-top: 0; }
+.doc .steps { margin-top: 18px; }
+.doc .steps li { padding: 26px 22px; min-height: 0; margin: 0; }
+.doc .steps p { color: var(--muted); }
+.doc .steps li.featured p, .doc .steps li.featured p code { color: var(--on-accent); }
+.doc details { margin-top: 10px; }
+.doc details p { padding: 0 22px 18px; }
+.doc .updated { margin-top: 40px; }
+.doc .updated a { color: var(--muted); }
+.doc table { display: block; overflow-x: auto; }
+.doc .steps li code { background: rgba(29, 33, 48, .12); color: inherit; }
+.doc .steps li.featured code { background: rgba(29, 33, 48, .16); }

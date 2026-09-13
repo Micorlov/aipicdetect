@@ -1,55 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>{{TITLE}} · picai</title>
-  <meta name="description" content="{{DESCRIPTION}}">
-  <link rel="canonical" href="{{CANONICAL}}">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="picai">
-  <meta property="og:title" content="{{TITLE}}">
-  <meta property="og:description" content="{{DESCRIPTION}}">
-  <meta property="og:url" content="{{CANONICAL}}">
-  <meta property="og:image" content="{{BASE_URL}}/static/icons/icon-512.png">
-  <meta name="twitter:card" content="summary">
-  <meta name="theme-color" content="#1D2130">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/styles.css">
-  <link rel="stylesheet" href="/static/pages.css">
+{{HEAD}}
 </head>
-<body class="doc-page" data-page="{{SLUG}}">
+<body class="doc-page">
 
 <header class="topbar">
   <a class="brand" href="/">
     <img class="brand-mark" src="/static/icons/favicon-64.png" width="30" height="30" alt="">
     <span>picai.</span>
   </a>
-  <nav class="nav-links" aria-label="Site">
-    <a href="/">Detector</a>
-    <a href="/self-host">Self-host</a>
-    <a href="/api">API</a>
-    <a href="/c2pa">C2PA</a>
-    <a href="/how-accurate">Accuracy</a>
-    <a href="{{REPO_URL}}" rel="noopener">GitHub</a>
+  <nav class="nav-links" aria-label="Main navigation">
+    {{NAV}}
   </nav>
 </header>
 
 <main class="doc">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">picai</a><span aria-hidden="true">›</span><span>{{H1}}</span></nav>
+  <article class="prose">
+    <h1>{{H1}}</h1>
 {{BODY}}
+    <p class="fine updated">Last updated {{LASTMOD}} · <a href="{{REPO_URL}}" rel="noopener">source on GitHub</a></p>
+    <p class="cta"><a class="btn-primary" href="/#tool">Try the detector</a></p>
+  </article>
 </main>
 
 <footer class="footer">
   <span>picai. · open source</span>
-  <a href="/">Detector</a>
-  <a href="/self-host">Self-host</a>
-  <a href="/api">API</a>
-  <a href="/c2pa">C2PA</a>
-  <a href="/how-accurate">Accuracy</a>
-  <a href="{{REPO_URL}}" rel="noopener">GitHub</a>
+  {{FOOTER_LINKS}}
 </footer>
 </body>
 </html>

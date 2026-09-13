@@ -1,7 +1,7 @@
 {
   "name": "picai — AI image detector",
   "short_name": "picai",
-  "description": "Check whether a picture is AI-generated with a detector that runs on your own machine.",
+  "description": "Free open-source detector for AI-generated images, with metadata inspection and scrubbing.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

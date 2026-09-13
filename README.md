@@ -1,10 +1,27 @@
 # picai
 
-Local web dashboard that scores a picture with an open-source AI-image detector and
-hands back a re-rendered copy with no C2PA, IPTC, XMP, EXIF or ICC metadata.
+picai is a free, open-source AI image detector and metadata scrubber. It scores how
+likely a picture was produced by an AI generator using an open Hugging Face classifier
+that runs inside the server process, lists the EXIF, XMP, IPTC, C2PA and ICC metadata
+blocks the file carries, and can hand back a copy re-rendered from the raw pixels with
+every one of those blocks removed.
 
 Public instance: <https://picai-53480028562.europe-west1.run.app> (Cloud Run; the first
-visit after idle takes about a minute while the model loads).
+visit after idle takes about a minute while the model loads). Machine-readable summary
+for AI assistants: [`/llms.txt`](https://picai-53480028562.europe-west1.run.app/llms.txt).
+
+## Features
+
+- **AI-likelihood score** (0–100 %) with a confidence band and an AI / Real / Uncertain
+  classification, from `haywoodsloan/ai-image-detector-deploy` or any Hugging Face
+  image-classification model you point it at.
+- **Metadata inspection**: which of EXIF, XMP, IPTC, C2PA and ICC are present, plus JPEG
+  APP segments.
+- **Metadata removal by re-rendering** (`Image.frombytes`), so C2PA manifests and
+  everything else are left behind rather than edited out.
+- **Web page, CLI, HTTP API, Docker image and GitHub Action**; installable as a phone PWA.
+- **Private by construction**: uploads are processed in memory and never written to disk;
+  self-host it and nothing leaves your machine.
 
 ## Run
 
@@ -52,15 +69,41 @@ change the number, or to `0` to turn the limit off. The counter is in memory, so
 resets when the process restarts, and behind Cloud Run the client IP is
 read from the first `X-Forwarded-For` hop.
 
-## Public pages and SEO
+## Public pages, SEO and AI-assistant discoverability
 
-Besides the detector page the server serves four content pages (`/self-host`, `/api`,
-`/c2pa`, `/how-accurate`) from `src/picai/static/pages/`, plus `/robots.txt` and
-`/sitemap.xml`. Each page is a body fragment wrapped in `_layout.html` at request time, so
-adding a page means dropping a fragment in that folder and registering it in
-`src/picai/pages.py`. Absolute links (sitemap, canonical, Open Graph image) use
-`PICAI_PUBLIC_URL` when set, otherwise the request origin; set it once the app is behind
-a custom domain.
+Every public page is an entry in `PAGES` in `src/picai/pages.py` (path, title, meta
+description, H1, section, schema types, last-modified date). The home page is
+`static/index.html`; the other pages are body fragments in `static/pages/<slug>.html`
+wrapped in `_layout.html`, and all of them share `_head.html` (canonical, Open Graph,
+Twitter card, JSON-LD). Adding a page means dropping a fragment in that folder and adding
+one `Page` to the registry; the sitemap, `llms.txt`, nav and footer follow automatically.
+
+Served from the registry: `/robots.txt` (AI crawlers explicitly allowed, API routes
+disallowed), `/sitemap.xml`, `/llms.txt` and `/llms-full.txt` (llmstxt.org format for
+answer engines), `/.well-known/security.txt`, `/favicon.ico`, an HTML 404 page, and
+JSON-LD (`SoftwareApplication`, `FAQPage`, `HowTo`, `BreadcrumbList`, `Article`) generated
+from the same copy the pages render (`src/picai/content/`). `/docs`, `/redoc` and the
+JSON endpoints carry `X-Robots-Tag: noindex`.
+
+Environment variables read at request time:
+
+- `PICAI_PUBLIC_URL` — public origin (e.g. `https://picai-53480028562.europe-west1.run.app`)
+  used in canonical links, `og:url`, the sitemap and `llms.txt`; without it the request
+  origin is used. Set it on every public deployment, and again after mapping a custom
+  domain.
+- `PICAI_GSC_VERIFICATION` / `PICAI_BING_VERIFICATION` — emit the Google Search Console
+  and Bing Webmaster verification meta tags.
+- `PICAI_GA_MEASUREMENT_ID` — emits the Google Analytics (GA4) gtag snippet when set (e.g.
+  `G-X0LGV9CGFC`). Unset by default, so self-hosted instances send no analytics unless the
+  operator opts in themselves; set it only on the hosted deployment.
+
+After deploying: verify the site in Search Console and Bing Webmaster Tools, submit
+`/sitemap.xml`, and check `/` and `/faq` with Google's Rich Results Test. AI-crawler
+visits show up in the Cloud Run request logs:
+
+```bash
+gcloud logging read 'resource.type="cloud_run_revision" AND httpRequest.userAgent=~"GPTBot|ClaudeBot|PerplexityBot|Google-Extended|CCBot|OAI-SearchBot"' --project picai-260913 --limit 100
+```
 
 ## Deploying to Cloud Run
 
@@ -73,8 +116,15 @@ container still has full CPU. To redeploy after a change:
 gcloud run deploy picai --source . --project picai-260913 --region europe-west1 \
   --allow-unauthenticated --memory 4Gi --cpu 2 --min-instances 0 --max-instances 1 \
   --concurrency 4 --timeout 300 --cpu-boost --port 8000 \
+  --set-env-vars PICAI_PUBLIC_URL=https://picai-53480028562.europe-west1.run.app,PICAI_GA_MEASUREMENT_ID=G-X0LGV9CGFC \
   --startup-probe httpGet.path=/ready,initialDelaySeconds=10,periodSeconds=10,timeoutSeconds=5,failureThreshold=24
 ```
+
+The `/ready` probe means a crawler that hits an idle instance waits for the model before
+it gets any HTML. If search-engine fetches start timing out, switch the probe to
+`/health` so pages are served immediately while the model loads in the background (the
+page already shows *Loading detector…*); the trade-off is a slower first analysis after a
+cold start.
 
 ### Budget and automatic shut-off
 
@@ -140,8 +190,9 @@ uv run picai batch inbox clean --detect # scrub a folder, score it, write clean/
   image never sees the original container, so every metadata block is left behind.
 - `src/picai/inspect.py` scans bytes for metadata signatures and JPEG APP segments; the
   dashboard uses it to report what was removed.
-- `src/picai/server.py` exposes `GET /`, `GET /status`, `POST /analyze`,
-  `GET /download/{id}` and the older `POST /scrub`.
+- `src/picai/server.py` exposes `GET /status`, `POST /analyze`, `GET /download/{id}` and
+  the older `POST /scrub`; `src/picai/pages.py` and `src/picai/seo.py` serve the HTML
+  pages and the crawler files.
 
 ## Tests
 

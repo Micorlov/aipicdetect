@@ -1,28 +1,17 @@
-<p class="overline">— C2PA</p>
-<h1>C2PA content credentials: check them, then decide.</h1>
-<p class="lead">Content Credentials are the provenance labels that Adobe tools, OpenAI's image models, some Leica and Sony cameras and a growing list of apps embed in the files they produce. picai shows you whether a picture carries them, and can hand back a copy without them.</p>
+<p class="intro">C2PA content credentials are cryptographically signed provenance records that cameras, editing software and AI generators can embed in an image file. They say who created or edited a picture and with what tool. picai reports whether a C2PA manifest is present next to EXIF, XMP, IPTC and ICC blocks, and its scrubber removes all of them by re-rendering the pixels.</p>
 
-<h2>What C2PA actually is</h2>
-<p>The Coalition for Content Provenance and Authenticity (C2PA) defines a signed manifest that travels inside the image file. It records who created or edited the picture, with which tool, and whether an AI model was involved. In a JPEG the manifest lives in <code>APP11</code> segments (a JUMBF box); PNG and WebP carry it in their own chunks. Editors often add a matching note in XMP as well.</p>
-<p>Two things follow from that design:</p>
+<h2>What a C2PA manifest contains</h2>
+<p>The Coalition for Content Provenance and Authenticity (C2PA) standard stores a manifest in a JUMBF container (JPEG APP11 segment, or a dedicated box in PNG, WebP and HEIF). The manifest lists assertions such as the capture device, the editing actions applied, whether an AI tool generated or altered the content, and a signature from the issuing organisation. Viewers can verify the signature and show a “Content Credentials” badge.</p>
+
+<h2>How picai detects it</h2>
+<p>picai scans the raw file bytes for the signatures of each metadata container: <code>Exif\0\0</code> for EXIF, the XMP namespace URI for XMP, <code>Photoshop 3.0</code>/<code>8BIM</code> for IPTC, <code>jumb</code>/<code>c2pa</code>/<code>caBX</code> for C2PA, and <code>ICC_PROFILE</code>/<code>iCCP</code> for colour profiles. The metadata panel shows which blocks were found and, for JPEG, which APP segments the file carries. It does not verify the C2PA signature; it tells you a manifest is there so you can check it with a dedicated verifier.</p>
+
+<h2>Why provenance and detection are complementary</h2>
 <ul>
-  <li><strong>Presence is a hint, not proof.</strong> A manifest that says "generated with DALL·E" is strong evidence. A manifest that says "exported from Photoshop" tells you nothing about where the pixels came from.</li>
-  <li><strong>Absence proves nothing.</strong> Any re-save, screenshot, or messaging app that re-encodes the picture drops the manifest. Most AI images circulating online have already lost it, which is why pixel-level detection still matters.</li>
+  <li>A valid C2PA manifest that names an AI generator is stronger evidence than any pixel classifier.</li>
+  <li>Missing credentials prove nothing: most images have none, and stripping them is trivial.</li>
+  <li>A classifier score is useful precisely when there is no provenance to rely on; read it as a probability, as explained on the <a href="/how-accurate">accuracy page</a>.</li>
 </ul>
-
-<h2>What picai shows</h2>
-<p>After you check a picture, the <em>Metadata</em> card lists each block the file carries: EXIF, XMP, IPTC, C2PA and ICC, with the byte signatures it matched, plus every JPEG APP segment. Read it next to the AI likelihood score, not instead of it. A high score with a C2PA manifest naming a generator is about as sure as this gets; a high score on a file with no metadata at all is a probability and nothing more.</p>
 
 <h2>Removing C2PA and other metadata</h2>
-<p>Sometimes you want a clean file: a photo with GPS coordinates you would rather not publish, or an export whose editing history is nobody's business. picai does not edit the container in place. It decodes the picture, applies the EXIF orientation, builds a brand-new image from the raw pixel buffer and encodes that. The new file never sees the original container, so every block goes: C2PA, EXIF, XMP, IPTC and the ICC profile alike.</p>
-<ul>
-  <li><strong>In the browser:</strong> check the image, then use <em>Download clean copy</em> under the metadata list.</li>
-  <li><strong>From the command line:</strong> <code>picai scrub photo.jpg</code> writes <code>photo.clean.jpg</code>. <code>picai inspect</code> confirms nothing is left.</li>
-  <li><strong>Over HTTP:</strong> <code>POST /scrub</code> returns the clean file directly. See the <a href="/api">API page</a>.</li>
-</ul>
-<div class="callout"><p>Dropping the ICC profile can shift colours slightly on wide-gamut images. If colour accuracy matters more than a clean file, keep the original for print and use the scrubbed copy for the web.</p></div>
-
-<h2>When stripping is the wrong call</h2>
-<p>Content credentials exist so that readers can trust what they see. If you are publishing your own work, keeping the manifest is a feature. Removing a manifest from someone else's image to pass it off as something it is not is exactly the misuse the standard was designed to expose, and a detector like this one is part of how it gets caught.</p>
-
-<a class="btn-primary cta" href="/#tool">Check a picture</a>
+<p>Deleting a manifest tag by tag is fragile because each container has its own layout. picai instead decodes the image to a pixel buffer, builds a brand-new image from that buffer alone and encodes it fresh, so the C2PA manifest, EXIF, XMP, IPTC and ICC blocks are never copied. The step-by-step commands are on the <a href="/remove-image-metadata">remove image metadata</a> page; the HTTP form is <code>POST /scrub</code> in the <a href="/api">API reference</a>.</p>

@@ -1,0 +1,33 @@
+<p class="intro">You cannot tell for certain whether an image is AI-generated from a glance, but four checks combined get close: look for visual artefacts, read the file's metadata and content credentials, reverse-search the image, and run it through a detector such as picai. Each check can be fooled; together they rarely all fail at once.</p>
+
+<h2>1. Look for visual tells</h2>
+<ul>
+  <li><strong>Hands, teeth and ears</strong> with the wrong count, merged fingers or asymmetric earrings.</li>
+  <li><strong>Text and logos</strong> that read as almost-letters, warped signage, gibberish on packaging.</li>
+  <li><strong>Lighting and reflections</strong> that disagree: shadows from different directions, mirrors showing a different scene.</li>
+  <li><strong>Repeating textures</strong> in hair, fabric, foliage or crowds, and backgrounds that melt into each other.</li>
+  <li><strong>Too-perfect skin and symmetry</strong>, especially with a shallow-depth-of-field look on every subject.</li>
+</ul>
+<p>Current generators fix more of these every release, so the absence of tells is weak evidence.</p>
+
+<h2>2. Read the metadata and content credentials</h2>
+<p>Upload the file to picai and open the metadata panel. Cameras write EXIF (make, model, exposure); editors write XMP; some generators write an XMP or IPTC tag naming themselves, and a growing number sign a <a href="/c2pa">C2PA content credential</a> that records the generator. A signed credential is the strongest evidence you can get. No metadata at all is common (social platforms strip it) and proves nothing.</p>
+
+<h2>3. Reverse-search the image</h2>
+<p>Search the image with Google Lens, TinEye or Bing Visual Search. If the earliest copy is on a stock-photo site or a news archive from years ago, it is not freshly generated. If every copy traces back to one social account with no original source, be suspicious.</p>
+
+<h2>4. Run a detector and read the score correctly</h2>
+<p>picai scores the pixels with an open-source classifier and returns an AI likelihood with a confidence band. A High-confidence result is a strong signal; Medium is a hint; Uncertain (within 10 points of 50%) means the pixels carry no usable evidence. Detectors are weakest on screenshots, compressed images and generators newer than their training data, as explained on the <a href="/how-accurate">accuracy page</a>. Try it on the <a href="/#tool">detector</a>, or <a href="/self-host">self-host</a> for private material.</p>
+
+<h2>Putting it together</h2>
+<table>
+  <thead><tr><th>Evidence</th><th>Weight</th></tr></thead>
+  <tbody>
+    <tr><td>Valid C2PA credential naming a generator</td><td>Conclusive</td></tr>
+    <tr><td>Generator name in XMP/IPTC</td><td>Strong (easy to strip, hard to fake by accident)</td></tr>
+    <tr><td>Reverse search finds an older real source</td><td>Strong for “real”</td></tr>
+    <tr><td>High-confidence detector score</td><td>Strong signal, not proof</td></tr>
+    <tr><td>Visual tells</td><td>Supporting</td></tr>
+    <tr><td>Medium or Uncertain score, no metadata</td><td>Inconclusive</td></tr>
+  </tbody>
+</table>

@@ -1,0 +1,20 @@
+<p class="intro">picai never stores the images you upload. On the hosted instance a picture is processed in memory by one Cloud Run container, scored by a model that runs inside that container, and discarded; nothing is sent to a third-party API and no account is needed. The hosted instance uses Google Analytics to count visits and see which pages get read; no advertising scripts run, and images themselves are never sent to Google or anyone else. Self-host it and there is no analytics at all, and the picture never leaves your own machine.</p>
+
+<h2>What the hosted instance does with an upload</h2>
+<ul>
+  <li><strong>Transport.</strong> Uploads go over HTTPS to <code>{{ORIGIN}}</code>, a Google Cloud Run service in the <code>europe-west1</code> region operated by {{AUTHOR}}.</li>
+  <li><strong>Processing.</strong> The file (up to {{MAX_UPLOAD_MB}} MB) is decoded in memory, scored by the classifier <code>{{MODEL}}</code> running in the same container, and scanned for metadata signatures. No cloud AI service is called.</li>
+  <li><strong>Retention.</strong> The original bytes are dropped as soon as the response is sent. The scrubbed copy is kept in the container's memory so you can download it, until {{RESULT_CACHE_LIMIT}} newer results push it out or the container restarts, which on Cloud Run happens after a few minutes of inactivity. Nothing is written to disk or object storage.</li>
+  <li><strong>Rate limiting.</strong> To keep the free instance affordable, the client IP address is counted in memory to enforce {{DAILY_LIMIT}} analyses per 24 hours. The counter resets when the container restarts and is never persisted.</li>
+  <li><strong>Logs.</strong> Cloud Run records standard request logs (timestamp, path, status, user agent, client IP) for operations and abuse handling. Image contents are never logged.</li>
+  <li><strong>Cookies and tracking.</strong> The hosted instance loads Google Analytics (GA4), which sets a first-party analytics cookie and counts page views, referrers and rough location; it does not see the images you upload or analyze, and no ad-personalization or remarketing scripts run. See Google's <a href="https://policies.google.com/privacy" rel="noopener">privacy policy</a> for how it processes that data.</li>
+</ul>
+
+<h2>Self-hosted</h2>
+<p>When you <a href="/self-host">run picai yourself</a>, the server binds to <code>127.0.0.1</code> by default, the model runs on your CPU, and after the one-time model download the process needs no network access at all. The same in-memory behaviour applies: nothing is written to disk unless you use the <code>picai scrub</code> or <code>picai batch</code> commands, which write the output files you ask for.</p>
+
+<h2>Open source</h2>
+<p>Everything described here can be verified in the <a href="{{REPO_URL}}" rel="noopener">source code</a>: the upload handling is in <code>src/picai/server.py</code>, the rate limiter in <code>src/picai/ratelimit.py</code>.</p>
+
+<h2>Contact</h2>
+<p>Questions about this page: open an issue on <a href="{{REPO_URL}}/issues" rel="noopener">GitHub</a>. Last reviewed {{LASTMOD}}.</p>

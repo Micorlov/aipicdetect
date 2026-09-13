@@ -160,6 +160,10 @@
   function renderPreview(file, input) {
     el.previewFrame.classList.remove("unavailable");
     el.preview.onerror = () => el.previewFrame.classList.add("unavailable");
+    if (input.width && input.height) {
+      el.preview.width = input.width;
+      el.preview.height = input.height;
+    }
     el.preview.src = originalUrl;
     el.previewCaption.textContent =
       `${input.width}×${input.height} · ${input.format || file.type || "unknown"} · ${fmt(input.bytes)}`;
