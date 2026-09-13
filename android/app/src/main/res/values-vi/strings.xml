@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Giám định pháp y ảnh AI mã nguồn mở</string>
+    <string name="hero_heading_line1">Bức ảnh này có thật không?</string>
+    <string name="hero_heading_line2">Xem điểm số và bằng chứng.</string>
+    <string name="hero_lead">picai chạy một mô hình phát hiện AI mã nguồn mở và đọc mọi trường EXIF, C2PA và IPTC mà một bức ảnh mang theo — sau đó gửi cho bạn một bản sao sạch đã loại bỏ tất cả những dữ liệu đó. Không cần đăng ký, không có hộp đen.</string>
+
+    <string name="cta_pick_image">Chọn ảnh</string>
+    <string name="cta_take_photo">Chụp ảnh</string>
+    <string name="cta_analyze">Kiểm tra ảnh này</string>
+    <string name="cta_retry">Thử lại</string>
+    <string name="cta_start_over">Kiểm tra ảnh khác</string>
+    <string name="cta_save_clean_copy">Lưu bản sao sạch</string>
+    <string name="cta_share_clean_copy">Chia sẻ bản sao sạch</string>
+    <string name="cta_settings">Cài đặt</string>
+
+    <string name="status_analyzing">Đang phân tích · pixel · khối metadata</string>
+    <string name="status_cold_start">Máy chủ vẫn đang khởi động. Yêu cầu đầu tiên sau một thời gian có thể mất tới một phút.</string>
+    <string name="status_saved">Đã lưu vào thư viện ảnh của bạn</string>
+    <string name="status_downloading">Đang tải bản sao sạch…</string>
+
+    <string name="score_label_ai">Có khả năng do AI tạo ra</string>
+    <string name="score_label_real">Có khả năng là ảnh thật</string>
+    <string name="score_label_uncertain">Không chắc chắn</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Độ tin cậy %1$s · %2$s</string>
+
+    <string name="section_detection">Khả năng là AI</string>
+    <string name="section_metadata">Metadata phát hiện được</string>
+    <string name="section_image_info">Ảnh</string>
+    <string name="section_quota">Hạn mức hằng ngày</string>
+    <string name="metadata_present">Có</string>
+    <string name="metadata_not_present">Không có</string>
+    <string name="jpeg_segments_label">Đoạn JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">Không có đoạn JPEG APP nào</string>
+    <string name="quota_remaining">Còn %1$d trong tổng số %2$d lượt phân tích hôm nay</string>
+
+    <string name="error_no_connectivity">Không có kết nối internet. Hãy kiểm tra mạng và thử lại.</string>
+    <string name="error_timeout">Máy chủ phản hồi quá lâu. Có thể máy chủ vẫn đang khởi động. Hãy thử lại sau một chút.</string>
+    <string name="error_too_large">Ảnh này lớn hơn giới hạn tải lên 50 MB.</string>
+    <string name="error_unsupported_format">Định dạng ảnh này không được hỗ trợ. Hãy thử tệp JPEG, PNG hoặc WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Đã xảy ra lỗi: %1$s</string>
+    <string name="error_save_failed">Không thể lưu ảnh</string>
+    <string name="error_share_failed">Không thể chia sẻ ảnh</string>
+
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_base_url_label">URL gốc của API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Đặt lại về mặc định</string>
+    <string name="settings_save">Lưu</string>
+    <string name="settings_cancel">Hủy</string>
+
+    <string name="cd_picked_image">Xem trước ảnh đã chọn</string>
+    <string name="cd_close">Đóng</string>
+
+    <string name="about_tagline">picai. · mã nguồn mở</string>
+    <string name="about_model_note">Công cụ phát hiện là một mô hình Hugging Face mở mà bạn có thể kiểm tra hoặc thay thế.</string>
+    <string name="about_view_source">Xem mã nguồn trên GitHub</string>
+</resources>

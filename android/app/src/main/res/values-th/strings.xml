@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">นิติวิทยาศาสตร์ภาพ AI แบบโอเพนซอร์ส</string>
+    <string name="hero_heading_line1">ภาพนี้ของจริงหรือเปล่า?</string>
+    <string name="hero_heading_line2">ดูคะแนนและหลักฐาน</string>
+    <string name="hero_lead">picai รันโมเดลตรวจจับ AI แบบเปิด และอ่านทุกฟิลด์ EXIF, C2PA และ IPTC ที่ภาพถ่ายมีอยู่ — จากนั้นส่งมอบสำเนาที่สะอาดโดยลบข้อมูลเหล่านั้นออกทั้งหมดให้คุณ ไม่ต้องสมัครสมาชิก ไม่มีกล่องดำ</string>
+
+    <string name="cta_pick_image">เลือกภาพ</string>
+    <string name="cta_take_photo">ถ่ายภาพ</string>
+    <string name="cta_analyze">ตรวจสอบภาพนี้</string>
+    <string name="cta_retry">ลองอีกครั้ง</string>
+    <string name="cta_start_over">ตรวจสอบภาพอื่น</string>
+    <string name="cta_save_clean_copy">บันทึกสำเนาที่สะอาด</string>
+    <string name="cta_share_clean_copy">แชร์สำเนาที่สะอาด</string>
+    <string name="cta_settings">ตั้งค่า</string>
+
+    <string name="status_analyzing">กำลังวิเคราะห์ · พิกเซล · บล็อกข้อมูลเมตา</string>
+    <string name="status_cold_start">เซิร์ฟเวอร์กำลังเริ่มทำงาน คำขอแรกหลังไม่ได้ใช้งานมาสักพักอาจใช้เวลานานถึงหนึ่งนาที</string>
+    <string name="status_saved">บันทึกลงในคลังภาพของคุณแล้ว</string>
+    <string name="status_downloading">กำลังดึงสำเนาที่สะอาด…</string>
+
+    <string name="score_label_ai">มีแนวโน้มว่าสร้างโดย AI</string>
+    <string name="score_label_real">มีแนวโน้มว่าเป็นภาพถ่ายจริง</string>
+    <string name="score_label_uncertain">ไม่แน่ใจ</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">ความเชื่อมั่น %1$s · %2$s</string>
+
+    <string name="section_detection">ความเป็นไปได้ที่เป็น AI</string>
+    <string name="section_metadata">ข้อมูลเมตาที่พบ</string>
+    <string name="section_image_info">ภาพ</string>
+    <string name="section_quota">โควตารายวัน</string>
+    <string name="metadata_present">มีอยู่</string>
+    <string name="metadata_not_present">ไม่มี</string>
+    <string name="jpeg_segments_label">เซกเมนต์ JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">ไม่มีเซกเมนต์ JPEG APP</string>
+    <string name="quota_remaining">เหลืออีก %1$d จาก %2$d ครั้งที่วิเคราะห์ได้วันนี้</string>
+
+    <string name="error_no_connectivity">ไม่มีการเชื่อมต่ออินเทอร์เน็ต โปรดตรวจสอบเครือข่ายแล้วลองอีกครั้ง</string>
+    <string name="error_timeout">เซิร์ฟเวอร์ใช้เวลาตอบสนองนานเกินไป อาจยังอยู่ระหว่างเริ่มทำงาน โปรดลองอีกครั้งในอีกสักครู่</string>
+    <string name="error_too_large">ภาพนี้มีขนาดใหญ่กว่าขีดจำกัดการอัปโหลดที่ 50 MB</string>
+    <string name="error_unsupported_format">ไม่รองรับรูปแบบภาพนี้ โปรดลองใช้ไฟล์ JPEG, PNG หรือ WEBP</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">เกิดข้อผิดพลาด: %1$s</string>
+    <string name="error_save_failed">ไม่สามารถบันทึกภาพได้</string>
+    <string name="error_share_failed">ไม่สามารถแชร์ภาพได้</string>
+
+    <string name="settings_title">ตั้งค่า</string>
+    <string name="settings_base_url_label">URL พื้นฐานของ API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">รีเซ็ตเป็นค่าเริ่มต้น</string>
+    <string name="settings_save">บันทึก</string>
+    <string name="settings_cancel">ยกเลิก</string>
+
+    <string name="cd_picked_image">ตัวอย่างภาพที่เลือก</string>
+    <string name="cd_close">ปิด</string>
+
+    <string name="about_tagline">picai. · โอเพนซอร์ส</string>
+    <string name="about_model_note">เครื่องมือตรวจจับเป็นโมเดล Hugging Face แบบเปิดที่คุณสามารถตรวจสอบหรือเปลี่ยนได้</string>
+    <string name="about_view_source">ดูซอร์สโค้ดบน GitHub</string>
+</resources>

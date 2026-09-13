@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Open-Source-KI-Bildforensik</string>
+    <string name="hero_heading_line1">Ist dieses Foto echt?</string>
+    <string name="hero_heading_line2">Sie erhalten den Score und den Beleg.</string>
+    <string name="hero_lead">picai nutzt ein offenes KI-Erkennungsmodell und liest jedes EXIF-, C2PA- und IPTC-Feld, das ein Foto enthält — und gibt Ihnen dann eine saubere Kopie, aus der alles entfernt wurde. Keine Registrierung, keine Blackbox.</string>
+
+    <string name="cta_pick_image">Foto auswählen</string>
+    <string name="cta_take_photo">Foto aufnehmen</string>
+    <string name="cta_analyze">Dieses Foto prüfen</string>
+    <string name="cta_retry">Erneut versuchen</string>
+    <string name="cta_start_over">Weiteres Bild prüfen</string>
+    <string name="cta_save_clean_copy">Saubere Kopie speichern</string>
+    <string name="cta_share_clean_copy">Saubere Kopie teilen</string>
+    <string name="cta_settings">Einstellungen</string>
+
+    <string name="status_analyzing">Analysiere · Pixel · Metadatenblöcke</string>
+    <string name="status_cold_start">Der Server startet noch — die erste Anfrage nach einer Weile kann bis zu einer Minute dauern.</string>
+    <string name="status_saved">In Ihrer Galerie gespeichert</string>
+    <string name="status_downloading">Saubere Kopie wird abgerufen…</string>
+
+    <string name="score_label_ai">Wahrscheinlich KI-generiert</string>
+    <string name="score_label_real">Wahrscheinlich ein echtes Foto</string>
+    <string name="score_label_uncertain">Unsicher</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">%1$s Konfidenz · %2$s</string>
+
+    <string name="section_detection">KI-Wahrscheinlichkeit</string>
+    <string name="section_metadata">Gefundene Metadaten</string>
+    <string name="section_image_info">Bild</string>
+    <string name="section_quota">Tägliches Kontingent</string>
+    <string name="metadata_present">Vorhanden</string>
+    <string name="metadata_not_present">Nicht vorhanden</string>
+    <string name="jpeg_segments_label">JPEG-Segmente: %1$s</string>
+    <string name="jpeg_segments_empty">Keine JPEG-APP-Segmente</string>
+    <string name="quota_remaining">%1$d von %2$d Analysen heute übrig</string>
+
+    <string name="error_no_connectivity">Keine Internetverbindung. Überprüfen Sie Ihr Netzwerk und versuchen Sie es erneut.</string>
+    <string name="error_timeout">Der Server hat zu lange für eine Antwort gebraucht. Er startet möglicherweise noch — versuchen Sie es in Kürze erneut.</string>
+    <string name="error_too_large">Dieses Bild überschreitet das Upload-Limit von 50 MB.</string>
+    <string name="error_unsupported_format">Dieses Bildformat wird nicht unterstützt. Verwenden Sie eine JPEG-, PNG- oder WEBP-Datei.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Etwas ist schiefgelaufen: %1$s</string>
+    <string name="error_save_failed">Bild konnte nicht gespeichert werden</string>
+    <string name="error_share_failed">Bild konnte nicht geteilt werden</string>
+
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_base_url_label">API-Basis-URL</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Auf Standard zurücksetzen</string>
+    <string name="settings_save">Speichern</string>
+    <string name="settings_cancel">Abbrechen</string>
+
+    <string name="cd_picked_image">Vorschau des ausgewählten Bildes</string>
+    <string name="cd_close">Schließen</string>
+
+    <string name="about_tagline">picai. · open source</string>
+    <string name="about_model_note">Der Detektor ist ein offenes Hugging-Face-Modell, das Sie prüfen oder ersetzen können.</string>
+    <string name="about_view_source">Quellcode auf GitHub ansehen</string>
+</resources>

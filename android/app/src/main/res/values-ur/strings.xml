@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">اوپن سورس AI امیج فرانزکس</string>
+    <string name="hero_heading_line1">کیا یہ تصویر اصلی ہے؟</string>
+    <string name="hero_heading_line2">اسکور اور ثبوت حاصل کریں۔</string>
+    <string name="hero_lead">picai ایک اوپن AI شناختی ماڈل چلاتا ہے اور تصویر میں موجود ہر EXIF، C2PA اور IPTC فیلڈ کو پڑھتا ہے — پھر آپ کو ایک صاف کاپی دیتا ہے جس سے یہ سب ہٹا دیا گیا ہو۔ نہ کوئی سائن اپ، نہ کوئی بلیک باکس۔</string>
+
+    <string name="cta_pick_image">تصویر منتخب کریں</string>
+    <string name="cta_take_photo">تصویر لیں</string>
+    <string name="cta_analyze">یہ تصویر چیک کریں</string>
+    <string name="cta_retry">دوبارہ کوشش کریں</string>
+    <string name="cta_start_over">کوئی اور تصویر چیک کریں</string>
+    <string name="cta_save_clean_copy">صاف کاپی محفوظ کریں</string>
+    <string name="cta_share_clean_copy">صاف کاپی شیئر کریں</string>
+    <string name="cta_settings">ترتیبات</string>
+
+    <string name="status_analyzing">تجزیہ ہو رہا ہے · پکسلز · میٹا ڈیٹا بلاکس</string>
+    <string name="status_cold_start">سرور ابھی بیدار ہو رہا ہے — کچھ دیر بعد پہلی درخواست میں ایک منٹ تک لگ سکتا ہے۔</string>
+    <string name="status_saved">آپ کی گیلری میں محفوظ ہو گئی</string>
+    <string name="status_downloading">صاف کاپی حاصل کی جا رہی ہے…</string>
+
+    <string name="score_label_ai">غالباً AI سے تیار کردہ</string>
+    <string name="score_label_real">غالباً ایک اصلی تصویر</string>
+    <string name="score_label_uncertain">غیر یقینی</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">%1$s اعتماد · %2$s</string>
+
+    <string name="section_detection">AI ہونے کا امکان</string>
+    <string name="section_metadata">ملا ہوا میٹا ڈیٹا</string>
+    <string name="section_image_info">تصویر</string>
+    <string name="section_quota">روزانہ کوٹہ</string>
+    <string name="metadata_present">موجود</string>
+    <string name="metadata_not_present">موجود نہیں</string>
+    <string name="jpeg_segments_label">JPEG سیگمنٹس: %1$s</string>
+    <string name="jpeg_segments_empty">کوئی JPEG APP سیگمنٹس نہیں</string>
+    <string name="quota_remaining">آج %2$d میں سے %1$d تجزیے باقی ہیں</string>
+
+    <string name="error_no_connectivity">کوئی انٹرنیٹ کنکشن نہیں۔ اپنا نیٹ ورک چیک کریں اور دوبارہ کوشش کریں۔</string>
+    <string name="error_timeout">سرور کو جواب دینے میں بہت وقت لگا۔ ہو سکتا ہے یہ ابھی بھی بیدار ہو رہا ہو — تھوڑی دیر بعد دوبارہ کوشش کریں۔</string>
+    <string name="error_too_large">یہ تصویر 50 MB کی اپ لوڈ حد سے بڑی ہے۔</string>
+    <string name="error_unsupported_format">اس تصویر کا فارمیٹ سپورٹڈ نہیں ہے۔ کوئی JPEG، PNG یا WEBP فائل آزمائیں۔</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">کچھ غلط ہو گیا: %1$s</string>
+    <string name="error_save_failed">تصویر محفوظ نہیں ہو سکی</string>
+    <string name="error_share_failed">تصویر شیئر نہیں ہو سکی</string>
+
+    <string name="settings_title">ترتیبات</string>
+    <string name="settings_base_url_label">API بیس URL</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">ڈیفالٹ پر ری سیٹ کریں</string>
+    <string name="settings_save">محفوظ کریں</string>
+    <string name="settings_cancel">منسوخ کریں</string>
+
+    <string name="cd_picked_image">منتخب کردہ تصویر کا پیش منظر</string>
+    <string name="cd_close">بند کریں</string>
+
+    <string name="about_tagline">picai. · اوپن سورس</string>
+    <string name="about_model_note">ڈیٹیکٹر ایک اوپن Hugging Face ماڈل ہے جسے آپ دیکھ یا تبدیل کر سکتے ہیں۔</string>
+    <string name="about_view_source">GitHub پر سورس کوڈ دیکھیں</string>
+</resources>

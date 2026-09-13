@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">开源 AI 图像取证</string>
+    <string name="hero_heading_line1">这张照片是真的吗？</string>
+    <string name="hero_heading_line2">获取分数和证据。</string>
+    <string name="hero_lead">picai 运行一个开放的 AI 检测模型，读取照片携带的每一个 EXIF、C2PA 和 IPTC 字段，然后为你提供一份清除了全部这些信息的干净副本。无需注册，没有黑箱。</string>
+
+    <string name="cta_pick_image">选择照片</string>
+    <string name="cta_take_photo">拍摄照片</string>
+    <string name="cta_analyze">检测这张照片</string>
+    <string name="cta_retry">重试</string>
+    <string name="cta_start_over">检测另一张图片</string>
+    <string name="cta_save_clean_copy">保存干净副本</string>
+    <string name="cta_share_clean_copy">分享干净副本</string>
+    <string name="cta_settings">设置</string>
+
+    <string name="status_analyzing">分析中 · 像素 · 元数据信息块</string>
+    <string name="status_cold_start">服务器仍在唤醒——一段时间后的首次请求可能需要长达一分钟。</string>
+    <string name="status_saved">已保存到相册</string>
+    <string name="status_downloading">正在获取干净副本…</string>
+
+    <string name="score_label_ai">很可能是 AI 生成的</string>
+    <string name="score_label_real">很可能是真实照片</string>
+    <string name="score_label_uncertain">不确定</string>
+    <string name="score_percent_line">%1$s——%2$d%%</string>
+    <string name="score_confidence_line">置信度：%1$s · %2$s</string>
+
+    <string name="section_detection">AI 可能性</string>
+    <string name="section_metadata">发现的元数据</string>
+    <string name="section_image_info">图片</string>
+    <string name="section_quota">每日额度</string>
+    <string name="metadata_present">存在</string>
+    <string name="metadata_not_present">不存在</string>
+    <string name="jpeg_segments_label">JPEG 信息段：%1$s</string>
+    <string name="jpeg_segments_empty">没有 JPEG APP 信息段</string>
+    <string name="quota_remaining">今天还剩 %1$d/%2$d 次检测</string>
+
+    <string name="error_no_connectivity">没有网络连接。请检查网络后重试。</string>
+    <string name="error_timeout">服务器响应超时。它可能仍在唤醒——请稍后重试。</string>
+    <string name="error_too_large">图片大小超过了 50 MB 的上传限制。</string>
+    <string name="error_unsupported_format">不支持该图片格式。请尝试 JPEG、PNG 或 WEBP 文件。</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">出现错误：%1$s</string>
+    <string name="error_save_failed">无法保存图片</string>
+    <string name="error_share_failed">无法分享图片</string>
+
+    <string name="settings_title">设置</string>
+    <string name="settings_base_url_label">API 基础 URL</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">恢复默认设置</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_cancel">取消</string>
+
+    <string name="cd_picked_image">已选图片预览</string>
+    <string name="cd_close">关闭</string>
+
+    <string name="about_tagline">picai. · 开源</string>
+    <string name="about_model_note">该检测器是一个开放的 Hugging Face 模型，你可以查看或替换它。</string>
+    <string name="about_view_source">在 GitHub 上查看源码</string>
+</resources>

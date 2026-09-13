@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Açık kaynaklı yapay zeka görsel adli analizi</string>
+    <string name="hero_heading_line1">Bu fotoğraf gerçek mi?</string>
+    <string name="hero_heading_line2">Puanı ve kanıtı görün.</string>
+    <string name="hero_lead">picai açık bir yapay zeka tespit modeli çalıştırır ve bir fotoğrafın taşıdığı her EXIF, C2PA ve IPTC alanını okur — ardından hepsi temizlenmiş hâlde size temiz bir kopya verir. Kayıt yok, kara kutu yok.</string>
+
+    <string name="cta_pick_image">Fotoğraf seç</string>
+    <string name="cta_take_photo">Fotoğraf çek</string>
+    <string name="cta_analyze">Bu fotoğrafı kontrol et</string>
+    <string name="cta_retry">Tekrar dene</string>
+    <string name="cta_start_over">Başka bir görsel kontrol et</string>
+    <string name="cta_save_clean_copy">Temiz kopyayı kaydet</string>
+    <string name="cta_share_clean_copy">Temiz kopyayı paylaş</string>
+    <string name="cta_settings">Ayarlar</string>
+
+    <string name="status_analyzing">Analiz ediliyor · pikseller · metadata blokları</string>
+    <string name="status_cold_start">Sunucu hâlâ uyanıyor — bir süre sonraki ilk istek bir dakikaya kadar sürebilir.</string>
+    <string name="status_saved">Galerinize kaydedildi</string>
+    <string name="status_downloading">Temiz kopya alınıyor…</string>
+
+    <string name="score_label_ai">Muhtemelen yapay zeka tarafından üretilmiş</string>
+    <string name="score_label_real">Muhtemelen gerçek bir fotoğraf</string>
+    <string name="score_label_uncertain">Belirsiz</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">%1$s güven · %2$s</string>
+
+    <string name="section_detection">Yapay zeka olasılığı</string>
+    <string name="section_metadata">Bulunan metadata</string>
+    <string name="section_image_info">Görsel</string>
+    <string name="section_quota">Günlük kota</string>
+    <string name="metadata_present">Mevcut</string>
+    <string name="metadata_not_present">Mevcut değil</string>
+    <string name="jpeg_segments_label">JPEG segmentleri: %1$s</string>
+    <string name="jpeg_segments_empty">JPEG APP segmenti yok</string>
+    <string name="quota_remaining">Bugün için %2$d analizden %1$d kaldı</string>
+
+    <string name="error_no_connectivity">İnternet bağlantısı yok. Ağınızı kontrol edip tekrar deneyin.</string>
+    <string name="error_timeout">Sunucu yanıt vermek için çok uzun sürdü. Hâlâ uyanıyor olabilir — birazdan tekrar deneyin.</string>
+    <string name="error_too_large">Bu görsel 50 MB yükleme sınırından büyük.</string>
+    <string name="error_unsupported_format">Bu görsel formatı desteklenmiyor. Bir JPEG, PNG veya WEBP dosyası deneyin.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Bir şeyler ters gitti: %1$s</string>
+    <string name="error_save_failed">Görsel kaydedilemedi</string>
+    <string name="error_share_failed">Görsel paylaşılamadı</string>
+
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_base_url_label">API temel URL\'si</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Varsayılana sıfırla</string>
+    <string name="settings_save">Kaydet</string>
+    <string name="settings_cancel">İptal</string>
+
+    <string name="cd_picked_image">Seçilen görsel önizlemesi</string>
+    <string name="cd_close">Kapat</string>
+
+    <string name="about_tagline">picai. · açık kaynak</string>
+    <string name="about_model_note">Dedektör, inceleyebileceğiniz veya değiştirebileceğiniz açık bir Hugging Face modelidir.</string>
+    <string name="about_view_source">GitHub\'da kaynak kodu görüntüle</string>
+</resources>

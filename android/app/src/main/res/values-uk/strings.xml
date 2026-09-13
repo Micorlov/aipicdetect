@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">ШІ-криміналістика зображень з відкритим кодом</string>
+    <string name="hero_heading_line1">Це фото справжнє?</string>
+    <string name="hero_heading_line2">Отримайте оцінку і доказ.</string>
+    <string name="hero_lead">picai запускає відкриту модель для розпізнавання зображень ШІ і зчитує кожне поле EXIF, C2PA та IPTC, яке несе фото, — а потім віддає вам чисту копію з усім цим видаленим. Без реєстрації, без чорної скриньки.</string>
+
+    <string name="cta_pick_image">Вибрати фото</string>
+    <string name="cta_take_photo">Зробити фото</string>
+    <string name="cta_analyze">Перевірити це фото</string>
+    <string name="cta_retry">Спробувати ще раз</string>
+    <string name="cta_start_over">Перевірити інше зображення</string>
+    <string name="cta_save_clean_copy">Зберегти чисту копію</string>
+    <string name="cta_share_clean_copy">Поділитися чистою копією</string>
+    <string name="cta_settings">Налаштування</string>
+
+    <string name="status_analyzing">Аналіз · пікселі · блоки метаданих</string>
+    <string name="status_cold_start">Сервер ще прокидається — перший запит після паузи може зайняти до хвилини.</string>
+    <string name="status_saved">Збережено у вашу галерею</string>
+    <string name="status_downloading">Завантаження чистої копії…</string>
+
+    <string name="score_label_ai">Ймовірно, створено ШІ</string>
+    <string name="score_label_real">Ймовірно, справжнє фото</string>
+    <string name="score_label_uncertain">Невизначено</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Впевненість: %1$s · %2$s</string>
+
+    <string name="section_detection">Ймовірність ШІ</string>
+    <string name="section_metadata">Знайдені метадані</string>
+    <string name="section_image_info">Зображення</string>
+    <string name="section_quota">Денна квота</string>
+    <string name="metadata_present">Присутні</string>
+    <string name="metadata_not_present">Відсутні</string>
+    <string name="jpeg_segments_label">Сегменти JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">Немає сегментів JPEG APP</string>
+    <string name="quota_remaining">Залишилося %1$d із %2$d перевірок на сьогодні</string>
+
+    <string name="error_no_connectivity">Немає підключення до інтернету. Перевірте мережу і спробуйте ще раз.</string>
+    <string name="error_timeout">Сервер надто довго не відповідав. Можливо, він ще прокидається — спробуйте ще раз за хвилину.</string>
+    <string name="error_too_large">Це зображення перевищує ліміт завантаження в 50 MB.</string>
+    <string name="error_unsupported_format">Цей формат зображення не підтримується. Спробуйте файл JPEG, PNG або WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Щось пішло не так: %1$s</string>
+    <string name="error_save_failed">Не вдалося зберегти зображення</string>
+    <string name="error_share_failed">Не вдалося поділитися зображенням</string>
+
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_base_url_label">Базова URL-адреса API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Скинути до типового</string>
+    <string name="settings_save">Зберегти</string>
+    <string name="settings_cancel">Скасувати</string>
+
+    <string name="cd_picked_image">Попередній перегляд вибраного зображення</string>
+    <string name="cd_close">Закрити</string>
+
+    <string name="about_tagline">picai. · відкритий код</string>
+    <string name="about_model_note">Детектор — це відкрита модель Hugging Face, яку можна вивчити або замінити.</string>
+    <string name="about_view_source">Переглянути вихідний код на GitHub</string>
+</resources>

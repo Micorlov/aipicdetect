@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Ανοιχτού κώδικα εγκληματολογία εικόνων ΤΝ</string>
+    <string name="hero_heading_line1">Είναι αληθινή αυτή η φωτογραφία;</string>
+    <string name="hero_heading_line2">Δείτε τη βαθμολογία και την απόδειξη.</string>
+    <string name="hero_lead">Το picai εκτελεί ένα ανοιχτό μοντέλο ανίχνευσης ΤΝ και διαβάζει κάθε πεδίο EXIF, C2PA και IPTC που περιέχει μια φωτογραφία — και στη συνέχεια σας δίνει ένα καθαρό αντίγραφο απαλλαγμένο από όλα αυτά. Χωρίς εγγραφή, χωρίς μαύρο κουτί.</string>
+
+    <string name="cta_pick_image">Επιλογή φωτογραφίας</string>
+    <string name="cta_take_photo">Λήψη φωτογραφίας</string>
+    <string name="cta_analyze">Έλεγχος αυτής της φωτογραφίας</string>
+    <string name="cta_retry">Δοκιμάστε ξανά</string>
+    <string name="cta_start_over">Έλεγχος άλλης εικόνας</string>
+    <string name="cta_save_clean_copy">Αποθήκευση καθαρού αντιγράφου</string>
+    <string name="cta_share_clean_copy">Κοινοποίηση καθαρού αντιγράφου</string>
+    <string name="cta_settings">Ρυθμίσεις</string>
+
+    <string name="status_analyzing">Ανάλυση · pixel · μπλοκ μεταδεδομένων</string>
+    <string name="status_cold_start">Ο διακομιστής εξακολουθεί να ενεργοποιείται — το πρώτο αίτημα μετά από κάποιο διάστημα μπορεί να διαρκέσει έως ένα λεπτό.</string>
+    <string name="status_saved">Αποθηκεύτηκε στη συλλογή σας</string>
+    <string name="status_downloading">Λήψη καθαρού αντιγράφου…</string>
+
+    <string name="score_label_ai">Πιθανώς δημιουργήθηκε από ΤΝ</string>
+    <string name="score_label_real">Πιθανώς πραγματική φωτογραφία</string>
+    <string name="score_label_uncertain">Αβέβαιο</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Εμπιστοσύνη %1$s · %2$s</string>
+
+    <string name="section_detection">Πιθανότητα ΤΝ</string>
+    <string name="section_metadata">Μεταδεδομένα που βρέθηκαν</string>
+    <string name="section_image_info">Εικόνα</string>
+    <string name="section_quota">Ημερήσιο όριο</string>
+    <string name="metadata_present">Υπάρχει</string>
+    <string name="metadata_not_present">Δεν υπάρχει</string>
+    <string name="jpeg_segments_label">Τμήματα JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">Δεν υπάρχουν τμήματα JPEG APP</string>
+    <string name="quota_remaining">Απομένουν %1$d από %2$d αναλύσεις σήμερα</string>
+
+    <string name="error_no_connectivity">Δεν υπάρχει σύνδεση στο διαδίκτυο. Ελέγξτε το δίκτυό σας και δοκιμάστε ξανά.</string>
+    <string name="error_timeout">Ο διακομιστής άργησε πολύ να απαντήσει. Ίσως εξακολουθεί να ενεργοποιείται — δοκιμάστε ξανά σε λίγο.</string>
+    <string name="error_too_large">Αυτή η εικόνα υπερβαίνει το όριο μεταφόρτωσης των 50 MB.</string>
+    <string name="error_unsupported_format">Αυτή η μορφή εικόνας δεν υποστηρίζεται. Δοκιμάστε ένα αρχείο JPEG, PNG ή WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Κάτι πήγε στραβά: %1$s</string>
+    <string name="error_save_failed">Δεν ήταν δυνατή η αποθήκευση της εικόνας</string>
+    <string name="error_share_failed">Δεν ήταν δυνατή η κοινοποίηση της εικόνας</string>
+
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="settings_base_url_label">Βασικό URL API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Επαναφορά προεπιλογής</string>
+    <string name="settings_save">Αποθήκευση</string>
+    <string name="settings_cancel">Ακύρωση</string>
+
+    <string name="cd_picked_image">Προεπισκόπηση επιλεγμένης εικόνας</string>
+    <string name="cd_close">Κλείσιμο</string>
+
+    <string name="about_tagline">picai. · ανοιχτός κώδικας</string>
+    <string name="about_model_note">Ο ανιχνευτής είναι ένα ανοιχτό μοντέλο Hugging Face που μπορείτε να επιθεωρήσετε ή να αντικαταστήσετε.</string>
+    <string name="about_view_source">Προβολή πηγαίου κώδικα στο GitHub</string>
+</resources>

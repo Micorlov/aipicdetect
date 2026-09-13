@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">"Analyse forensique d'images IA, open source"</string>
+    <string name="hero_heading_line1">Cette photo est-elle réelle ?</string>
+    <string name="hero_heading_line2">Obtenez le score et la preuve.</string>
+    <string name="hero_lead">"picai exécute un modèle de détection IA open source et lit tous les champs EXIF, C2PA et IPTC présents dans une photo — puis vous fournit une copie propre, débarrassée de tout cela. Pas d'inscription, pas de boîte noire."</string>
+
+    <string name="cta_pick_image">Choisir une photo</string>
+    <string name="cta_take_photo">Prendre une photo</string>
+    <string name="cta_analyze">Vérifier cette photo</string>
+    <string name="cta_retry">Réessayer</string>
+    <string name="cta_start_over">Vérifier une autre image</string>
+    <string name="cta_save_clean_copy">Enregistrer la copie propre</string>
+    <string name="cta_share_clean_copy">Partager la copie propre</string>
+    <string name="cta_settings">Paramètres</string>
+
+    <string name="status_analyzing">Analyse en cours · pixels · blocs de métadonnées</string>
+    <string name="status_cold_start">"Le serveur est encore en train de démarrer — la première requête après une période d'inactivité peut prendre jusqu'à une minute."</string>
+    <string name="status_saved">Enregistré dans votre galerie</string>
+    <string name="status_downloading">Récupération de la copie propre…</string>
+
+    <string name="score_label_ai">Probablement généré par IA</string>
+    <string name="score_label_real">Probablement une vraie photo</string>
+    <string name="score_label_uncertain">Incertain</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Confiance %1$s · %2$s</string>
+
+    <string name="section_detection">Probabilité IA</string>
+    <string name="section_metadata">Métadonnées trouvées</string>
+    <string name="section_image_info">Image</string>
+    <string name="section_quota">Quota quotidien</string>
+    <string name="metadata_present">Présent</string>
+    <string name="metadata_not_present">Absent</string>
+    <string name="jpeg_segments_label">Segments JPEG : %1$s</string>
+    <string name="jpeg_segments_empty">Aucun segment JPEG APP</string>
+    <string name="quota_remaining">"%1$d analyses restantes sur %2$d aujourd'hui"</string>
+
+    <string name="error_no_connectivity">Aucune connexion Internet. Vérifiez votre réseau et réessayez.</string>
+    <string name="error_timeout">Le serveur a mis trop de temps à répondre. Il est peut-être encore en train de démarrer — réessayez dans un instant.</string>
+    <string name="error_too_large">"Cette image dépasse la limite d'envoi de 50 MB."</string>
+    <string name="error_unsupported_format">"Ce format d'image n'est pas pris en charge. Essayez un fichier JPEG, PNG ou WEBP."</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Une erreur est survenue : %1$s</string>
+    <string name="error_save_failed">"Impossible d'enregistrer l'image"</string>
+    <string name="error_share_failed">"Impossible de partager l'image"</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_base_url_label">"URL de base de l'API"</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Réinitialiser par défaut</string>
+    <string name="settings_save">Enregistrer</string>
+    <string name="settings_cancel">Annuler</string>
+
+    <string name="cd_picked_image">"Aperçu de l'image sélectionnée"</string>
+    <string name="cd_close">Fermer</string>
+
+    <string name="about_tagline">picai. · open source</string>
+    <string name="about_model_note">Le détecteur est un modèle Hugging Face ouvert que vous pouvez inspecter ou remplacer.</string>
+    <string name="about_view_source">Voir le code source sur GitHub</string>
+</resources>

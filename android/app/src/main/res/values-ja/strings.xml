@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">オープンソースのAI画像フォレンジック</string>
+    <string name="hero_heading_line1">この写真は本物？</string>
+    <string name="hero_heading_line2">スコアと証拠を確認しよう。</string>
+    <string name="hero_lead">picaiはオープンなAI検出モデルを実行し、写真が持つすべてのEXIF、C2PA、IPTCフィールドを読み取ります — そして、それらをすべて取り除いたクリーンなコピーを渡します。登録不要、ブラックボックスなし。</string>
+
+    <string name="cta_pick_image">写真を選択</string>
+    <string name="cta_take_photo">写真を撮る</string>
+    <string name="cta_analyze">この写真をチェック</string>
+    <string name="cta_retry">もう一度試す</string>
+    <string name="cta_start_over">別の画像をチェック</string>
+    <string name="cta_save_clean_copy">クリーンなコピーを保存</string>
+    <string name="cta_share_clean_copy">クリーンなコピーを共有</string>
+    <string name="cta_settings">設定</string>
+
+    <string name="status_analyzing">解析中 · ピクセル · メタデータブロック</string>
+    <string name="status_cold_start">サーバーを起動しています。しばらくぶりの初回リクエストは、最大1分ほどかかることがあります。</string>
+    <string name="status_saved">ギャラリーに保存しました</string>
+    <string name="status_downloading">クリーンなコピーを取得中…</string>
+
+    <string name="score_label_ai">AI生成の可能性が高い</string>
+    <string name="score_label_real">本物の写真の可能性が高い</string>
+    <string name="score_label_uncertain">不確定</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">%1$s の信頼度 · %2$s</string>
+
+    <string name="section_detection">AIらしさ</string>
+    <string name="section_metadata">検出されたメタデータ</string>
+    <string name="section_image_info">画像</string>
+    <string name="section_quota">1日あたりの利用上限</string>
+    <string name="metadata_present">あり</string>
+    <string name="metadata_not_present">なし</string>
+    <string name="jpeg_segments_label">JPEGセグメント: %1$s</string>
+    <string name="jpeg_segments_empty">JPEG APPセグメントなし</string>
+    <string name="quota_remaining">本日は%2$d回中あと%1$d回解析できます</string>
+
+    <string name="error_no_connectivity">インターネットに接続されていません。ネットワークを確認してもう一度お試しください。</string>
+    <string name="error_timeout">サーバーの応答に時間がかかりすぎました。まだ起動中の可能性があります。しばらくしてからもう一度お試しください。</string>
+    <string name="error_too_large">この画像は50 MBのアップロード上限を超えています。</string>
+    <string name="error_unsupported_format">この画像形式には対応していません。JPEG、PNG、WEBPのいずれかのファイルをお試しください。</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">問題が発生しました: %1$s</string>
+    <string name="error_save_failed">画像を保存できませんでした</string>
+    <string name="error_share_failed">画像を共有できませんでした</string>
+
+    <string name="settings_title">設定</string>
+    <string name="settings_base_url_label">APIのベースURL</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">デフォルトに戻す</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_cancel">キャンセル</string>
+
+    <string name="cd_picked_image">選択した画像のプレビュー</string>
+    <string name="cd_close">閉じる</string>
+
+    <string name="about_tagline">picai. · オープンソース</string>
+    <string name="about_model_note">検出器はオープンなHugging Faceモデルで、確認したり差し替えたりできます。</string>
+    <string name="about_view_source">GitHubでソースを見る</string>
+</resources>

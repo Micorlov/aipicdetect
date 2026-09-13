@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">זיהוי פורנזי בקוד פתוח לתמונות בינה מלאכותית</string>
+    <string name="hero_heading_line1">האם התמונה הזו אמיתית?</string>
+    <string name="hero_heading_line2">קבלו את הציון וההוכחה.</string>
+    <string name="hero_lead">picai מריץ מודל גילוי בינה מלאכותית בקוד פתוח וקורא כל שדה EXIF, C2PA ו-IPTC שהתמונה נושאת — ואז מעביר לכם עותק נקי שממנו הוסר הכול. בלי הרשמה, בלי קופסה שחורה.</string>
+
+    <string name="cta_pick_image">בחרו תמונה</string>
+    <string name="cta_take_photo">צלמו תמונה</string>
+    <string name="cta_analyze">בדקו את התמונה הזו</string>
+    <string name="cta_retry">נסו שוב</string>
+    <string name="cta_start_over">בדקו תמונה נוספת</string>
+    <string name="cta_save_clean_copy">שמרו עותק נקי</string>
+    <string name="cta_share_clean_copy">שתפו עותק נקי</string>
+    <string name="cta_settings">הגדרות</string>
+
+    <string name="status_analyzing">מנתח · פיקסלים · בלוקי מטא-דאטה</string>
+    <string name="status_cold_start">השרת עדיין מתעורר — הבקשה הראשונה אחרי הפסקה עשויה לקחת עד דקה.</string>
+    <string name="status_saved">נשמר לגלריה שלכם</string>
+    <string name="status_downloading">מוריד את העותק הנקי…</string>
+
+    <string name="score_label_ai">ככל הנראה נוצר בבינה מלאכותית</string>
+    <string name="score_label_real">ככל הנראה תמונה אמיתית</string>
+    <string name="score_label_uncertain">לא ודאי</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">ביטחון %1$s · %2$s</string>
+
+    <string name="section_detection">סבירות לבינה מלאכותית</string>
+    <string name="section_metadata">מטא-דאטה שנמצאה</string>
+    <string name="section_image_info">תמונה</string>
+    <string name="section_quota">מכסה יומית</string>
+    <string name="metadata_present">קיים</string>
+    <string name="metadata_not_present">לא קיים</string>
+    <string name="jpeg_segments_label">מקטעי JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">אין מקטעי APP של JPEG</string>
+    <string name="quota_remaining">%1$d מתוך %2$d ניתוחים נותרו היום</string>
+
+    <string name="error_no_connectivity">אין חיבור לאינטרנט. בדקו את הרשת שלכם ונסו שוב.</string>
+    <string name="error_timeout">השרת התעכב מדי בתגובה. ייתכן שהוא עדיין מתעורר — נסו שוב בעוד רגע.</string>
+    <string name="error_too_large">התמונה הזו גדולה ממגבלת ההעלאה של 50 MB.</string>
+    <string name="error_unsupported_format">פורמט התמונה הזה אינו נתמך. נסו קובץ מסוג JPEG, PNG או WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">משהו השתבש: %1$s</string>
+    <string name="error_save_failed">לא ניתן היה לשמור את התמונה</string>
+    <string name="error_share_failed">לא ניתן היה לשתף את התמונה</string>
+
+    <string name="settings_title">הגדרות</string>
+    <string name="settings_base_url_label">כתובת URL בסיסית של ה-API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">איפוס לברירת המחדל</string>
+    <string name="settings_save">שמירה</string>
+    <string name="settings_cancel">ביטול</string>
+
+    <string name="cd_picked_image">תצוגה מקדימה של התמונה שנבחרה</string>
+    <string name="cd_close">סגירה</string>
+
+    <string name="about_tagline">picai. · קוד פתוח</string>
+    <string name="about_model_note">הגלאי הוא מודל פתוח של Hugging Face שאפשר לבדוק או להחליף.</string>
+    <string name="about_view_source">צפייה בקוד המקור ב-GitHub</string>
+</resources>

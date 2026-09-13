@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Analiză criminalistică open-source a imaginilor AI</string>
+    <string name="hero_heading_line1">Această fotografie este reală?</string>
+    <string name="hero_heading_line2">Află scorul și dovada.</string>
+    <string name="hero_lead">picai rulează un model deschis de detectare AI și citește fiecare câmp EXIF, C2PA și IPTC purtat de o fotografie — apoi îți oferă o copie curată din care toate acestea au fost eliminate. Fără înregistrare, fără cutie neagră.</string>
+
+    <string name="cta_pick_image">Alege fotografia</string>
+    <string name="cta_take_photo">Fă o fotografie</string>
+    <string name="cta_analyze">Verifică fotografia</string>
+    <string name="cta_retry">Încearcă din nou</string>
+    <string name="cta_start_over">Verifică o altă imagine</string>
+    <string name="cta_save_clean_copy">Salvează copia curată</string>
+    <string name="cta_share_clean_copy">Distribuie copia curată</string>
+    <string name="cta_settings">Setări</string>
+
+    <string name="status_analyzing">Se analizează · pixeli · blocuri de metadate</string>
+    <string name="status_cold_start">Serverul încă pornește — prima cerere după o pauză mai lungă poate dura până la un minut.</string>
+    <string name="status_saved">Salvată în galerie</string>
+    <string name="status_downloading">Se descarcă copia curată…</string>
+
+    <string name="score_label_ai">Probabil generată de AI</string>
+    <string name="score_label_real">Probabil o fotografie reală</string>
+    <string name="score_label_uncertain">Incert</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Încredere: %1$s · %2$s</string>
+
+    <string name="section_detection">Probabilitate AI</string>
+    <string name="section_metadata">Metadate găsite</string>
+    <string name="section_image_info">Imagine</string>
+    <string name="section_quota">Cotă zilnică</string>
+    <string name="metadata_present">Prezente</string>
+    <string name="metadata_not_present">Absente</string>
+    <string name="jpeg_segments_label">Segmente JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">Niciun segment JPEG APP</string>
+    <string name="quota_remaining">Mai ai %1$d din %2$d analize disponibile azi</string>
+
+    <string name="error_no_connectivity">Nicio conexiune la internet. Verifică rețeaua și încearcă din nou.</string>
+    <string name="error_timeout">Serverul a răspuns prea greu. Este posibil să încă pornească — încearcă din nou peste puțin timp.</string>
+    <string name="error_too_large">Această imagine depășește limita de încărcare de 50 MB.</string>
+    <string name="error_unsupported_format">Acest format de imagine nu este acceptat. Încearcă un fișier JPEG, PNG sau WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Ceva n-a mers bine: %1$s</string>
+    <string name="error_save_failed">Imaginea nu a putut fi salvată</string>
+    <string name="error_share_failed">Imaginea nu a putut fi distribuită</string>
+
+    <string name="settings_title">Setări</string>
+    <string name="settings_base_url_label">URL de bază API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Revenire la valoarea implicită</string>
+    <string name="settings_save">Salvează</string>
+    <string name="settings_cancel">Anulează</string>
+
+    <string name="cd_picked_image">Previzualizarea imaginii selectate</string>
+    <string name="cd_close">Închide</string>
+
+    <string name="about_tagline">picai. · open source</string>
+    <string name="about_model_note">Detectorul este un model deschis Hugging Face pe care îl poți inspecta sau înlocui.</string>
+    <string name="about_view_source">Vezi codul sursă pe GitHub</string>
+</resources>

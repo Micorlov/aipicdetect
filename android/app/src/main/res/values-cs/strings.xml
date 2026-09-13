@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Open-source forenzní analýza AI obrázků</string>
+    <string name="hero_heading_line1">Je tahle fotka opravdová?</string>
+    <string name="hero_heading_line2">Zjistěte skóre a důkaz.</string>
+    <string name="hero_lead">picai spouští otevřený model pro detekci AI a čte každé pole EXIF, C2PA a IPTC, které fotka nese — a pak vám dá čistou kopii se vším odstraněným. Bez registrace, bez černé skříňky.</string>
+
+    <string name="cta_pick_image">Vybrat fotku</string>
+    <string name="cta_take_photo">Vyfotit</string>
+    <string name="cta_analyze">Zkontrolovat tuto fotku</string>
+    <string name="cta_retry">Zkusit znovu</string>
+    <string name="cta_start_over">Zkontrolovat jiný obrázek</string>
+    <string name="cta_save_clean_copy">Uložit čistou kopii</string>
+    <string name="cta_share_clean_copy">Sdílet čistou kopii</string>
+    <string name="cta_settings">Nastavení</string>
+
+    <string name="status_analyzing">Analyzuji · pixely · bloky metadat</string>
+    <string name="status_cold_start">Server se ještě probouzí — první požadavek po delší době může trvat až minutu.</string>
+    <string name="status_saved">Uloženo do galerie</string>
+    <string name="status_downloading">Stahování čisté kopie…</string>
+
+    <string name="score_label_ai">Pravděpodobně vygenerováno AI</string>
+    <string name="score_label_real">Pravděpodobně skutečná fotka</string>
+    <string name="score_label_uncertain">Nejisté</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Jistota: %1$s · %2$s</string>
+
+    <string name="section_detection">Pravděpodobnost AI</string>
+    <string name="section_metadata">Nalezená metadata</string>
+    <string name="section_image_info">Obrázek</string>
+    <string name="section_quota">Denní limit</string>
+    <string name="metadata_present">Přítomno</string>
+    <string name="metadata_not_present">Nepřítomno</string>
+    <string name="jpeg_segments_label">Segmenty JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">Žádné segmenty JPEG APP</string>
+    <string name="quota_remaining">Zbývá %1$d z %2$d analýz na dnešek</string>
+
+    <string name="error_no_connectivity">Žádné internetové připojení. Zkontrolujte síť a zkuste to znovu.</string>
+    <string name="error_timeout">Server odpovídal příliš dlouho. Možná se ještě probouzí — zkuste to za chvíli znovu.</string>
+    <string name="error_too_large">Tento obrázek přesahuje limit pro nahrání 50 MB.</string>
+    <string name="error_unsupported_format">Tento formát obrázku není podporován. Zkuste soubor JPEG, PNG nebo WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Něco se pokazilo: %1$s</string>
+    <string name="error_save_failed">Obrázek se nepodařilo uložit</string>
+    <string name="error_share_failed">Obrázek se nepodařilo sdílet</string>
+
+    <string name="settings_title">Nastavení</string>
+    <string name="settings_base_url_label">Základní URL adresa API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Obnovit výchozí</string>
+    <string name="settings_save">Uložit</string>
+    <string name="settings_cancel">Zrušit</string>
+
+    <string name="cd_picked_image">Náhled vybraného obrázku</string>
+    <string name="cd_close">Zavřít</string>
+
+    <string name="about_tagline">picai. · open source</string>
+    <string name="about_model_note">Detektor je otevřený model Hugging Face, který si můžete prohlédnout nebo nahradit.</string>
+    <string name="about_view_source">Zobrazit zdrojový kód na GitHubu</string>
+</resources>

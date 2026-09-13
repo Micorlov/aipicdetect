@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Nyílt forráskódú AI-képforenzika</string>
+    <string name="hero_heading_line1">Valódi ez a fotó?</string>
+    <string name="hero_heading_line2">Nézd meg a pontszámot és a bizonyítékot.</string>
+    <string name="hero_lead">A picai egy nyílt AI-detektáló modellt futtat, és beolvassa a fotó minden EXIF, C2PA és IPTC mezőjét — majd egy tiszta másolatot ad, amelyből mindezt eltávolította. Regisztráció és fekete doboz nélkül.</string>
+
+    <string name="cta_pick_image">Fotó kiválasztása</string>
+    <string name="cta_take_photo">Fotó készítése</string>
+    <string name="cta_analyze">Fotó ellenőrzése</string>
+    <string name="cta_retry">Próbáld újra</string>
+    <string name="cta_start_over">Másik kép ellenőrzése</string>
+    <string name="cta_save_clean_copy">Tiszta másolat mentése</string>
+    <string name="cta_share_clean_copy">Tiszta másolat megosztása</string>
+    <string name="cta_settings">Beállítások</string>
+
+    <string name="status_analyzing">Elemzés · pixelek · metaadat-blokkok</string>
+    <string name="status_cold_start">A szerver még csak most ébred fel — hosszabb szünet után az első kérés akár egy percig is eltarthat.</string>
+    <string name="status_saved">Elmentve a galériába</string>
+    <string name="status_downloading">Tiszta másolat letöltése…</string>
+
+    <string name="score_label_ai">Valószínűleg AI-generált</string>
+    <string name="score_label_real">Valószínűleg valódi fotó</string>
+    <string name="score_label_uncertain">Bizonytalan</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Megbízhatóság: %1$s · %2$s</string>
+
+    <string name="section_detection">AI valószínűség</string>
+    <string name="section_metadata">Talált metaadatok</string>
+    <string name="section_image_info">Kép</string>
+    <string name="section_quota">Napi kvóta</string>
+    <string name="metadata_present">Jelen van</string>
+    <string name="metadata_not_present">Nincs jelen</string>
+    <string name="jpeg_segments_label">JPEG szegmensek: %1$s</string>
+    <string name="jpeg_segments_empty">Nincsenek JPEG APP szegmensek</string>
+    <string name="quota_remaining">Ma még %1$d/%2$d elemzésed van hátra</string>
+
+    <string name="error_no_connectivity">Nincs internetkapcsolat. Ellenőrizd a hálózatot, és próbáld újra.</string>
+    <string name="error_timeout">A szerver túl sokáig nem válaszolt. Lehet, hogy még ébred — próbáld újra egy perc múlva.</string>
+    <string name="error_too_large">Ez a kép meghaladja az 50 MB-os feltöltési korlátot.</string>
+    <string name="error_unsupported_format">Ez a képformátum nem támogatott. Próbálj JPEG, PNG vagy WEBP fájlt.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Valami hiba történt: %1$s</string>
+    <string name="error_save_failed">A kép mentése nem sikerült</string>
+    <string name="error_share_failed">A kép megosztása nem sikerült</string>
+
+    <string name="settings_title">Beállítások</string>
+    <string name="settings_base_url_label">API alap-URL</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Alapértelmezés visszaállítása</string>
+    <string name="settings_save">Mentés</string>
+    <string name="settings_cancel">Mégse</string>
+
+    <string name="cd_picked_image">A kiválasztott kép előnézete</string>
+    <string name="cd_close">Bezárás</string>
+
+    <string name="about_tagline">picai. · open source</string>
+    <string name="about_model_note">A detektor egy nyílt Hugging Face modell, amelyet megvizsgálhatsz vagy lecserélhetsz.</string>
+    <string name="about_view_source">Forráskód megtekintése a GitHubon</string>
+</resources>

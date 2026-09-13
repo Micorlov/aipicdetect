@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">تحليل جنائي مفتوح المصدر لصور الذكاء الاصطناعي</string>
+    <string name="hero_heading_line1">هل هذه الصورة حقيقية؟</string>
+    <string name="hero_heading_line2">احصل على النتيجة والدليل.</string>
+    <string name="hero_lead">يشغّل picai نموذج كشف مفتوح المصدر للذكاء الاصطناعي ويقرأ كل حقول EXIF وC2PA وIPTC التي تحملها الصورة — ثم يمنحك نسخة نظيفة تمت إزالة كل ذلك منها. بلا تسجيل، بلا صندوق أسود.</string>
+
+    <string name="cta_pick_image">اختر صورة</string>
+    <string name="cta_take_photo">التقط صورة</string>
+    <string name="cta_analyze">تحقّق من هذه الصورة</string>
+    <string name="cta_retry">حاول مرة أخرى</string>
+    <string name="cta_start_over">تحقّق من صورة أخرى</string>
+    <string name="cta_save_clean_copy">احفظ النسخة النظيفة</string>
+    <string name="cta_share_clean_copy">شارك النسخة النظيفة</string>
+    <string name="cta_settings">الإعدادات</string>
+
+    <string name="status_analyzing">جارٍ التحليل · بكسلات · كتل بيانات وصفية</string>
+    <string name="status_cold_start">الخادم ما زال يستيقظ — قد يستغرق أول طلب بعد فترة من الخمول حتى دقيقة واحدة.</string>
+    <string name="status_saved">تم الحفظ في معرض الصور الخاص بك</string>
+    <string name="status_downloading">جارٍ تنزيل النسخة النظيفة…</string>
+
+    <string name="score_label_ai">على الأرجح مولّدة بالذكاء الاصطناعي</string>
+    <string name="score_label_real">على الأرجح صورة حقيقية</string>
+    <string name="score_label_uncertain">غير مؤكد</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">ثقة %1$s · %2$s</string>
+
+    <string name="section_detection">احتمالية الذكاء الاصطناعي</string>
+    <string name="section_metadata">البيانات الوصفية الموجودة</string>
+    <string name="section_image_info">الصورة</string>
+    <string name="section_quota">الحصة اليومية</string>
+    <string name="metadata_present">موجودة</string>
+    <string name="metadata_not_present">غير موجودة</string>
+    <string name="jpeg_segments_label">مقاطع JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">لا توجد مقاطع APP من JPEG</string>
+    <string name="quota_remaining">%1$d من %2$d تحليلات متبقية اليوم</string>
+
+    <string name="error_no_connectivity">لا يوجد اتصال بالإنترنت. تحقّق من شبكتك وحاول مرة أخرى.</string>
+    <string name="error_timeout">استغرق الخادم وقتًا طويلاً للاستجابة. قد يكون لا يزال يستيقظ — حاول مرة أخرى بعد قليل.</string>
+    <string name="error_too_large">حجم هذه الصورة أكبر من الحد الأقصى للرفع البالغ 50 MB.</string>
+    <string name="error_unsupported_format">صيغة هذه الصورة غير مدعومة. جرّب ملف JPEG أو PNG أو WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">حدث خطأ ما: %1$s</string>
+    <string name="error_save_failed">تعذّر حفظ الصورة</string>
+    <string name="error_share_failed">تعذّر مشاركة الصورة</string>
+
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_base_url_label">عنوان URL الأساسي لواجهة API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">إعادة التعيين إلى الافتراضي</string>
+    <string name="settings_save">حفظ</string>
+    <string name="settings_cancel">إلغاء</string>
+
+    <string name="cd_picked_image">معاينة الصورة المحددة</string>
+    <string name="cd_close">إغلاق</string>
+
+    <string name="about_tagline">picai. · مفتوح المصدر</string>
+    <string name="about_model_note">الكاشف هو نموذج مفتوح من Hugging Face يمكنك فحصه أو استبداله.</string>
+    <string name="about_view_source">عرض الكود المصدري على GitHub</string>
+</resources>

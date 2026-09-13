@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">فارنزیک متن‌باز تصاویر هوش مصنوعی</string>
+    <string name="hero_heading_line1">آیا این عکس واقعی است؟</string>
+    <string name="hero_heading_line2">امتیاز و مدرک را دریافت کنید.</string>
+    <string name="hero_lead">picai یک مدل باز تشخیص هوش مصنوعی اجرا می‌کند و تمام فیلدهای EXIF، C2PA و IPTC موجود در یک عکس را می‌خواند — سپس یک نسخه‌ی پاک به شما می‌دهد که همه‌ی این‌ها از آن حذف شده است. بدون ثبت‌نام، بدون جعبه‌ی سیاه.</string>
+
+    <string name="cta_pick_image">انتخاب عکس</string>
+    <string name="cta_take_photo">گرفتن عکس</string>
+    <string name="cta_analyze">این عکس را بررسی کنید</string>
+    <string name="cta_retry">دوباره امتحان کنید</string>
+    <string name="cta_start_over">بررسی تصویر دیگر</string>
+    <string name="cta_save_clean_copy">ذخیره‌ی نسخه‌ی پاک</string>
+    <string name="cta_share_clean_copy">اشتراک‌گذاری نسخه‌ی پاک</string>
+    <string name="cta_settings">تنظیمات</string>
+
+    <string name="status_analyzing">در حال تحلیل · پیکسل‌ها · بلوک‌های متادیتا</string>
+    <string name="status_cold_start">سرور هنوز در حال بیدار شدن است — اولین درخواست پس از مدتی سکون ممکن است تا یک دقیقه طول بکشد.</string>
+    <string name="status_saved">در گالری شما ذخیره شد</string>
+    <string name="status_downloading">در حال دریافت نسخه‌ی پاک…</string>
+
+    <string name="score_label_ai">احتمالاً تولیدشده با هوش مصنوعی</string>
+    <string name="score_label_real">احتمالاً یک عکس واقعی</string>
+    <string name="score_label_uncertain">نامشخص</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">اطمینان %1$s · %2$s</string>
+
+    <string name="section_detection">احتمال هوش مصنوعی بودن</string>
+    <string name="section_metadata">متادیتای یافت‌شده</string>
+    <string name="section_image_info">تصویر</string>
+    <string name="section_quota">سهمیه‌ی روزانه</string>
+    <string name="metadata_present">موجود</string>
+    <string name="metadata_not_present">موجود نیست</string>
+    <string name="jpeg_segments_label">بخش‌های JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">بدون بخش‌های APP در JPEG</string>
+    <string name="quota_remaining">%1$d از %2$d تحلیل امروز باقی مانده است</string>
+
+    <string name="error_no_connectivity">اتصال اینترنت وجود ندارد. شبکه‌ی خود را بررسی کنید و دوباره امتحان کنید.</string>
+    <string name="error_timeout">پاسخ سرور بیش از حد طول کشید. ممکن است هنوز در حال بیدار شدن باشد — چند لحظه‌ی دیگر دوباره امتحان کنید.</string>
+    <string name="error_too_large">این تصویر بزرگ‌تر از محدودیت آپلود 50 MB است.</string>
+    <string name="error_unsupported_format">این فرمت تصویر پشتیبانی نمی‌شود. یک فایل JPEG، PNG یا WEBP را امتحان کنید.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">مشکلی پیش آمد: %1$s</string>
+    <string name="error_save_failed">ذخیره‌ی تصویر ممکن نشد</string>
+    <string name="error_share_failed">اشتراک‌گذاری تصویر ممکن نشد</string>
+
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_base_url_label">آدرس پایه‌ی API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">بازگشت به پیش‌فرض</string>
+    <string name="settings_save">ذخیره</string>
+    <string name="settings_cancel">لغو</string>
+
+    <string name="cd_picked_image">پیش‌نمایش تصویر انتخاب‌شده</string>
+    <string name="cd_close">بستن</string>
+
+    <string name="about_tagline">picai. · متن‌باز</string>
+    <string name="about_model_note">تشخیص‌گر یک مدل باز Hugging Face است که می‌توانید آن را بررسی یا جایگزین کنید.</string>
+    <string name="about_view_source">مشاهده‌ی کد منبع در GitHub</string>
+</resources>

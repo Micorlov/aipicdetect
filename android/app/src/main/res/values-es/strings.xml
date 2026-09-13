@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">Análisis forense de imágenes de IA de código abierto</string>
+    <string name="hero_heading_line1">¿Es real esta foto?</string>
+    <string name="hero_heading_line2">Obtén la puntuación y la prueba.</string>
+    <string name="hero_lead">picai ejecuta un modelo abierto de detección de IA y lee todos los campos EXIF, C2PA e IPTC que lleva una foto — y luego te entrega una copia limpia con todo eso eliminado. Sin registro, sin caja negra.</string>
+
+    <string name="cta_pick_image">Elegir foto</string>
+    <string name="cta_take_photo">Hacer una foto</string>
+    <string name="cta_analyze">Comprobar esta foto</string>
+    <string name="cta_retry">Reintentar</string>
+    <string name="cta_start_over">Comprobar otra imagen</string>
+    <string name="cta_save_clean_copy">Guardar copia limpia</string>
+    <string name="cta_share_clean_copy">Compartir copia limpia</string>
+    <string name="cta_settings">Ajustes</string>
+
+    <string name="status_analyzing">Analizando · píxeles · bloques de metadatos</string>
+    <string name="status_cold_start">El servidor todavía se está iniciando — la primera solicitud después de un tiempo puede tardar hasta un minuto.</string>
+    <string name="status_saved">Guardado en tu galería</string>
+    <string name="status_downloading">Obteniendo copia limpia…</string>
+
+    <string name="score_label_ai">Probablemente generada por IA</string>
+    <string name="score_label_real">Probablemente una foto real</string>
+    <string name="score_label_uncertain">Incierto</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">%1$s de confianza · %2$s</string>
+
+    <string name="section_detection">Probabilidad de IA</string>
+    <string name="section_metadata">Metadatos encontrados</string>
+    <string name="section_image_info">Imagen</string>
+    <string name="section_quota">Cuota diaria</string>
+    <string name="metadata_present">Presente</string>
+    <string name="metadata_not_present">No presente</string>
+    <string name="jpeg_segments_label">Segmentos JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">Sin segmentos APP de JPEG</string>
+    <string name="quota_remaining">%1$d de %2$d análisis restantes hoy</string>
+
+    <string name="error_no_connectivity">No hay conexión a internet. Comprueba tu red e inténtalo de nuevo.</string>
+    <string name="error_timeout">El servidor tardó demasiado en responder. Puede que todavía se esté iniciando — inténtalo de nuevo en un momento.</string>
+    <string name="error_too_large">Esta imagen supera el límite de subida de 50 MB.</string>
+    <string name="error_unsupported_format">Este formato de imagen no es compatible. Prueba con un archivo JPEG, PNG o WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Algo salió mal: %1$s</string>
+    <string name="error_save_failed">No se pudo guardar la imagen</string>
+    <string name="error_share_failed">No se pudo compartir la imagen</string>
+
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_base_url_label">URL base de la API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Restablecer valor predeterminado</string>
+    <string name="settings_save">Guardar</string>
+    <string name="settings_cancel">Cancelar</string>
+
+    <string name="cd_picked_image">Vista previa de la imagen seleccionada</string>
+    <string name="cd_close">Cerrar</string>
+
+    <string name="about_tagline">picai. · código abierto</string>
+    <string name="about_model_note">El detector es un modelo abierto de Hugging Face que puedes inspeccionar o sustituir.</string>
+    <string name="about_view_source">Ver código fuente en GitHub</string>
+</resources>

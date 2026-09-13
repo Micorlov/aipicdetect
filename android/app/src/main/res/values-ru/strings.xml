@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">ИИ-криминалистика изображений с открытым кодом</string>
+    <string name="hero_heading_line1">Это фото настоящее?</string>
+    <string name="hero_heading_line2">Получите оценку и доказательство.</string>
+    <string name="hero_lead">picai запускает открытую модель для распознавания ИИ-изображений и считывает каждое поле EXIF, C2PA и IPTC, которое несёт фото, — а затем отдаёт вам чистую копию со всем этим удалённым. Без регистрации, без чёрного ящика.</string>
+
+    <string name="cta_pick_image">Выбрать фото</string>
+    <string name="cta_take_photo">Сделать фото</string>
+    <string name="cta_analyze">Проверить это фото</string>
+    <string name="cta_retry">Попробовать снова</string>
+    <string name="cta_start_over">Проверить другое изображение</string>
+    <string name="cta_save_clean_copy">Сохранить чистую копию</string>
+    <string name="cta_share_clean_copy">Поделиться чистой копией</string>
+    <string name="cta_settings">Настройки</string>
+
+    <string name="status_analyzing">Анализ · пиксели · блоки метаданных</string>
+    <string name="status_cold_start">Сервер ещё просыпается — первый запрос после простоя может занять до минуты.</string>
+    <string name="status_saved">Сохранено в галерею</string>
+    <string name="status_downloading">Загрузка чистой копии…</string>
+
+    <string name="score_label_ai">Вероятно, создано ИИ</string>
+    <string name="score_label_real">Вероятно, настоящее фото</string>
+    <string name="score_label_uncertain">Неопределённо</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">Уверенность: %1$s · %2$s</string>
+
+    <string name="section_detection">Вероятность ИИ</string>
+    <string name="section_metadata">Найденные метаданные</string>
+    <string name="section_image_info">Изображение</string>
+    <string name="section_quota">Дневная квота</string>
+    <string name="metadata_present">Присутствует</string>
+    <string name="metadata_not_present">Отсутствует</string>
+    <string name="jpeg_segments_label">Сегменты JPEG: %1$s</string>
+    <string name="jpeg_segments_empty">Нет сегментов JPEG APP</string>
+    <string name="quota_remaining">Осталось %1$d из %2$d проверок на сегодня</string>
+
+    <string name="error_no_connectivity">Нет подключения к интернету. Проверьте сеть и попробуйте снова.</string>
+    <string name="error_timeout">Сервер слишком долго не отвечал. Возможно, он ещё просыпается — попробуйте снова через минуту.</string>
+    <string name="error_too_large">Это изображение больше лимита загрузки в 50 MB.</string>
+    <string name="error_unsupported_format">Этот формат изображения не поддерживается. Попробуйте файл JPEG, PNG или WEBP.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">Что-то пошло не так: %1$s</string>
+    <string name="error_save_failed">Не удалось сохранить изображение</string>
+    <string name="error_share_failed">Не удалось поделиться изображением</string>
+
+    <string name="settings_title">Настройки</string>
+    <string name="settings_base_url_label">Базовый URL API</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">Сбросить до значения по умолчанию</string>
+    <string name="settings_save">Сохранить</string>
+    <string name="settings_cancel">Отмена</string>
+
+    <string name="cd_picked_image">Предпросмотр выбранного изображения</string>
+    <string name="cd_close">Закрыть</string>
+
+    <string name="about_tagline">picai. · открытый код</string>
+    <string name="about_model_note">Детектор — это открытая модель Hugging Face, которую можно изучить или заменить.</string>
+    <string name="about_view_source">Исходный код на GitHub</string>
+</resources>

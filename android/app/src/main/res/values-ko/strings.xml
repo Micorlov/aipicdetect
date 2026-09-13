@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">picai</string>
+    <string name="hero_overline">오픈소스 AI 이미지 포렌식</string>
+    <string name="hero_heading_line1">이 사진은 진짜일까요?</string>
+    <string name="hero_heading_line2">점수와 근거를 확인하세요.</string>
+    <string name="hero_lead">picai는 오픈 AI 감지 모델을 실행하고 사진이 담고 있는 모든 EXIF, C2PA, IPTC 필드를 읽습니다 — 그런 다음 이 모든 것을 제거한 깨끗한 사본을 제공합니다. 가입도, 블랙박스도 없습니다.</string>
+
+    <string name="cta_pick_image">사진 선택</string>
+    <string name="cta_take_photo">사진 촬영</string>
+    <string name="cta_analyze">이 사진 확인하기</string>
+    <string name="cta_retry">다시 시도</string>
+    <string name="cta_start_over">다른 이미지 확인</string>
+    <string name="cta_save_clean_copy">깨끗한 사본 저장</string>
+    <string name="cta_share_clean_copy">깨끗한 사본 공유</string>
+    <string name="cta_settings">설정</string>
+
+    <string name="status_analyzing">분석 중 · 픽셀 · 메타데이터 블록</string>
+    <string name="status_cold_start">서버를 깨우는 중입니다. 한동안 사용하지 않은 후의 첫 요청은 최대 1분까지 걸릴 수 있습니다.</string>
+    <string name="status_saved">갤러리에 저장되었습니다</string>
+    <string name="status_downloading">깨끗한 사본 가져오는 중…</string>
+
+    <string name="score_label_ai">AI 생성 가능성이 높음</string>
+    <string name="score_label_real">실제 사진일 가능성이 높음</string>
+    <string name="score_label_uncertain">불확실</string>
+    <string name="score_percent_line">%1$s — %2$d%%</string>
+    <string name="score_confidence_line">%1$s 신뢰도 · %2$s</string>
+
+    <string name="section_detection">AI 가능성</string>
+    <string name="section_metadata">발견된 메타데이터</string>
+    <string name="section_image_info">이미지</string>
+    <string name="section_quota">일일 사용 한도</string>
+    <string name="metadata_present">있음</string>
+    <string name="metadata_not_present">없음</string>
+    <string name="jpeg_segments_label">JPEG 세그먼트: %1$s</string>
+    <string name="jpeg_segments_empty">JPEG APP 세그먼트 없음</string>
+    <string name="quota_remaining">오늘 %2$d회 중 %1$d회 남음</string>
+
+    <string name="error_no_connectivity">인터넷에 연결되어 있지 않습니다. 네트워크를 확인한 후 다시 시도해주세요.</string>
+    <string name="error_timeout">서버 응답 시간이 너무 오래 걸렸습니다. 아직 깨어나는 중일 수 있으니 잠시 후 다시 시도해주세요.</string>
+    <string name="error_too_large">이 이미지는 50 MB 업로드 제한을 초과합니다.</string>
+    <string name="error_unsupported_format">이 이미지 형식은 지원되지 않습니다. JPEG, PNG 또는 WEBP 파일을 사용해보세요.</string>
+    <string name="error_rate_limited">%1$s</string>
+    <string name="error_unknown">문제가 발생했습니다: %1$s</string>
+    <string name="error_save_failed">이미지를 저장하지 못했습니다</string>
+    <string name="error_share_failed">이미지를 공유하지 못했습니다</string>
+
+    <string name="settings_title">설정</string>
+    <string name="settings_base_url_label">API 기본 URL</string>
+    <string name="settings_base_url_hint">https://your-server.example.com</string>
+    <string name="settings_reset_default">기본값으로 재설정</string>
+    <string name="settings_save">저장</string>
+    <string name="settings_cancel">취소</string>
+
+    <string name="cd_picked_image">선택한 이미지 미리보기</string>
+    <string name="cd_close">닫기</string>
+
+    <string name="about_tagline">picai. · 오픈소스</string>
+    <string name="about_model_note">감지기는 검토하거나 교체할 수 있는 오픈 Hugging Face 모델입니다.</string>
+    <string name="about_view_source">GitHub에서 소스 보기</string>
+</resources>
