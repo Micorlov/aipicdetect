@@ -93,5 +93,13 @@ def test_static_assets_are_served():
     assert js.status_code == 200 and "javascript" in js.headers["content-type"]
 
 
+def test_pwa_manifest_and_icons_are_served():
+    manifest = client.get("/static/manifest.json")
+    assert manifest.status_code == 200
+    icons = [icon["src"] for icon in manifest.json()["icons"]]
+    assert icons and all(client.get(src).status_code == 200 for src in icons)
+    assert client.get("/static/icons/apple-touch-icon.png").status_code == 200
+
+
 def test_static_unknown_file_is_404():
     assert client.get("/static/missing.js").status_code == 404

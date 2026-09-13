@@ -25,6 +25,21 @@ Drop, paste or pick an image on the page to get:
 The web page is detection-only. Metadata scrubbing is still available through the CLI
 and the `POST /scrub` / `POST /analyze` API endpoints below.
 
+## On your phone
+
+The page is a small PWA: on a phone it shows **Choose photo** / **Take a photo** buttons
+instead of the drag-and-drop hints, and it can be added to the home screen (Safari:
+Share → *Add to Home Screen*; Chrome: menu → *Install app*).
+
+The phone needs to reach the server over your Wi-Fi, so start it on all interfaces:
+
+```bash
+uv run picai serve --host 0.0.0.0
+```
+
+then open `http://<your-computer's-LAN-IP>:8000` on the phone (on macOS the IP is under
+System Settings → Wi-Fi → Details). The Docker image already listens on all interfaces.
+
 Set `PICAI_DETECTOR_MODEL` to any Hugging Face image-classification model whose labels
 name AI/fake vs. human/real content to swap the detector.
 

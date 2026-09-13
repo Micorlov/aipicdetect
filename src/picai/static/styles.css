@@ -57,7 +57,8 @@ a { color: var(--accent); }
 /* Top bar */
 .topbar {
   display: flex; align-items: center; gap: 36px;
-  max-width: var(--max); margin: 0 auto; padding: 26px 24px;
+  max-width: var(--max); margin: 0 auto;
+  padding: calc(26px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) 26px calc(24px + env(safe-area-inset-left));
 }
 .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 22px; color: var(--text); text-decoration: none; }
 .nav-links { display: flex; gap: 26px; margin-left: auto; }
@@ -127,7 +128,17 @@ body:not([data-state="loading-model"]) .status::before { background: var(--succe
 }
 .dz-title { font-size: 19px; font-weight: 600; color: var(--text); }
 .dz-sub { color: var(--muted); font-size: 13px; margin: 4px 0 16px; }
+.dz-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
 .dz-note { margin-top: 18px; font-size: 12px; color: var(--muted); }
+
+/* Pointer-specific copy: mouse users see drag/paste hints, touch users see photo/camera */
+.pointer-coarse { display: none; }
+@media (hover: none) and (pointer: coarse) {
+  .pointer-fine { display: none; }
+  .pointer-coarse { display: inline; }
+  .dz-buttons .pointer-coarse { display: inline-flex; }
+  .dropzone { padding: 32px 16px; }
+}
 
 /* Alert + loading */
 .alert {
@@ -235,7 +246,9 @@ details p { padding: 0 22px 18px; color: var(--muted); font-size: 14px; }
   .step-num { padding-bottom: 18px; }
 }
 @media (max-width: 600px) {
-  .topbar { gap: 14px; padding: 18px 20px; }
+  .topbar { gap: 14px; padding: calc(18px + env(safe-area-inset-top)) 20px 18px; }
+  main { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+  .footer { padding-bottom: calc(30px + env(safe-area-inset-bottom)); }
   .nav-links a:not(:last-child) { display: none; }
   .status { font-size: 11px; padding: 6px 10px; }
   main { padding: 0 20px 56px; }
@@ -245,4 +258,6 @@ details p { padding: 0 22px 18px; color: var(--muted); font-size: 14px; }
   .stats strong { font-size: 36px; }
   .stat strong { font-size: 52px; }
   .actions .btn-primary { width: 100%; }
+  .dz-buttons { width: 100%; }
+  .dz-buttons .btn-primary, .dz-buttons .btn-secondary { flex: 1 1 140px; }
 }

@@ -10,7 +10,8 @@
 
   const $ = (id) => document.getElementById(id);
   const el = {
-    status: $("status"), dropzone: $("dropzone"), file: $("file"), pick: $("pick"), note: $("dz-note"),
+    status: $("status"), dropzone: $("dropzone"), file: $("file"), camera: $("camera"),
+    pick: $("pick"), snap: $("snap"), note: $("dz-note"),
     error: $("error"), errorText: $("error-text"), errorClose: $("error-close"),
     loading: $("loading"), loadingName: $("loading-name"), result: $("result"),
     verdict: $("verdict"), percent: $("percent"), confidence: $("confidence"), marker: $("marker"),
@@ -28,7 +29,7 @@
     const disabled = state === "loading-model";
     el.dropzone.classList.toggle("is-busy", busy);
     el.dropzone.classList.toggle("is-disabled", disabled);
-    el.pick.disabled = busy || disabled;
+    el.pick.disabled = el.snap.disabled = busy || disabled;
     el.loading.hidden = !busy;
     el.result.hidden = state !== "result";
     el.note.textContent = disabled ? "Loading detector model (first run downloads ~750 MB)…" : READY_NOTE;
@@ -79,6 +80,7 @@
   function reset() {
     releaseOriginal();
     el.file.value = "";
+    el.camera.value = "";
     el.previewFrame.classList.remove("unavailable");
     el.error.hidden = true;
     setState("idle");
@@ -198,10 +200,15 @@
 
   el.dropzone.addEventListener("click", pickFile);
   el.pick.addEventListener("click", (e) => { e.stopPropagation(); pickFile(); });
+  el.snap.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (!el.snap.disabled) el.camera.click();
+  });
   el.dropzone.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickFile(); }
   });
   el.file.addEventListener("change", () => handleFiles(el.file.files));
+  el.camera.addEventListener("change", () => handleFiles(el.camera.files));
 
   ["dragenter", "dragover"].forEach((type) => el.dropzone.addEventListener(type, (e) => {
     e.preventDefault();

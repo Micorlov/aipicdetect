@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>picai — AI image detector</title>
   <meta name="description" content="Check whether a picture is AI-generated with an open-source detector that runs entirely on your machine.">
+  <meta name="theme-color" content="#1D2130">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="picai">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D2130'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23F3A93B' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23F3A93B'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,11 +51,15 @@
     <section id="tool" class="card tool">
       <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Upload an image to analyze">
         <svg class="upload-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-        <p class="dz-title">Drag &amp; drop an image</p>
-        <p class="dz-sub">or paste from the clipboard, or</p>
-        <button id="pick" class="btn-primary" type="button">Check image</button>
+        <p class="dz-title"><span class="pointer-fine">Drag &amp; drop an image</span><span class="pointer-coarse">Check a photo</span></p>
+        <p class="dz-sub"><span class="pointer-fine">or paste from the clipboard, or</span><span class="pointer-coarse">from your library or camera</span></p>
+        <div class="dz-buttons">
+          <button id="pick" class="btn-primary" type="button"><span class="pointer-fine">Check image</span><span class="pointer-coarse">Choose photo</span></button>
+          <button id="snap" class="btn-secondary pointer-coarse" type="button">Take a photo</button>
+        </div>
         <p id="dz-note" class="dz-note">JPEG, PNG, WebP, HEIC · up to 50 MB · processed locally</p>
         <input id="file" type="file" accept="image/*" hidden>
+        <input id="camera" type="file" accept="image/*" capture="environment" hidden>
       </div>
 
       <div id="error" class="alert" role="alert" hidden>
