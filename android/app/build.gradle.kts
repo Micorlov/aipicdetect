@@ -30,14 +30,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // TODO(phase-B): the backend is being renamed from Cloud Run service "picai" to
-        // "aipicdetect"; Cloud Run has no in-place rename, so this URL stays valid only
-        // until that new service is deployed and this constant is updated to match its
-        // (unpredictable in advance) generated URL.
         buildConfigField(
             "String",
             "DEFAULT_BASE_URL",
-            "\"https://picai-53480028562.europe-west1.run.app\"",
+            "\"https://aipicdetect.com\"",
         )
     }
 

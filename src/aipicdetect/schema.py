@@ -78,6 +78,7 @@ def software_application(origin: str, locale: str) -> dict[str, Any]:
         "isAccessibleForFree": True,
         "author": person(),
         "isBasedOn": MODEL_URL,
+        "codeRepository": copy.REPO_URL,
     }
     if ver := software_version():
         app["softwareVersion"] = ver
