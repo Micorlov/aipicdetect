@@ -37,6 +37,23 @@ class HomeViewModel(
     val baseUrl: StateFlow<String> =
         settingsRepository.baseUrl.stateIn(viewModelScope, SharingStarted.Eagerly, BuildConfig.DEFAULT_BASE_URL)
 
+    private val _detectorModel = MutableStateFlow<String?>(null)
+    /** Populated from GET /status for the footer's "Detector: <model>" line; null while unknown. */
+    val detectorModel: StateFlow<String?> = _detectorModel.asStateFlow()
+
+    private val _detectorReady = MutableStateFlow(false)
+    /** Mirrors the web status pill ("Detector ready" / "Loading detector..."). */
+    val detectorReady: StateFlow<Boolean> = _detectorReady.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            repository.fetchDetectorStatus().onSuccess { status ->
+                _detectorModel.value = status.model
+                _detectorReady.value = status.model_loaded
+            }
+        }
+    }
+
     fun onImagePicked(uri: Uri) {
         _uiState.value = UiState.Picked(uri)
     }

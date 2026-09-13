@@ -3,6 +3,7 @@ package com.picai.app.data
 import android.content.Context
 import android.net.Uri
 import com.picai.app.data.model.AnalyzeResponse
+import com.picai.app.data.model.StatusResponse
 import com.picai.app.util.readPickedFile
 import com.picai.app.util.toMultipartPart
 import java.io.IOException
@@ -16,6 +17,7 @@ private const val MAX_UPLOAD_BYTES = 50L * 1024 * 1024
 interface PicaiRepository {
     suspend fun analyze(uri: Uri): Result<AnalyzeResponse>
     suspend fun downloadCleanImage(response: AnalyzeResponse): Result<ByteArray>
+    suspend fun fetchDetectorStatus(): Result<StatusResponse>
 }
 
 class PicaiRepositoryImpl(
@@ -37,6 +39,12 @@ class PicaiRepositoryImpl(
         val api = NetworkModule.apiServiceFor(settingsRepository.baseUrl.first())
         val httpResponse = safeCall { api.download(response.downloadUrl) }
         httpResponse.body()?.bytes() ?: throw AppException(ErrorMapper.fromResponse(httpResponse))
+    }
+
+    override suspend fun fetchDetectorStatus(): Result<StatusResponse> = runCatching {
+        val api = NetworkModule.apiServiceFor(settingsRepository.baseUrl.first())
+        val response = safeCall { api.status() }
+        response.body() ?: throw AppException(ErrorMapper.fromResponse(response))
     }
 
     private suspend fun <T> safeCall(block: suspend () -> Response<T>): Response<T> = try {

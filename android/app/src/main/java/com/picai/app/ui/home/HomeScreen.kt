@@ -12,11 +12,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -52,12 +55,16 @@ import androidx.compose.ui.unit.dp
 import com.picai.app.BuildConfig
 import com.picai.app.R
 import com.picai.app.data.model.AnalyzeResponse
+import com.picai.app.ui.components.AppFooter
 import com.picai.app.ui.components.ErrorBanner
+import com.picai.app.ui.components.FaqSection
+import com.picai.app.ui.components.HowItWorksSection
 import com.picai.app.ui.components.ImageSourceSheet
 import com.picai.app.ui.components.LoadingHint
 import com.picai.app.ui.components.MetadataCard
 import com.picai.app.ui.components.ScoreCard
 import com.picai.app.ui.settings.SettingsSheet
+import com.picai.app.ui.theme.Success
 import com.picai.app.util.createCaptureUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -68,6 +75,8 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
     val baseUrl by viewModel.baseUrl.collectAsState()
+    val detectorModel by viewModel.detectorModel.collectAsState()
+    val detectorReady by viewModel.detectorReady.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
     var showImageSourceSheet by remember { mutableStateOf(false) }
@@ -126,6 +135,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
+                    StatusPill(ready = detectorReady)
                     IconButton(onClick = { showSettings = true }) {
                         Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.cta_settings))
                     }
@@ -162,6 +172,10 @@ fun HomeScreen(viewModel: HomeViewModel) {
                 )
                 is UiState.Failure -> ErrorBanner(error = state.error, onRetry = viewModel::retry)
             }
+
+            HowItWorksSection()
+            FaqSection(baseUrl = baseUrl)
+            AppFooter(baseUrl = baseUrl, detectorModel = detectorModel)
         }
     }
 }
@@ -231,6 +245,26 @@ private fun SuccessContent(
         OutlinedButton(onClick = onStartOver, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(R.string.cta_start_over))
         }
+    }
+}
+
+@Composable
+private fun StatusPill(ready: Boolean) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = Modifier.padding(end = 8.dp),
+    ) {
+        Box(
+            Modifier
+                .size(8.dp)
+                .background(if (ready) Success else MaterialTheme.colorScheme.onSurfaceVariant, CircleShape),
+        )
+        Text(
+            stringResource(if (ready) R.string.status_detector_ready else R.string.status_detector_loading),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

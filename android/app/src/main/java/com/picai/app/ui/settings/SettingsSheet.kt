@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.picai.app.R
 
-private const val REPO_URL = "https://github.com/Micorlov/picai"
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,7 +80,7 @@ fun SettingsSheet(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             TextButton(onClick = {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL)))
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(com.picai.app.data.AppLinks.REPO_URL)))
             }) { Text(stringResource(R.string.about_view_source)) }
         }
     }
