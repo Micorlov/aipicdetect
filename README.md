@@ -60,7 +60,28 @@ gcloud run deploy picai --source . --project picai-260913 --region europe-west1 
   --startup-probe httpGet.path=/ready,initialDelaySeconds=10,periodSeconds=10,timeoutSeconds=5,failureThreshold=24
 ```
 
-A ₪19/month budget with 50/90/100 % email alerts is attached to the project.
+### Budget and automatic shut-off
+
+A ₪20/month budget with 50/90/100 % email alerts is attached to the project, and it
+publishes spend updates to the Pub/Sub topic `picai-budget`. The Cloud Function in
+[deploy/budget-guard](deploy/budget-guard/main.py) listens on that topic and, once the
+month's cost reaches the budget, removes `allUsers` from the service's invoker role, so
+the public URL answers 403 and nothing more is billed (billing data lags by a few hours,
+so the stop lands slightly after the line is crossed). To switch the site back on:
+
+```bash
+gcloud run services add-iam-policy-binding picai --project picai-260913 --region europe-west1 \
+  --member=allUsers --role=roles/run.invoker
+```
+
+To redeploy the guard after editing it:
+
+```bash
+gcloud functions deploy picai-budget-guard --gen2 --project picai-260913 --region europe-west1 \
+  --runtime python312 --source deploy/budget-guard --entry-point guard --trigger-topic picai-budget \
+  --service-account picai-budget-guard@picai-260913.iam.gserviceaccount.com \
+  --set-env-vars SERVICE_NAME=projects/picai-260913/locations/europe-west1/services/picai
+```
 
 ## GitHub Actions
 
