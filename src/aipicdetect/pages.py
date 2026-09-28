@@ -41,6 +41,38 @@ BING_ENV = "AIPICDETECT_BING_VERIFICATION"
 GA_ENV = "AIPICDETECT_GA_MEASUREMENT_ID"
 GA_ID_PATTERN = re.compile(r"^G-[A-Z0-9]{4,20}$")
 OG_IMAGE_PATH = "/static/og/aipicdetect-og.png"
+OG_LOCALE_MAP = {
+    "en": "en_US",
+    "he": "he_IL",
+    "es": "es_ES",
+    "fr": "fr_FR",
+    "de": "de_DE",
+    "pt": "pt_PT",
+    "ar": "ar_AE",
+    "ru": "ru_RU",
+    "zh": "zh_CN",
+    "hi": "hi_IN",
+    "ja": "ja_JP",
+    "ko": "ko_KR",
+    "it": "it_IT",
+    "nl": "nl_NL",
+    "pl": "pl_PL",
+    "tr": "tr_TR",
+    "vi": "vi_VN",
+    "th": "th_TH",
+    "id": "id_ID",
+    "uk": "uk_UA",
+    "el": "el_GR",
+    "cs": "cs_CZ",
+    "sv": "sv_SE",
+    "ro": "ro_RO",
+    "hu": "hu_HU",
+    "fi": "fi_FI",
+    "da": "da_DK",
+    "bn": "bn_BD",
+    "ur": "ur_PK",
+    "fa": "fa_IR",
+}
 PLACEHOLDER = re.compile(r"\{\{([A-Z0-9_]+)\}\}")
 LAST_REVIEWED = date(2026, 9, 13)
 VERSIONED_ASSETS = ("styles.css", "pages.css", "app.js", "admin/admin.css", "admin/admin.js")
@@ -332,6 +364,39 @@ def locale_path(page: Page, locale: str) -> str:
     return f"/{locale}{page.path}"
 
 
+def page_keywords(page: Page, locale: str) -> str:
+    """SEO keywords for article + tool landing pages."""
+    _, _, h1 = localized_page_meta(page, locale)
+    terms = (
+        copy.BRAND,
+        "AI image detector",
+        "AI-generated image detection",
+        "image metadata remover",
+        "EXIF scrubber",
+        "C2PA verification",
+        "open-source AI detector",
+        h1,
+        h1.lower(),
+    )
+    if page.slug:
+        terms = (*terms, page.slug.replace("-", " "))
+    return ", ".join(dict.fromkeys(term for term in terms if term))
+
+
+def og_locale(locale: str) -> str:
+    """OpenGraph locale value (e.g. ``en_US``) for crawlers."""
+    return OG_LOCALE_MAP.get(locale, f"{locale}_{locale.upper()}")
+
+
+def og_locale_alternates(locale: str) -> str:
+    """OpenGraph alternate locales for cross-region social signals."""
+    alternates = [lc for lc in SUPPORTED_LOCALES if lc != locale]
+    return "\n".join(
+        f'<meta property="og:locale:alternate" content="{escape(og_locale(lc))}">'
+        for lc in alternates
+    )
+
+
 def render_hreflang(page: Page, origin: str) -> str:
     """``<link rel=alternate hreflang=…>`` tags for all 30 supported locales plus x-default.
 
@@ -416,8 +481,11 @@ def render_head(page: Page, origin: str, locale: str) -> str:
             "HREFLANG": render_hreflang(page, origin),
             "OG_IMAGE": escape(f"{origin}{OG_IMAGE_PATH}"),
             "OG_TYPE": "website" if page.is_home else "article",
+            "OG_LOCALE": escape(og_locale(locale)),
+            "OG_LOCALE_ALTERNATES": og_locale_alternates(locale),
             "VERIFICATION": verification_tags(),
             "ANALYTICS": analytics_tag(),
+            "KEYWORDS": escape(page_keywords(page, locale)),
             "EXTRA_CSS": "" if page.is_home else f'<link rel="stylesheet" href="/static/pages.css?v={ASSET_VERSION}">',
             "ASSET_V": ASSET_VERSION,
             "JSONLD": jsonld_for_page(page, origin, locale),

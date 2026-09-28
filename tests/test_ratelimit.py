@@ -154,10 +154,38 @@ def test_rejected_uploads_do_not_consume_quota():
     assert _analyze("203.0.113.9").status_code == 200
 
 
-def test_scrub_endpoint_is_not_rate_limited():
-    for _ in range(12):
-        assert client.post("/scrub", files={"file": ("p.png", _png(), "image/png")},
-                           headers={"X-Forwarded-For": "203.0.113.7"}).status_code == 200
+def _scrub(ip: str | None = None):
+    headers = {"X-Forwarded-For": ip} if ip else {}
+    return client.post("/scrub", files={"file": ("p.png", _png(), "image/png")}, headers=headers)
+
+
+def test_scrub_allows_ten_then_returns_429_for_same_ip():
+    for i in range(10):
+        response = _scrub("203.0.113.7")
+        assert response.status_code == 200, response.text
+        assert response.headers["X-RateLimit-Remaining"] == str(9 - i)
+
+    blocked = _scrub("203.0.113.7")
+    assert blocked.status_code == 429
+    assert blocked.headers["X-RateLimit-Remaining"] == "0"
+    assert int(blocked.headers["Retry-After"]) > 0
+
+
+def test_scrub_and_analyze_share_the_same_daily_quota():
+    for _ in range(6):
+        assert _analyze("203.0.113.7").status_code == 200
+    for _ in range(4):
+        assert _scrub("203.0.113.7").status_code == 200
+    assert _scrub("203.0.113.7").status_code == 429
+    assert _analyze("203.0.113.7").status_code == 429
+
+
+def test_rejected_scrub_uploads_do_not_consume_quota():
+    for _ in range(10):
+        response = client.post("/scrub", files={"file": ("x.txt", b"not an image", "text/plain")},
+                               headers={"X-Forwarded-For": "203.0.113.9"})
+        assert response.status_code == 415
+    assert _scrub("203.0.113.9").status_code == 200
 
 
 def test_quota_can_be_disabled(monkeypatch):

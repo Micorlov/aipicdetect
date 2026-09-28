@@ -19,6 +19,11 @@ from aipicdetect.pages import PAGES, STATIC_DIR, Page, body_values, locale_path,
 AI_CRAWLERS = ("GPTBot", "OAI-SearchBot", "ClaudeBot", "anthropic-ai", "PerplexityBot", "Google-Extended", "CCBot", "Applebot-Extended")
 DISALLOWED = ("/analyze", "/scrub", "/download/", "/openapi.json", "/health", "/status", "/ready")
 SECTIONS = ("Product", "Guides", "Developers")
+CHANGEFREQ_BY_SECTION = {
+    "Product": "weekly",
+    "Guides": "weekly",
+    "Developers": "monthly",
+}
 SECURITY_CONTACT = f"{copy.REPO_URL}/issues"
 SECURITY_EXPIRES = date(2027, 9, 13)
 FAVICON = STATIC_DIR / "icons" / "favicon-32.png"
@@ -39,6 +44,7 @@ def sitemap(request: Request) -> Response:
     origin = public_url(request)
 
     def _url_entry(p: Page) -> str:
+        changefreq = "daily" if p.is_home else CHANGEFREQ_BY_SECTION.get(p.section, "monthly")
         # xhtml:link alternate for every supported locale + x-default
         alternates = "".join(
             f'    <xhtml:link rel="alternate" hreflang="{lc}"'
@@ -50,6 +56,7 @@ def sitemap(request: Request) -> Response:
             "  <url>\n"
             f"    <loc>{escape(origin + p.path)}</loc>\n"
             f"    <lastmod>{p.lastmod.isoformat()}</lastmod>\n"
+            f"    <changefreq>{changefreq}</changefreq>\n"
             f"    <priority>{p.priority:.1f}</priority>\n"
             f"{alternates}"
             "  </url>\n"

@@ -124,22 +124,27 @@ async def analyze(
 
 @app.post("/scrub")
 async def scrub(
+    request: Request,
     file: UploadFile = File(...),
     format: str | None = Query(default=None, pattern=FORMAT_PATTERN),
     quality: int = Query(default=DEFAULT_JPEG_QUALITY, ge=1, le=100),
 ) -> Response:
+    client = client_address(request)
+    _enforce_quota(client)
     payload = await _read_upload(file)
     try:
         result = scrub_bytes(payload, format, quality)
     except UnsupportedImageError as exc:
         raise HTTPException(status_code=415, detail=str(exc)) from exc
     stem = (file.filename or "image").rsplit(".", 1)[0]
+    quota = _quota.record(client)
     return Response(
         content=result.data,
         media_type=result.media_type,
         headers={
             "Content-Disposition": f'attachment; filename="{stem}.clean{result.extension}"',
             "X-AiPicDetect-Removed": ",".join(sorted(find_metadata(payload))),
+            **quota.headers(),
         },
     )
 

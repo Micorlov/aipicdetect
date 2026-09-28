@@ -61,8 +61,15 @@ def person() -> dict[str, Any]:
     return {"@type": "Person", "name": copy.AUTHOR}
 
 
-def website(origin: str) -> dict[str, Any]:
-    return {"@type": "WebSite", "@id": f"{origin}/#website", "name": copy.BRAND, "url": f"{origin}/", "publisher": person()}
+def website(origin: str, locale: str) -> dict[str, Any]:
+    return {
+        "@type": "WebSite",
+        "@id": f"{origin}/#website",
+        "name": copy.BRAND,
+        "url": f"{origin}/",
+        "publisher": person(),
+        "inLanguage": locale,
+    }
 
 
 def software_application(origin: str, locale: str) -> dict[str, Any]:
@@ -79,6 +86,7 @@ def software_application(origin: str, locale: str) -> dict[str, Any]:
         "author": person(),
         "isBasedOn": MODEL_URL,
         "codeRepository": copy.REPO_URL,
+        "inLanguage": locale,
     }
     if ver := software_version():
         app["softwareVersion"] = ver
@@ -106,6 +114,7 @@ def how_to(name: str, steps: tuple[Step, ...]) -> dict[str, Any]:
 def breadcrumb(origin: str, page: Page, locale: str) -> dict[str, Any]:
     return {
         "@type": "BreadcrumbList",
+        "inLanguage": locale,
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": copy.BRAND, "item": f"{origin}/"},
             {"@type": "ListItem", "position": 2, "name": _localized_h1(page, locale), "item": f"{origin}{page.path}"},
@@ -132,18 +141,24 @@ def graph_for_page(page: Page, origin: str, locale: str) -> list[dict[str, Any]]
         items.append(breadcrumb(origin, page, locale))
     for kind in page.schema_types:
         if kind == "WebSite":
-            items.append(website(origin))
+            items.append(website(origin, locale))
         elif kind == "SoftwareApplication":
             items.append(software_application(origin, locale))
         elif kind == "FAQPage":
             slugs = _FAQ_HOME_SLUGS if page.is_home else _FAQ_ALL_SLUGS
-            items.append(faq_page(_localized_faq(locale, slugs)))
+            faq = faq_page(_localized_faq(locale, slugs))
+            faq["inLanguage"] = locale
+            items.append(faq)
         elif kind == "HowTo":
             prefix = "detect" if page.is_home else "scrub"
             slugs = _DETECT_STEP_SLUGS if page.is_home else _SCRUB_STEP_SLUGS
-            items.append(how_to(_localized_h1(page, locale), _localized_steps(locale, prefix, slugs)))
+            howto = how_to(_localized_h1(page, locale), _localized_steps(locale, prefix, slugs))
+            howto["inLanguage"] = locale
+            items.append(howto)
         else:  # Article / TechArticle
-            items.append(article(origin, page, kind))
+            article_item = article(origin, page, kind)
+            article_item["inLanguage"] = locale
+            items.append(article_item)
     return items
 
 
