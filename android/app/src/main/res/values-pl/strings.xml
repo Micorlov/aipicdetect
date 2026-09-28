@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Detektor to otwarty model Hugging Face, który możesz sprawdzić lub zastąpić.</string>
     <string name="about_view_source">Zobacz kod źródłowy na GitHubie</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Oceń tę aplikację</string>
+    <string name="onboarding_skip">Pomiń</string>
+    <string name="onboarding_next">Dalej</string>
+    <string name="onboarding_start">Zaczynajmy</string>
+    <string name="onboarding_page_of">Krok %1$d z %2$d</string>
+    <string name="onboarding_pick_title">Wybierz zdjęcie</string>
+    <string name="onboarding_pick_body">Wybierz obraz z galerii lub zrób zdjęcie aparatem. Działają JPEG, PNG, WebP i HEIC, do 50 MB.</string>
+    <string name="onboarding_score_title">Odczytaj wynik</string>
+    <string name="onboarding_score_body">Otrzymujesz prawdopodobieństwo AI i przedział ufności \u2014 prawdopodobieństwo, nie werdykt. Wyniki w środku skali są oznaczane jako Niepewne.</string>
+    <string name="onboarding_clean_title">Zobacz metadane</string>
+    <string name="onboarding_clean_body">AiPicDetect wypisuje każdy blok EXIF, XMP, IPTC i C2PA w pliku, a potem daje ci czystą kopię bez tego wszystkiego.</string>
+    <string name="onboarding_privacy_title">Nic nie jest przechowywane</string>
+    <string name="onboarding_privacy_body">Twój obraz jest analizowany w pamięci i nigdy nie zapisywany na dysku. Bez rejestracji, bez śledzenia, a całość jest open source.</string>
 </resources>

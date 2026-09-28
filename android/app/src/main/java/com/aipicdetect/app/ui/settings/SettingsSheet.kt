@@ -24,6 +24,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.aipicdetect.app.R
+import com.aipicdetect.app.data.AppLinks
+import com.aipicdetect.app.util.openPlayStoreListing
 
 
 
@@ -79,8 +81,11 @@ fun SettingsSheet(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
+            TextButton(onClick = { openPlayStoreListing(context) }) {
+                Text(stringResource(R.string.settings_rate_app))
+            }
             TextButton(onClick = {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(com.aipicdetect.app.data.AppLinks.REPO_URL)))
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppLinks.REPO_URL)))
             }) { Text(stringResource(R.string.about_view_source)) }
         }
     }

@@ -50,6 +50,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.aipicdetect.app.BuildConfig
@@ -63,9 +64,12 @@ import com.aipicdetect.app.ui.components.ImageSourceSheet
 import com.aipicdetect.app.ui.components.LoadingHint
 import com.aipicdetect.app.ui.components.MetadataCard
 import com.aipicdetect.app.ui.components.ScoreCard
+import com.aipicdetect.app.ui.onboarding.OnboardingSheet
 import com.aipicdetect.app.ui.settings.SettingsSheet
 import com.aipicdetect.app.ui.theme.Success
 import com.aipicdetect.app.util.createCaptureUri
+import com.aipicdetect.app.util.findActivity
+import com.aipicdetect.app.util.launchInAppReview
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -77,7 +81,11 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val baseUrl by viewModel.baseUrl.collectAsState()
     val detectorModel by viewModel.detectorModel.collectAsState()
     val detectorReady by viewModel.detectorReady.collectAsState()
+    val showOnboarding by viewModel.showOnboarding.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val activity = remember(context) { context.findActivity() }
+    // Read in composition, not inside the event coroutine, so config changes are picked up.
+    val resources = LocalResources.current
 
     var showImageSourceSheet by remember { mutableStateOf(false) }
     var showSettings by remember { mutableStateOf(false) }
@@ -100,10 +108,15 @@ fun HomeScreen(viewModel: HomeViewModel) {
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
-                is UiEvent.Snackbar -> snackbarHostState.showSnackbar(context.getString(event.messageRes))
+                is UiEvent.Snackbar -> snackbarHostState.showSnackbar(resources.getString(event.messageRes))
                 is UiEvent.Share -> context.startActivity(Intent.createChooser(event.intent, null))
+                UiEvent.RequestReview -> activity?.let { launchInAppReview(it) }
             }
         }
+    }
+
+    if (showOnboarding) {
+        OnboardingSheet(onFinish = viewModel::onOnboardingFinished)
     }
 
     if (showImageSourceSheet) {

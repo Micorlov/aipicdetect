@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · avoin lähdekoodi</string>
     <string name="about_model_note">Tunnistin on avoin Hugging Face -malli, jota voit tarkastella tai korvata.</string>
     <string name="about_view_source">Näytä lähdekoodi GitHubissa</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Arvioi tämä sovellus</string>
+    <string name="onboarding_skip">Ohita</string>
+    <string name="onboarding_next">Seuraava</string>
+    <string name="onboarding_start">Aloita</string>
+    <string name="onboarding_page_of">Vaihe %1$d / %2$d</string>
+    <string name="onboarding_pick_title">Valitse kuva</string>
+    <string name="onboarding_pick_body">Valitse kuva galleriasta tai ota se kameralla. JPEG, PNG, WebP ja HEIC toimivat, enintään 50 Mt.</string>
+    <string name="onboarding_score_title">Lue tulos</string>
+    <string name="onboarding_score_body">Saat tekoälytodennäköisyyden ja luottamusvälin \u2014 todennäköisyyden, ei tuomiota. Keskivaiheille osuvat tulokset merkitään Epävarmaksi.</string>
+    <string name="onboarding_clean_title">Katso metatiedot</string>
+    <string name="onboarding_clean_body">AiPicDetect listaa jokaisen tiedoston sisältämän EXIF-, XMP-, IPTC- ja C2PA-lohkon ja antaa sinulle sitten puhtaan kopion ilman niitä.</string>
+    <string name="onboarding_privacy_title">Mitään ei tallenneta</string>
+    <string name="onboarding_privacy_body">Kuvasi käsitellään muistissa eikä sitä koskaan kirjoiteta levylle. Ei rekisteröitymistä, ei seurantaa, ja kaikki on avointa lähdekoodia.</string>
 </resources>

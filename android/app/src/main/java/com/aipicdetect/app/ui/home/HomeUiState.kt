@@ -17,4 +17,7 @@ sealed interface UiState {
 sealed interface UiEvent {
     data class Snackbar(@StringRes val messageRes: Int) : UiEvent
     data class Share(val intent: Intent) : UiEvent
+
+    /** Ask Play for its in-app review card; the screen owns the Activity it needs. */
+    data object RequestReview : UiEvent
 }

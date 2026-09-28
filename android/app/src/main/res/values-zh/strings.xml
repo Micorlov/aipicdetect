@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · 开源</string>
     <string name="about_model_note">该检测器是一个开放的 Hugging Face 模型，你可以查看或替换它。</string>
     <string name="about_view_source">在 GitHub 上查看源码</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">为此应用评分</string>
+    <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_next">下一步</string>
+    <string name="onboarding_start">开始使用</string>
+    <string name="onboarding_page_of">第 %1$d 步，共 %2$d 步</string>
+    <string name="onboarding_pick_title">选择一张照片</string>
+    <string name="onboarding_pick_body">从相册中选择图片，或用相机拍一张。支持 JPEG、PNG、WebP 和 HEIC，最大 50 MB。</string>
+    <string name="onboarding_score_title">读懂评分</string>
+    <string name="onboarding_score_body">你会得到一个 AI 可能性和置信区间 \u2014 这是概率，不是结论。接近中间的分数会标记为「不确定」。</string>
+    <string name="onboarding_clean_title">查看元数据</string>
+    <string name="onboarding_clean_body">AiPicDetect 会列出文件携带的每个 EXIF、XMP、IPTC 和 C2PA 数据块，然后给你一份剔除了这些内容的干净副本。</string>
+    <string name="onboarding_privacy_title">不保存任何内容</string>
+    <string name="onboarding_privacy_body">你的图片在内存中分析，绝不写入磁盘。无需注册，没有追踪，而且全部开源。</string>
 </resources>

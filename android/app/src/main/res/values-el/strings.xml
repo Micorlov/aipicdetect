@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · ανοιχτός κώδικας</string>
     <string name="about_model_note">Ο ανιχνευτής είναι ένα ανοιχτό μοντέλο Hugging Face που μπορείτε να επιθεωρήσετε ή να αντικαταστήσετε.</string>
     <string name="about_view_source">Προβολή πηγαίου κώδικα στο GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Αξιολόγηση εφαρμογής</string>
+    <string name="onboarding_skip">Παράλειψη</string>
+    <string name="onboarding_next">Επόμενο</string>
+    <string name="onboarding_start">Ξεκίνα</string>
+    <string name="onboarding_page_of">Βήμα %1$d από %2$d</string>
+    <string name="onboarding_pick_title">Διάλεξε μια φωτογραφία</string>
+    <string name="onboarding_pick_body">Διάλεξε μια εικόνα από τη συλλογή σου ή τράβηξε μία με την κάμερα. JPEG, PNG, WebP και HEIC λειτουργούν, έως 50 MB.</string>
+    <string name="onboarding_score_title">Διάβασε τη βαθμολογία</string>
+    <string name="onboarding_score_body">Παίρνεις μια πιθανότητα ΤΝ και ένα εύρος εμπιστοσύνης \u2014 πιθανότητα, όχι ετυμηγορία. Βαθμολογίες κοντά στη μέση χαρακτηρίζονται Αβέβαιες.</string>
+    <string name="onboarding_clean_title">Δες τα μεταδεδομένα</string>
+    <string name="onboarding_clean_body">Το AiPicDetect απαριθμεί κάθε μπλοκ EXIF, XMP, IPTC και C2PA του αρχείου και μετά σου δίνει ένα καθαρό αντίγραφο χωρίς τίποτα από αυτά.</string>
+    <string name="onboarding_privacy_title">Τίποτα δεν αποθηκεύεται</string>
+    <string name="onboarding_privacy_body">Η εικόνα σου αναλύεται στη μνήμη και δεν γράφεται ποτέ στον δίσκο. Χωρίς εγγραφή, χωρίς παρακολούθηση, και όλα ανοιχτού κώδικα.</string>
 </resources>

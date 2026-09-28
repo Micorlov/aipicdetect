@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · โอเพนซอร์ส</string>
     <string name="about_model_note">เครื่องมือตรวจจับเป็นโมเดล Hugging Face แบบเปิดที่คุณสามารถตรวจสอบหรือเปลี่ยนได้</string>
     <string name="about_view_source">ดูซอร์สโค้ดบน GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">ให้คะแนนแอปนี้</string>
+    <string name="onboarding_skip">ข้าม</string>
+    <string name="onboarding_next">ถัดไป</string>
+    <string name="onboarding_start">เริ่มใช้งาน</string>
+    <string name="onboarding_page_of">ขั้นที่ %1$d จาก %2$d</string>
+    <string name="onboarding_pick_title">เลือกรูปภาพ</string>
+    <string name="onboarding_pick_body">เลือกรูปจากแกลเลอรีหรือถ่ายด้วยกล้อง รองรับ JPEG, PNG, WebP และ HEIC ขนาดไม่เกิน 50 MB</string>
+    <string name="onboarding_score_title">อ่านคะแนน</string>
+    <string name="onboarding_score_body">คุณจะได้ค่าความน่าจะเป็นว่าเป็นภาพ AI พร้อมช่วงความเชื่อมั่น \u2014 เป็นความน่าจะเป็น ไม่ใช่คำตัดสิน คะแนนที่อยู่ตรงกลางจะถูกระบุว่าไม่แน่ชัด</string>
+    <string name="onboarding_clean_title">ดูข้อมูลเมตา</string>
+    <string name="onboarding_clean_body">AiPicDetect จะแสดงทุกบล็อก EXIF, XMP, IPTC และ C2PA ที่ไฟล์มี แล้วส่งสำเนาที่สะอาดโดยลบทั้งหมดออกให้คุณ</string>
+    <string name="onboarding_privacy_title">ไม่มีการจัดเก็บใด ๆ</string>
+    <string name="onboarding_privacy_body">รูปของคุณถูกประมวลผลในหน่วยความจำและไม่เคยเขียนลงดิสก์ ไม่ต้องสมัคร ไม่มีการติดตาม และทั้งหมดเป็นโอเพนซอร์ส</string>
 </resources>

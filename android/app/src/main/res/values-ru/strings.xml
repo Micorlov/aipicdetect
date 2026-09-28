@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · открытый код</string>
     <string name="about_model_note">Детектор — это открытая модель Hugging Face, которую можно изучить или заменить.</string>
     <string name="about_view_source">Исходный код на GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Оценить приложение</string>
+    <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_start">Начать</string>
+    <string name="onboarding_page_of">Шаг %1$d из %2$d</string>
+    <string name="onboarding_pick_title">Выберите фото</string>
+    <string name="onboarding_pick_body">Выберите изображение из галереи или снимите на камеру. Работают JPEG, PNG, WebP и HEIC, до 50 МБ.</string>
+    <string name="onboarding_score_title">Прочитайте оценку</string>
+    <string name="onboarding_score_body">Вы получаете вероятность ИИ и доверительный интервал \u2014 вероятность, а не приговор. Оценки около середины помечаются как Неопределённо.</string>
+    <string name="onboarding_clean_title">Посмотрите метаданные</string>
+    <string name="onboarding_clean_body">AiPicDetect перечисляет каждый блок EXIF, XMP, IPTC и C2PA в файле, а затем выдаёт чистую копию без всего этого.</string>
+    <string name="onboarding_privacy_title">Ничего не сохраняется</string>
+    <string name="onboarding_privacy_body">Изображение обрабатывается в памяти и никогда не пишется на диск. Без регистрации, без слежки, и всё с открытым исходным кодом.</string>
 </resources>

@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · مفتوح المصدر</string>
     <string name="about_model_note">الكاشف هو نموذج مفتوح من Hugging Face يمكنك فحصه أو استبداله.</string>
     <string name="about_view_source">عرض الكود المصدري على GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">قيّم هذا التطبيق</string>
+    <string name="onboarding_skip">تخطٍ</string>
+    <string name="onboarding_next">التالي</string>
+    <string name="onboarding_start">لنبدأ</string>
+    <string name="onboarding_page_of">الخطوة %1$d من %2$d</string>
+    <string name="onboarding_pick_title">اختر صورة</string>
+    <string name="onboarding_pick_body">اختر صورة من معرضك أو التقط واحدة بالكاميرا. تعمل صيغ JPEG وPNG وWebP وHEIC، حتى 50 ميجابايت.</string>
+    <string name="onboarding_score_title">اقرأ النتيجة</string>
+    <string name="onboarding_score_body">تحصل على احتمال أن تكون الصورة من إنتاج ذكاء اصطناعي ونطاق ثقة \u2014 احتمال، لا حكم قاطع. النتائج القريبة من المنتصف تُوصف بأنها غير مؤكدة.</string>
+    <string name="onboarding_clean_title">اطّلع على البيانات الوصفية</string>
+    <string name="onboarding_clean_body">يسرد AiPicDetect كل كتلة EXIF وXMP وIPTC وC2PA يحملها الملف، ثم يمنحك نسخة نظيفة خالية منها جميعًا.</string>
+    <string name="onboarding_privacy_title">لا يُحفظ أي شيء</string>
+    <string name="onboarding_privacy_body">تُحلَّل صورتك في الذاكرة ولا تُكتب على القرص أبدًا. بلا تسجيل، بلا تتبّع، والمشروع كله مفتوح المصدر.</string>
 </resources>

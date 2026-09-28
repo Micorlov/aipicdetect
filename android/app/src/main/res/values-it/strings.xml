@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Il rilevatore è un modello Hugging Face aperto che puoi ispezionare o sostituire.</string>
     <string name="about_view_source">Visualizza il codice sorgente su GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Valuta questa app</string>
+    <string name="onboarding_skip">Salta</string>
+    <string name="onboarding_next">Avanti</string>
+    <string name="onboarding_start">Inizia</string>
+    <string name="onboarding_page_of">Passaggio %1$d di %2$d</string>
+    <string name="onboarding_pick_title">Scegli una foto</string>
+    <string name="onboarding_pick_body">Scegli un\'immagine dalla galleria o scattane una con la fotocamera. Funzionano JPEG, PNG, WebP e HEIC, fino a 50 MB.</string>
+    <string name="onboarding_score_title">Leggi il punteggio</string>
+    <string name="onboarding_score_body">Ottieni una probabilità di IA e una fascia di confidenza \u2014 una probabilità, non un verdetto. I punteggi vicini alla metà sono indicati come Incerto.</string>
+    <string name="onboarding_clean_title">Guarda i metadati</string>
+    <string name="onboarding_clean_body">AiPicDetect elenca ogni blocco EXIF, XMP, IPTC e C2PA presente nel file, poi ti consegna una copia pulita senza nulla di tutto ciò.</string>
+    <string name="onboarding_privacy_title">Non viene salvato nulla</string>
+    <string name="onboarding_privacy_body">La tua immagine viene analizzata in memoria e mai scritta su disco. Nessuna registrazione, nessun tracciamento, ed è tutto open source.</string>
 </resources>

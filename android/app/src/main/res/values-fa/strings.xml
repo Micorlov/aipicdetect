@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · متن‌باز</string>
     <string name="about_model_note">تشخیص‌گر یک مدل باز Hugging Face است که می‌توانید آن را بررسی یا جایگزین کنید.</string>
     <string name="about_view_source">مشاهده‌ی کد منبع در GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">به این برنامه امتیاز دهید</string>
+    <string name="onboarding_skip">رد کردن</string>
+    <string name="onboarding_next">بعدی</string>
+    <string name="onboarding_start">شروع کنیم</string>
+    <string name="onboarding_page_of">گام %1$d از %2$d</string>
+    <string name="onboarding_pick_title">یک عکس انتخاب کنید</string>
+    <string name="onboarding_pick_body">تصویری از گالری انتخاب کنید یا با دوربین عکس بگیرید. JPEG، PNG، WebP و HEIC کار می‌کنند، تا ۵۰ مگابایت.</string>
+    <string name="onboarding_score_title">امتیاز را بخوانید</string>
+    <string name="onboarding_score_body">یک احتمال هوش مصنوعی و یک بازه اطمینان دریافت می‌کنید \u2014 یک احتمال، نه یک حکم. امتیازهای نزدیک به میانه نامطمئن علامت می‌خورند.</string>
+    <string name="onboarding_clean_title">فراداده‌ها را ببینید</string>
+    <string name="onboarding_clean_body">AiPicDetect هر بلوک EXIF، XMP، IPTC و C2PA موجود در فایل را فهرست می‌کند و سپس نسخه‌ای تمیز بدون هیچ‌کدام به شما می‌دهد.</string>
+    <string name="onboarding_privacy_title">چیزی ذخیره نمی‌شود</string>
+    <string name="onboarding_privacy_body">تصویر شما در حافظه پردازش می‌شود و هرگز روی دیسک نوشته نمی‌شود. بدون ثبت‌نام، بدون ردیابی، و همه‌چیز متن‌باز است.</string>
 </resources>

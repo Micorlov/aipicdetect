@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Detektor je otevřený model Hugging Face, který si můžete prohlédnout nebo nahradit.</string>
     <string name="about_view_source">Zobrazit zdrojový kód na GitHubu</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Ohodnotit aplikaci</string>
+    <string name="onboarding_skip">Přeskočit</string>
+    <string name="onboarding_next">Další</string>
+    <string name="onboarding_start">Začít</string>
+    <string name="onboarding_page_of">Krok %1$d z %2$d</string>
+    <string name="onboarding_pick_title">Vyberte fotku</string>
+    <string name="onboarding_pick_body">Vyberte obrázek z galerie nebo ho pořiďte fotoaparátem. Fungují JPEG, PNG, WebP i HEIC, až do 50 MB.</string>
+    <string name="onboarding_score_title">Přečtěte si skóre</string>
+    <string name="onboarding_score_body">Dostanete pravděpodobnost AI a pásmo spolehlivosti \u2014 pravděpodobnost, ne verdikt. Skóre kolem středu se označuje jako Nejisté.</string>
+    <string name="onboarding_clean_title">Prohlédněte si metadata</string>
+    <string name="onboarding_clean_body">AiPicDetect vypíše každý blok EXIF, XMP, IPTC a C2PA, který soubor nese, a pak vám předá čistou kopii bez toho všeho.</string>
+    <string name="onboarding_privacy_title">Nic se neukládá</string>
+    <string name="onboarding_privacy_body">Váš obrázek se zpracuje v paměti a nikdy se nezapíše na disk. Žádná registrace, žádné sledování a celé je to open source.</string>
 </resources>

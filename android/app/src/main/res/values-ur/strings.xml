@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · اوپن سورس</string>
     <string name="about_model_note">ڈیٹیکٹر ایک اوپن Hugging Face ماڈل ہے جسے آپ دیکھ یا تبدیل کر سکتے ہیں۔</string>
     <string name="about_view_source">GitHub پر سورس کوڈ دیکھیں</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">اس ایپ کو ریٹ کریں</string>
+    <string name="onboarding_skip">چھوڑیں</string>
+    <string name="onboarding_next">اگلا</string>
+    <string name="onboarding_start">شروع کریں</string>
+    <string name="onboarding_page_of">مرحلہ %1$d از %2$d</string>
+    <string name="onboarding_pick_title">ایک تصویر منتخب کریں</string>
+    <string name="onboarding_pick_body">اپنی گیلری سے تصویر چنیں یا کیمرے سے ایک لیں۔ JPEG، PNG، WebP اور HEIC سب چلتے ہیں، 50 MB تک۔</string>
+    <string name="onboarding_score_title">اسکور پڑھیں</string>
+    <string name="onboarding_score_body">آپ کو AI کا امکان اور ایک اعتماد کی حد ملتی ہے \u2014 ایک امکان، فیصلہ نہیں۔ درمیان کے قریب اسکور غیر یقینی قرار پاتے ہیں۔</string>
+    <string name="onboarding_clean_title">میٹا ڈیٹا دیکھیں</string>
+    <string name="onboarding_clean_body">AiPicDetect فائل میں موجود ہر EXIF، XMP، IPTC اور C2PA بلاک کی فہرست دیتا ہے، پھر آپ کو ان سب کے بغیر ایک صاف نقل دیتا ہے۔</string>
+    <string name="onboarding_privacy_title">کچھ محفوظ نہیں ہوتا</string>
+    <string name="onboarding_privacy_body">آپ کی تصویر میموری میں جانچی جاتی ہے اور کبھی ڈسک پر نہیں لکھی جاتی۔ کوئی سائن اپ نہیں، کوئی ٹریکنگ نہیں، اور سب کچھ اوپن سورس ہے۔</string>
 </resources>

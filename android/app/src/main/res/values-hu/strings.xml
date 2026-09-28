@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">A detektor egy nyílt Hugging Face modell, amelyet megvizsgálhatsz vagy lecserélhetsz.</string>
     <string name="about_view_source">Forráskód megtekintése a GitHubon</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Értékeld az alkalmazást</string>
+    <string name="onboarding_skip">Kihagyás</string>
+    <string name="onboarding_next">Tovább</string>
+    <string name="onboarding_start">Kezdés</string>
+    <string name="onboarding_page_of">%1$d. lépés a(z) %2$d-ből</string>
+    <string name="onboarding_pick_title">Válassz egy fotót</string>
+    <string name="onboarding_pick_body">Válassz képet a galériából, vagy készíts egyet a kamerával. A JPEG, PNG, WebP és HEIC mind működik, 50 MB-ig.</string>
+    <string name="onboarding_score_title">Olvasd le a pontszámot</string>
+    <string name="onboarding_score_body">Kapsz egy MI-valószínűséget és egy megbízhatósági sávot \u2014 valószínűséget, nem ítéletet. A skála közepe körüli értékek Bizonytalan jelölést kapnak.</string>
+    <string name="onboarding_clean_title">Nézd meg a metaadatokat</string>
+    <string name="onboarding_clean_body">Az AiPicDetect kilistázza a fájl összes EXIF-, XMP-, IPTC- és C2PA-blokkját, majd ad egy tiszta másolatot mindezek nélkül.</string>
+    <string name="onboarding_privacy_title">Semmi nem tárolódik</string>
+    <string name="onboarding_privacy_body">A képedet a memóriában elemezzük, lemezre soha nem írjuk. Nincs regisztráció, nincs követés, és az egész nyílt forráskódú.</string>
 </resources>

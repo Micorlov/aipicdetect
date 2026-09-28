@@ -3,6 +3,8 @@ package com.aipicdetect.app.testutil
 import android.content.Intent
 import android.net.Uri
 import com.aipicdetect.app.data.AiPicDetectRepository
+import com.aipicdetect.app.data.EngagementRepository
+import com.aipicdetect.app.data.REVIEW_PROMPT_THRESHOLD
 import com.aipicdetect.app.data.SettingsRepository
 import com.aipicdetect.app.data.model.AnalyzeResponse
 import com.aipicdetect.app.data.model.StatusResponse
@@ -63,5 +65,35 @@ class FakeCleanImageExporter : CleanImageExporter {
     override fun shareIntent(bytes: ByteArray, displayName: String, mimeType: String): Intent {
         sharedBytes = bytes
         return fakeIntent()
+    }
+}
+
+/**
+ * In-memory [EngagementRepository]. Defaults to onboarding already seen so tests that don't
+ * care about first-run behaviour aren't implicitly exercising the walkthrough.
+ */
+class FakeEngagementRepository(hasSeenOnboarding: Boolean = true) : EngagementRepository {
+    private val seen = MutableStateFlow(hasSeenOnboarding)
+
+    var successfulAnalyses: Int = 0
+        private set
+    var reviewOffered: Boolean = false
+        private set
+
+    override val hasSeenOnboarding: Flow<Boolean> = seen
+
+    override suspend fun markOnboardingSeen() {
+        seen.value = true
+    }
+
+    override suspend fun recordSuccessfulAnalysis() {
+        successfulAnalyses += 1
+    }
+
+    override suspend fun shouldOfferReview(): Boolean =
+        !reviewOffered && successfulAnalyses >= REVIEW_PROMPT_THRESHOLD
+
+    override suspend fun markReviewOffered() {
+        reviewOffered = true
     }
 }

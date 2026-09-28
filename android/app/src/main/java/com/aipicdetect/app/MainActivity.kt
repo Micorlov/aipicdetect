@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
                                     AndroidCleanImageExporter(app.applicationContext),
                                     app.settingsRepository,
                                     app.aiPicDetectRepository,
+                                    app.engagementRepository,
                                 )
                             }
                         },

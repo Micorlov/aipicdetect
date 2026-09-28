@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · sumber terbuka</string>
     <string name="about_model_note">Detektor ini adalah model terbuka dari Hugging Face yang dapat Anda periksa atau ganti.</string>
     <string name="about_view_source">Lihat kode sumber di GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Beri rating aplikasi ini</string>
+    <string name="onboarding_skip">Lewati</string>
+    <string name="onboarding_next">Berikutnya</string>
+    <string name="onboarding_start">Mulai</string>
+    <string name="onboarding_page_of">Langkah %1$d dari %2$d</string>
+    <string name="onboarding_pick_title">Pilih foto</string>
+    <string name="onboarding_pick_body">Pilih gambar dari galeri atau ambil satu dengan kamera. JPEG, PNG, WebP, dan HEIC semuanya bisa, hingga 50 MB.</string>
+    <string name="onboarding_score_title">Baca skornya</string>
+    <string name="onboarding_score_body">Kamu mendapat kemungkinan AI dan rentang keyakinan \u2014 sebuah probabilitas, bukan vonis. Skor di sekitar tengah ditandai Tidak pasti.</string>
+    <string name="onboarding_clean_title">Lihat metadatanya</string>
+    <string name="onboarding_clean_body">AiPicDetect mendaftar setiap blok EXIF, XMP, IPTC, dan C2PA yang dibawa berkas, lalu memberimu salinan bersih tanpa semua itu.</string>
+    <string name="onboarding_privacy_title">Tidak ada yang disimpan</string>
+    <string name="onboarding_privacy_body">Gambarmu dianalisis di memori dan tidak pernah ditulis ke disk. Tanpa pendaftaran, tanpa pelacakan, dan semuanya open source.</string>
 </resources>

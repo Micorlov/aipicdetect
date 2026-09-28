@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · öppen källkod</string>
     <string name="about_model_note">Detektorn är en öppen Hugging Face-modell som du kan granska eller byta ut.</string>
     <string name="about_view_source">Visa källkoden på GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Betygsätt appen</string>
+    <string name="onboarding_skip">Hoppa över</string>
+    <string name="onboarding_next">Nästa</string>
+    <string name="onboarding_start">Kom igång</string>
+    <string name="onboarding_page_of">Steg %1$d av %2$d</string>
+    <string name="onboarding_pick_title">Välj ett foto</string>
+    <string name="onboarding_pick_body">Välj en bild från galleriet eller ta en med kameran. JPEG, PNG, WebP och HEIC fungerar, upp till 50 MB.</string>
+    <string name="onboarding_score_title">Läs poängen</string>
+    <string name="onboarding_score_body">Du får en AI-sannolikhet och ett konfidensintervall \u2014 en sannolikhet, inte en dom. Poäng nära mitten märks som Osäker.</string>
+    <string name="onboarding_clean_title">Se metadatan</string>
+    <string name="onboarding_clean_body">AiPicDetect listar varje EXIF-, XMP-, IPTC- och C2PA-block filen bär på, och ger dig sedan en ren kopia utan allt det.</string>
+    <string name="onboarding_privacy_title">Inget sparas</string>
+    <string name="onboarding_privacy_body">Din bild analyseras i minnet och skrivs aldrig till disk. Ingen registrering, ingen spårning, och allt är öppen källkod.</string>
 </resources>

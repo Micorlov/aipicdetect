@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · açık kaynak</string>
     <string name="about_model_note">Dedektör, inceleyebileceğiniz veya değiştirebileceğiniz açık bir Hugging Face modelidir.</string>
     <string name="about_view_source">GitHub\'da kaynak kodu görüntüle</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Bu uygulamayı değerlendir</string>
+    <string name="onboarding_skip">Atla</string>
+    <string name="onboarding_next">İleri</string>
+    <string name="onboarding_start">Başla</string>
+    <string name="onboarding_page_of">Adım %1$d / %2$d</string>
+    <string name="onboarding_pick_title">Bir fotoğraf seç</string>
+    <string name="onboarding_pick_body">Galerinden bir görsel seç ya da kamerayla çek. JPEG, PNG, WebP ve HEIC çalışır, 50 MB\'a kadar.</string>
+    <string name="onboarding_score_title">Puanı oku</string>
+    <string name="onboarding_score_body">Bir yapay zekâ olasılığı ve güven aralığı alırsın \u2014 bir olasılık, bir hüküm değil. Ortaya yakın puanlar Belirsiz olarak işaretlenir.</string>
+    <string name="onboarding_clean_title">Meta verileri gör</string>
+    <string name="onboarding_clean_body">AiPicDetect dosyadaki her EXIF, XMP, IPTC ve C2PA bloğunu listeler, sonra sana hepsinden arındırılmış temiz bir kopya verir.</string>
+    <string name="onboarding_privacy_title">Hiçbir şey saklanmaz</string>
+    <string name="onboarding_privacy_body">Görselin bellekte işlenir ve asla diske yazılmaz. Kayıt yok, takip yok ve tamamı açık kaynak.</string>
 </resources>

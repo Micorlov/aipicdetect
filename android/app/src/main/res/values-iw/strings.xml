@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · קוד פתוח</string>
     <string name="about_model_note">הגלאי הוא מודל פתוח של Hugging Face שאפשר לבדוק או להחליף.</string>
     <string name="about_view_source">צפייה בקוד המקור ב-GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">דרגו את האפליקציה</string>
+    <string name="onboarding_skip">דלג</string>
+    <string name="onboarding_next">הבא</string>
+    <string name="onboarding_start">בוא נתחיל</string>
+    <string name="onboarding_page_of">שלב %1$d מתוך %2$d</string>
+    <string name="onboarding_pick_title">בחרו תמונה</string>
+    <string name="onboarding_pick_body">בחרו תמונה מהגלריה או צלמו אחת במצלמה. JPEG, PNG, WebP ו-HEIC נתמכים, עד 50 מגה-בייט.</string>
+    <string name="onboarding_score_title">קראו את הציון</string>
+    <string name="onboarding_score_body">תקבלו הסתברות ל-AI ורצועת ביטחון \u2014 הסתברות, לא פסק דין. ציונים באמצע הסולם מסומנים כלא ודאיים.</string>
+    <string name="onboarding_clean_title">הציצו במטא-נתונים</string>
+    <string name="onboarding_clean_body">AiPicDetect מציג כל בלוק EXIF, XMP, IPTC ו-C2PA שהקובץ נושא, ואז מוסר לכם עותק נקי בלי כל זה.</string>
+    <string name="onboarding_privacy_title">שום דבר לא נשמר</string>
+    <string name="onboarding_privacy_body">התמונה שלכם מנותחת בזיכרון ולעולם לא נכתבת לדיסק. בלי הרשמה, בלי מעקב, והכול בקוד פתוח.</string>
 </resources>

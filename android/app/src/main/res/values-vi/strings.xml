@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · mã nguồn mở</string>
     <string name="about_model_note">Công cụ phát hiện là một mô hình Hugging Face mở mà bạn có thể kiểm tra hoặc thay thế.</string>
     <string name="about_view_source">Xem mã nguồn trên GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Đánh giá ứng dụng</string>
+    <string name="onboarding_skip">Bỏ qua</string>
+    <string name="onboarding_next">Tiếp theo</string>
+    <string name="onboarding_start">Bắt đầu</string>
+    <string name="onboarding_page_of">Bước %1$d trên %2$d</string>
+    <string name="onboarding_pick_title">Chọn một ảnh</string>
+    <string name="onboarding_pick_body">Chọn ảnh từ thư viện hoặc chụp bằng máy ảnh. JPEG, PNG, WebP và HEIC đều được, tối đa 50 MB.</string>
+    <string name="onboarding_score_title">Đọc điểm số</string>
+    <string name="onboarding_score_body">Bạn nhận được xác suất AI và khoảng tin cậy \u2014 một xác suất, không phải phán quyết. Điểm gần mức giữa được đánh dấu là Không chắc chắn.</string>
+    <string name="onboarding_clean_title">Xem siêu dữ liệu</string>
+    <string name="onboarding_clean_body">AiPicDetect liệt kê mọi khối EXIF, XMP, IPTC và C2PA mà tệp mang theo, rồi trao cho bạn một bản sao sạch không còn thứ nào trong số đó.</string>
+    <string name="onboarding_privacy_title">Không lưu bất cứ thứ gì</string>
+    <string name="onboarding_privacy_body">Ảnh của bạn được phân tích trong bộ nhớ và không bao giờ ghi ra đĩa. Không đăng ký, không theo dõi, và toàn bộ là mã nguồn mở.</string>
 </resources>

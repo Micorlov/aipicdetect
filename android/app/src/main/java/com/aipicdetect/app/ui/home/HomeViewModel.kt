@@ -8,6 +8,7 @@ import com.aipicdetect.app.R
 import com.aipicdetect.app.data.AppError
 import com.aipicdetect.app.data.AppException
 import com.aipicdetect.app.data.AiPicDetectRepository
+import com.aipicdetect.app.data.EngagementRepository
 import com.aipicdetect.app.data.SettingsRepository
 import com.aipicdetect.app.util.CleanImageExporter
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -26,16 +28,25 @@ class HomeViewModel(
     private val exporter: CleanImageExporter,
     private val settingsRepository: SettingsRepository,
     private val repository: AiPicDetectRepository,
+    private val engagementRepository: EngagementRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    private val _events = MutableSharedFlow<UiEvent>()
+    // Buffered rather than rendezvous: a one-shot event emitted while the screen is
+    // between collectors (a rotation, say) would otherwise be dropped — and a dropped
+    // RequestReview is unrecoverable, because it has already been marked as offered.
+    private val _events = MutableSharedFlow<UiEvent>(extraBufferCapacity = 8)
     val events = _events.asSharedFlow()
 
     val baseUrl: StateFlow<String> =
         settingsRepository.baseUrl.stateIn(viewModelScope, SharingStarted.Eagerly, BuildConfig.DEFAULT_BASE_URL)
+
+    /** True until the first-run walkthrough has been seen or skipped. */
+    val showOnboarding: StateFlow<Boolean> = engagementRepository.hasSeenOnboarding
+        .map { seen -> !seen }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     private val _detectorModel = MutableStateFlow<String?>(null)
     /** Populated from GET /status for the footer's "Detector: <model>" line; null while unknown. */
@@ -63,7 +74,10 @@ class HomeViewModel(
         _uiState.value = UiState.Analyzing(uri, System.currentTimeMillis())
         viewModelScope.launch {
             repository.analyze(uri)
-                .onSuccess { response -> _uiState.value = UiState.Success(uri, response) }
+                .onSuccess { response ->
+                    _uiState.value = UiState.Success(uri, response)
+                    offerReviewIfEarned()
+                }
                 .onFailure { error -> _uiState.value = UiState.Failure(uri, error.toAppError()) }
         }
     }
@@ -100,6 +114,23 @@ class HomeViewModel(
                     _events.emit(UiEvent.Share(intent))
                 }
                 .onFailure { _events.emit(UiEvent.Snackbar(R.string.error_share_failed)) }
+        }
+    }
+
+    fun onOnboardingFinished() {
+        viewModelScope.launch { engagementRepository.markOnboardingSeen() }
+    }
+
+    /**
+     * Counts the analysis and asks for a review once the user has seen enough results to
+     * have an opinion. Marked as offered before the event is emitted so a declined or
+     * Play-suppressed card is never retried.
+     */
+    private suspend fun offerReviewIfEarned() {
+        engagementRepository.recordSuccessfulAnalysis()
+        if (engagementRepository.shouldOfferReview()) {
+            engagementRepository.markReviewOffered()
+            _events.emit(UiEvent.RequestReview)
         }
     }
 

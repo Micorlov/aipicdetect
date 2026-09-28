@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · open source</string>
     <string name="about_model_note">Detektoren er en åben Hugging Face-model, som du kan inspicere eller udskifte.</string>
     <string name="about_view_source">Se kildekoden på GitHub</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">Bedøm denne app</string>
+    <string name="onboarding_skip">Spring over</string>
+    <string name="onboarding_next">Næste</string>
+    <string name="onboarding_start">Kom i gang</string>
+    <string name="onboarding_page_of">Trin %1$d af %2$d</string>
+    <string name="onboarding_pick_title">Vælg et foto</string>
+    <string name="onboarding_pick_body">Vælg et billede fra dit galleri, eller tag et med kameraet. JPEG, PNG, WebP og HEIC virker, op til 50 MB.</string>
+    <string name="onboarding_score_title">Læs scoren</string>
+    <string name="onboarding_score_body">Du får en AI-sandsynlighed og et konfidensinterval \u2014 en sandsynlighed, ikke en dom. Scorer tæt på midten markeres som Usikker.</string>
+    <string name="onboarding_clean_title">Se metadataene</string>
+    <string name="onboarding_clean_body">AiPicDetect viser hver EXIF-, XMP-, IPTC- og C2PA-blok, filen bærer, og giver dig derefter en ren kopi uden det hele.</string>
+    <string name="onboarding_privacy_title">Intet gemmes</string>
+    <string name="onboarding_privacy_body">Dit billede analyseres i hukommelsen og skrives aldrig til disk. Ingen tilmelding, ingen sporing, og det hele er open source.</string>
 </resources>

@@ -106,4 +106,18 @@
     <string name="how_step2_body">An open-source image classifier scores how likely the pixels were produced by a generator.</string>
     <string name="how_step3_title">Decide.</string>
     <string name="how_step3_body">You get an AI likelihood, a confidence band and the metadata blocks the file carries \u2014 as a probability, not a verdict.</string>
+    <string name="settings_rate_app">Rate this app</string>
+
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_start">Get started</string>
+    <string name="onboarding_page_of">Step %1$d of %2$d</string>
+    <string name="onboarding_pick_title">Pick a photo</string>
+    <string name="onboarding_pick_body">Choose an image from your gallery or take one with the camera. JPEG, PNG, WebP and HEIC all work, up to 50 MB.</string>
+    <string name="onboarding_score_title">Read the score</string>
+    <string name="onboarding_score_body">You get an AI likelihood and a confidence band \u2014 a probability, not a verdict. Scores near the middle of the range are labelled Uncertain.</string>
+    <string name="onboarding_clean_title">See the metadata</string>
+    <string name="onboarding_clean_body">AiPicDetect lists every EXIF, XMP, IPTC and C2PA block the file carries, then hands you a clean copy with all of it stripped.</string>
+    <string name="onboarding_privacy_title">Nothing is stored</string>
+    <string name="onboarding_privacy_body">Your picture is scored in memory and never written to disk. No sign-up, no tracking, and the whole thing is open source.</string>
 </resources>

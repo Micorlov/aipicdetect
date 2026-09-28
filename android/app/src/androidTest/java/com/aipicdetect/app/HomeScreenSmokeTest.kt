@@ -6,8 +6,10 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import com.aipicdetect.app.data.AiPicDetectRepository
+import com.aipicdetect.app.data.EngagementRepository
 import com.aipicdetect.app.data.SettingsRepository
 import com.aipicdetect.app.data.model.AnalyzeResponse
+import com.aipicdetect.app.data.model.StatusResponse
 import com.aipicdetect.app.ui.home.HomeScreen
 import com.aipicdetect.app.ui.home.HomeViewModel
 import com.aipicdetect.app.ui.theme.AiPicDetectTheme
@@ -27,6 +29,18 @@ class HomeScreenSmokeTest {
 
         override suspend fun downloadCleanImage(response: AnalyzeResponse): Result<ByteArray> =
             Result.failure(IllegalStateException("not used in this test"))
+
+        override suspend fun fetchDetectorStatus(): Result<StatusResponse> =
+            Result.success(StatusResponse("test-model", true))
+    }
+
+    /** Onboarding already seen, so the walkthrough doesn't cover the screen under test. */
+    private class SeenOnboardingRepository : EngagementRepository {
+        override val hasSeenOnboarding = MutableStateFlow(true)
+        override suspend fun markOnboardingSeen() = Unit
+        override suspend fun recordSuccessfulAnalysis() = Unit
+        override suspend fun shouldOfferReview(): Boolean = false
+        override suspend fun markReviewOffered() = Unit
     }
 
     private class StaticSettingsRepository : SettingsRepository {
@@ -42,10 +56,15 @@ class HomeScreenSmokeTest {
 
     @Test
     fun idleState_showsChoosePhotoButton() {
-        val viewModel = HomeViewModel(NoopExporter(), StaticSettingsRepository(), NoopRepository())
+        val viewModel = HomeViewModel(
+            NoopExporter(),
+            StaticSettingsRepository(),
+            NoopRepository(),
+            SeenOnboardingRepository(),
+        )
         composeRule.setContent {
             AiPicDetectTheme { HomeScreen(viewModel) }
         }
-        composeRule.onNodeWithText("Choose a photo").assertIsDisplayed()
+        composeRule.onNodeWithText("Choose photo").assertIsDisplayed()
     }
 }

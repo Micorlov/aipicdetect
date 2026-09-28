@@ -58,4 +58,19 @@
     <string name="about_tagline">AiPicDetect. · オープンソース</string>
     <string name="about_model_note">検出器はオープンなHugging Faceモデルで、確認したり差し替えたりできます。</string>
     <string name="about_view_source">GitHubでソースを見る</string>
+
+    <!-- Onboarding walkthrough and rating -->
+    <string name="settings_rate_app">このアプリを評価</string>
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_next">次へ</string>
+    <string name="onboarding_start">はじめる</string>
+    <string name="onboarding_page_of">ステップ %1$d / %2$d</string>
+    <string name="onboarding_pick_title">写真を選ぶ</string>
+    <string name="onboarding_pick_body">ギャラリーから画像を選ぶか、カメラで撮影してください。JPEG、PNG、WebP、HEIC に対応、50 MB まで。</string>
+    <string name="onboarding_score_title">スコアを読む</string>
+    <string name="onboarding_score_body">AI の可能性と信頼度の幅が表示されます \u2014 判定ではなく確率です。中間付近のスコアは「不確か」と表示されます。</string>
+    <string name="onboarding_clean_title">メタデータを見る</string>
+    <string name="onboarding_clean_body">AiPicDetect はファイルが持つ EXIF、XMP、IPTC、C2PA の各ブロックを一覧表示し、それらをすべて取り除いたクリーンなコピーを渡します。</string>
+    <string name="onboarding_privacy_title">何も保存されません</string>
+    <string name="onboarding_privacy_body">画像はメモリ上で解析され、ディスクに書き込まれることはありません。登録も追跡もなく、すべてオープンソースです。</string>
 </resources>
